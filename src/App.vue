@@ -1,32 +1,40 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <!-- <page-container-box :config="{ width: 4480, height: 2560 }"> -->
+    <!-- <page-container-box :config="{ width: 2240, height: 1280 }"> -->
+    <!-- <page-container-box :config="{ width: 1920, height: 1080 }"> -->
+    <page-container-box :config="{ width: 1920, height: 1097, isfix: false }">
+      <commonHeader></commonHeader>
+      <router-view />
+    </page-container-box>
   </div>
 </template>
-
-<style lang="scss">
+<script>
+import pageContainerBox from '@/components/pageContainerBox.vue'
+import commonHeader from '@/components/header.vue'
+export default {
+  data() {
+    return {}
+  },
+  created() {},
+  components: {
+    pageContainerBox,
+    commonHeader
+  },
+  computed: {},
+  methods: {},
+  mounted() {}
+}
+</script>
+<style lang="scss" scoped>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Microsoft YaHei, Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+  color: #ffffff;
+  font-size: 12 * $font;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(90deg, #0e2251 0%, #1b437b 25%, #2e6ca7 50%, #1b437b 75%, #0e2251 100%);
 }
 </style>

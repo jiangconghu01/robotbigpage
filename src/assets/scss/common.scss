@@ -1,0 +1,58 @@
+$width:1px;
+$height:1px;
+$font:1px;
+// 公用mixin定义
+@mixin center() {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%);
+}
+@mixin Ycenter() {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+@mixin Xcenter(){
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+//背景边框
+.bg_temp_1{
+    position:relative;
+    border: solid 1 * $font rgba(55, 175, 240, 0.479);
+    background-color: rgba(0, 0, 0, 0.384);
+    //   box-shadow: 1px 1px 2px 2px rgba(8, 110, 211, 0.521);
+   }
+   .bg_temp_1:before{
+      position: absolute;
+      top: -1 * $font;
+      left: -1* $font;
+      width: 10* $font;
+      height: 10* $font;
+      content: "";
+      border-left: 2* $font solid #00EAFF;
+      border-top: 2* $font solid #00EAFF;
+      opacity: .8;
+   }
+   .bg_temp_1:after{
+       position: absolute;
+       bottom: -1* $font;
+       right: -1* $font;
+       width: 10* $font;
+       height: 10* $font;
+       content: "";
+       border-right: 2* $font solid #00EAFF;
+       border-bottom: 2* $font solid #00EAFF;
+       opacity: .8;
+   }
+   .title_part_line{
+    width: 100%;
+    height: 1 * $height;
+    position: absolute;
+    top: 44 * $height;
+    left: 0;
+    background-image: linear-gradient(90deg, rgba(65, 189, 255, 0) 0%, rgba(65, 189, 255, 0.436) 25%, #41BEFF 50%, rgba(65, 189, 255, 0.436) 75%, rgba(65, 189, 255, 0) 100%);
+    // transform: scale(1,0.75);
+   }
