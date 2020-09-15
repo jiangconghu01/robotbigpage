@@ -4,7 +4,7 @@
       <li class="item">
         <span class="exc"> <i>异常</i></span>
         <span class="label">
-          <i class="icon"></i>
+          <i class="icon"><img src="../../assets/images/filemu@2.png"/></i>
           <i class="text">作业下发</i>
         </span>
         <span class="number">
@@ -15,7 +15,7 @@
       <li class="item">
         <span class="exc"> <i>异常</i></span>
         <span class="label">
-          <i class="icon"></i>
+          <i class="icon"><img src="../../assets/images/upload@2.png"/></i>
           <i class="text">日志上传</i>
         </span>
         <span class="number">
@@ -26,7 +26,7 @@
       <li class="item">
         <span class="exc"> <i>异常</i></span>
         <span class="label">
-          <i class="icon"></i>
+          <i class="icon"><img src="../../assets/images/other@2.png"/></i>
           <i class="text">其他</i>
         </span>
         <span class="number">
@@ -53,15 +53,20 @@ export default {
 .termi-day-status-box {
   margin-top: 15 * $height;
   li {
-    height: 70 * $height;
-    margin: 25 * $height 0;
+    height: 78 * $height;
+    margin: 19 * $height 0;
     //   width: 100%;
-    background-color: rgba(46, 131, 228, 0.192);
+    background: url('../../assets/images/it_r_b@2.png') no-repeat;
+    background-size: contain;
     display: flex;
     align-items: center;
+    &:nth-child(1) {
+      margin-top: 25 * $height;
+    }
     .exc {
       width: 87 * $width;
       padding-left: 50 * $width;
+
       i {
         position: relative;
         font-weight: bold;
@@ -87,8 +92,14 @@ export default {
       padding-left: 90 * $width;
       .icon {
         display: inline-block;
-        width: 26px;
-        height: 26px;
+        width: 22 * $width;
+        height: 22 * $height;
+        margin-right: 5 * $width;
+        display: flex;
+        align-items: center;
+        img {
+          width: 100%;
+        }
       }
       .text {
         font-weight: bold;

@@ -31,7 +31,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .scroll-item-box {
-  height: 120 * $height;
+  height: 65 * $height;
   width: 100%;
   display: flex;
   align-items: center;

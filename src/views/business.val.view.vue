@@ -1,34 +1,156 @@
 <template>
   <div class="businessval-view">
     <div class="left">
-      <div class="left-title"></div>
-      <div class="left-num1"></div>
-      <div class="left-num2"></div>
-      <div class="left-chart3"></div>
-      <div class="left-chart4"></div>
-      <div class="left-chart5"></div>
+      <div class="left-title">
+        <layoutTitle :direction="'left'">
+          <template v-slot:left>
+            业务统计
+          </template>
+        </layoutTitle>
+      </div>
+      <div class="left-num1 bg_temp_1 padding-layout">
+        <chartTitle>累计业务执行量（笔）</chartTitle>
+        <div class="title_part_line"></div>
+        <ul class="drowp-list accumulate-work">
+          <li v-for="(item, index) in accumulateWorkNum" :key="index" :class="typeof item === 'number' ? 'num' : 'text'">
+            <i>{{ item }}</i>
+          </li>
+        </ul>
+      </div>
+      <div class="left-num2 bg_temp_1 padding-layout">
+        <chartTitle>节省人时（小时）</chartTitle>
+        <div class="title_part_line"></div>
+        <ul class="drowp-list accumulate-work">
+          <li v-for="(item, index) in cutDownNum" :key="index" :class="typeof item === 'number' ? 'num' : 'text'">
+            <i>{{ item }}</i>
+          </li>
+        </ul>
+      </div>
+      <div class="left-chart3 bg_temp_1">
+        <div class="title">
+          <chartTitle>分流累计执行量及通过率</chartTitle>
+          <div class="title_part_line"></div>
+        </div>
+        <div class="bar-list">
+          <barScrollItem class="bar-list" :index="1"></barScrollItem>
+          <barScrollItem class="bar-list" :index="2"></barScrollItem>
+          <barScrollItem class="bar-list" :index="3"></barScrollItem>
+          <barScrollItem class="bar-list" :index="4"></barScrollItem>
+        </div>
+      </div>
+      <div class="left-chart4 bg_temp_1 padding-layout">
+        <chartTitle>各单位业务流程执行情况</chartTitle>
+        <div class="title_part_line"></div>
+        <div class="table-box">
+          <ul class="table-title">
+            <li>单位名称</li>
+            <li>累计终端使用时长</li>
+            <li>本月终端使用时长</li>
+            <li>环比</li>
+          </ul>
+          <ul class="table-body">
+            <li v-for="(item, index) in unitTimernalSourceList" :key="index">
+              <span class="name">{{ item.name }}</span>
+              <span class="accumulate">{{ item.accumulateTime }}</span>
+              <span class="curmonth">{{ item.curMonthTime }}</span>
+              <span class="relativeratio">{{ item.relativeRatio }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="left-chart5 bg_temp_1 padding-layout">
+        <robot></robot>
+      </div>
     </div>
     <div class="center">
-      <div class="top-chart"></div>
-      <div class="bottom-line"></div>
+      <div class="top-chart bg_temp_1">
+        <div class="title">
+          <chartTitle>当月工单监控结果</chartTitle>
+          <div class="title_part_line"></div>
+        </div>
+        <div class="container"></div>
+      </div>
+      <div class="bottom-line">
+        <dv-border-box-8 :reverse="true"></dv-border-box-8>
+      </div>
     </div>
     <div class="right">
-      <div class="right-title"></div>
-      <div class="right-chart1"></div>
-      <div class="right-chart2"></div>
-      <div class="right-chart3"></div>
+      <div class="right-title">
+        <layoutTitle :direction="'right'">
+          <template v-slot:right>
+            作业监控（日）
+          </template>
+        </layoutTitle>
+      </div>
+      <div class="right-chart1 bg_temp_1">
+        <workRightTop></workRightTop>
+      </div>
+      <div class="right-chart2 bg_temp_1">
+        <div class="title">
+          <chartTitle>各单位任务情况（日）</chartTitle>
+          <div class="title_part_line"></div>
+        </div>
+        <unitDayWorkStatus></unitDayWorkStatus>
+      </div>
+      <div class="right-chart3 bg_temp_1 padding-layout">
+        <chartTitle>各单位实时作业状态</chartTitle>
+        <div class="title_part_line"></div>
+        <div class="table-box">
+          <ul class="table-title">
+            <li class="index">序号</li>
+            <li class="unitname">单位名称</li>
+            <li class="workflow">作业流程</li>
+            <li class="status">状态</li>
+          </ul>
+          <ul class="table-body">
+            <li v-for="(item, index) in unitWorkingStatus" :key="index">
+              <span class="index">{{ item.index }}</span>
+              <span class="unitname">{{ item.termicode }}</span>
+              <span class="workflow">{{ item.ip }}</span>
+
+              <span class="status" v-if="item.status == 'finish'"> <i class="finish button">完成</i></span>
+              <span class="status" v-else-if="item.status == 'exe'"><i class="exe button">执行</i></span>
+              <span class="status" v-else-if="item.status == 'beforhandle'"><i class="beforhandle button">预占</i></span>
+              <span class="status" v-else-if="item.status == 'lineup'"><i class="lineup button">排队</i></span>
+              <span class="status" v-else><i class="exc button">异常</i></span>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <script>
+import layoutTitle from '@/components/layoutTitle'
+import chartTitle from '@/components/chartTitle'
+import workRightTop from '@/components/businessval/workRightTop.vue'
+import unitDayWorkStatus from '@/components/businessval/unitDayWorkStatus.vue'
+import robot from '@/components/businessval/robot.vue'
+import barScrollItem from '@/components/chartScrollItem.vue'
 export default {
   data() {
-    return {}
+    return {
+      unitWorkingStatus: [
+        { index: 1, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'finish' },
+        { index: 2, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'exe' },
+        { index: 3, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'beforhandle' },
+        { index: 4, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'lineup' },
+        { index: 5, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'exc' }
+      ],
+      unitTimernalSourceList: [
+        { name: '某某某某单位', accumulateTime: 2992, curMonthTime: 222, relativeRatio: '55%' },
+        { name: '某某某某单位2', accumulateTime: 155, curMonthTime: 22, relativeRatio: '55%' }
+      ],
+      accumulateWorkNum: [0, 0, 6, 8, '亿', 0, 0, 6, 1, '万', 0, 0, 6, 8],
+      cutDownNum: [0, 0, 6, 8, 0, 0, 6, 8, 0, 0, 6, 8, 9, 'h']
+    }
   },
   created() {},
-  components: {},
+  components: { layoutTitle, chartTitle, workRightTop, unitDayWorkStatus, barScrollItem, robot },
   computed: {},
-  methods: {},
+  methods: {
+    setLeftTopNum() {}
+  },
   mounted() {}
 }
 </script>
@@ -42,54 +164,105 @@ export default {
   .left {
     width: 532 * $width;
     margin-left: 40 * $width;
-    & > div {
-      background-color: rgba(159, 228, 240, 0.473);
-    }
     .left-title {
       height: 32 * $height;
     }
     .left-num1 {
       height: 118 * $height;
       margin-top: 2 * $height;
+      padding-left: 20 * $width;
+      padding-right: 0 * $width;
     }
     .left-num2 {
       height: 118 * $height;
       margin-top: 8 * $height;
+      padding-left: 20 * $width;
+      padding-right: 0 * $width;
     }
     .left-chart3 {
       height: 330 * $height;
       margin-top: 8 * $height;
+      .title {
+        padding: 15 * $height 30 * $width;
+      }
+      .bar-list {
+        padding-left: 10 * $width;
+        padding-right: 0;
+      }
     }
     .left-chart4 {
       height: 190 * $height;
       margin-top: 8 * $height;
+      .table-box {
+        margin-top: 15 * $height;
+        .table-body {
+          li {
+            padding: 8 * $height 0;
+          }
+        }
+      }
     }
     .left-chart5 {
       height: 125 * $height;
       margin-top: 8 * $height;
     }
+    .drowp-list {
+      margin-top: 25 * $height;
+      li.num {
+        &:nth-child(1) {
+          margin-left: 0;
+        }
+        width: 32 * $width;
+        height: 39 * $height;
+        line-height: 39 * $height;
+        background: rgba(0, 174, 255, 0.8);
+        font-size: 34 * $font;
+        font-family: Arial;
+        font-weight: bold;
+        text-align: center;
+        margin-left: 6 * $width;
+        float: left;
+      }
+      li.text {
+        font-size: 12 * $font;
+        font-weight: bold;
+        height: 39 * $height;
+        width: 10 * $width;
+        margin-left: 5 * $width;
+        float: left;
+        position: relative;
+        i {
+          position: absolute;
+          bottom: 0;
+        }
+      }
+    }
   }
   .center {
     flex: 1;
     padding: 0 10 * $width;
-    & > div {
-      background-color: rgba(159, 228, 240, 0.473);
-    }
     .top-chart {
       margin-top: 40 * $height;
       height: 600 * $height;
+      .title {
+        width: 100%;
+        height: 85 * $height;
+        padding: 20 * $height 30 * $width;
+        position: relative;
+        .title_part_line {
+          top: 60 * $height;
+        }
+      }
     }
     .bottom-line {
       margin-top: 8 * $height;
       height: 258 * $height;
+      background-color: rgba(0, 0, 0, 0.384);
     }
   }
   .right {
     width: 532 * $width;
     margin-right: 40 * $width;
-    & > div {
-      background-color: rgba(159, 228, 240, 0.473);
-    }
     .right-title {
       height: 32 * $height;
     }
@@ -100,11 +273,73 @@ export default {
     .right-chart2 {
       height: 350 * $height;
       margin-top: 8 * $height;
+      .title {
+        padding: 15 * $height 30 * $width;
+        position: relative;
+        // .title_part_line {
+        //   top: 60 * $height;
+        // }
+      }
     }
     .right-chart3 {
       height: 388 * $height;
       margin-top: 8 * $height;
+      .table-title {
+        .index {
+          flex: 2;
+        }
+        .status {
+          flex: 2;
+        }
+        .unitname {
+          flex: 4;
+        }
+        .workflow {
+          flex: 4;
+        }
+      }
+      .table-body {
+        margin-top: 15 * $height;
+        li {
+          //   height: 50 * $height;
+          //   line-height: 50 * $height;
+          margin-top: 0 * $height;
+          span {
+            font-size: 14 * $font;
+            .finish {
+              background-color: #1d7fc4;
+            }
+            .exe {
+              background-color: #6699ff;
+            }
+            .beforhandle {
+              background-color: #f4a527;
+            }
+            .lineup {
+              background-color: #5defda;
+            }
+            .exc {
+              background-color: #ff3330;
+            }
+          }
+          .index {
+            flex: 2;
+          }
+          .status {
+            flex: 2;
+          }
+          .unitname {
+            flex: 4;
+          }
+          .workflow {
+            flex: 4;
+          }
+        }
+      }
     }
+  }
+  .padding-layout {
+    padding: 15 * $height 30 * $width;
   }
 }
 </style>

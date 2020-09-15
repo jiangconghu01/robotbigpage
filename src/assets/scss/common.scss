@@ -56,3 +56,46 @@ $font:1px;
     background-image: linear-gradient(90deg, rgba(65, 189, 255, 0) 0%, rgba(65, 189, 255, 0.436) 25%, #41BEFF 50%, rgba(65, 189, 255, 0.436) 75%, rgba(65, 189, 255, 0) 100%);
     // transform: scale(1,0.75);
    }
+
+   //表格样式
+   .table-box {
+    margin-top: 15 * $height;
+    .table-title {
+      height: 40 * $height;
+      background: rgba(34, 132, 202, 0.055);
+      width: 100%;
+      display: flex;
+      align-items: center;
+      box-shadow: inset 0px 0px 15px 5px rgba(34, 132, 202, 0.274);
+      li {
+        flex: 1;
+        text-align: center;
+        font-size: 14 * $font;
+        font-weight: 400;
+      }
+    }
+    .table-body {
+      li {
+        // height: 30 * $height;
+        // line-height: 30 * $height;
+        padding: 18* $height 0;
+        margin-top: 12 * $height;
+        display: flex;
+        span {
+          flex: 1;
+          text-align: center;
+          font-size: 13 * $font;
+          .button{
+            // display: inline-block;
+            text-align: center;
+            // vertical-align: middle;
+            // width: 55 * $width;
+            // height: 28 * $height;
+            padding: 8 * $height 15 * $width;
+            background: rgb(31, 170, 250);
+            border-radius: 3px;
+          }
+        }
+      }
+    }
+  }

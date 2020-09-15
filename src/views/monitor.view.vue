@@ -30,7 +30,7 @@
           </liquidfill>
         </div>
       </div>
-      <div class="left-chart2 bg_temp_1 chart">
+      <div class="left-chart2 bg_temp_1 padding-layout">
         <chartTitle>分流程分时终端占用情况</chartTitle>
         <div class="title_part_line"></div>
         <ul class="lengends">
@@ -50,7 +50,7 @@
           </scrollBox>
         </div>
       </div>
-      <div class="left-chart3 bg_temp_1 chart">
+      <div class="left-chart3 bg_temp_1 padding-layout">
         <chartTitle>各单位资源使用情况</chartTitle>
         <div class="title_part_line"></div>
         <div class="table-box">
@@ -70,7 +70,7 @@
           </ul>
         </div>
       </div>
-      <div class="left-chart4 bg_temp_1 chart">
+      <div class="left-chart4 bg_temp_1 padding-layout">
         <chartTitle>终端资源使用情况</chartTitle>
         <div class="title_part_line"></div>
         <div class="charts-box">
@@ -112,12 +112,12 @@
       <div class="right-chart1 bg_temp_1">
         <terminalDaytopView></terminalDaytopView>
       </div>
-      <div class="right-chart2 bg_temp_1 chart">
+      <div class="right-chart2 bg_temp_1 padding-layout">
         <chartTitle>终端异常情况（日）</chartTitle>
         <div class="title_part_line"></div>
         <terminalDayExc></terminalDayExc>
       </div>
-      <div class="right-chart3 bg_temp_1 chart">
+      <div class="right-chart3 bg_temp_1 padding-layout">
         <chartTitle>终端实时运行状态 </chartTitle>
         <div class="title_part_line"></div>
         <div class="table-box">
@@ -133,9 +133,9 @@
               <span class="termicode">{{ item.termicode }}</span>
               <span class="ip">{{ item.ip }}</span>
 
-              <span class="status" v-if="item.status == 'run'"> <i class="run">运行</i></span>
-              <span class="status" v-else-if="item.status == 'free'"><i class="free">闲置</i></span>
-              <span class="status" v-else><i class="exc">异常</i></span>
+              <span class="status" v-if="item.status == 'run'"> <i class="run button">运行</i></span>
+              <span class="status" v-else-if="item.status == 'free'"><i class="free button">闲置</i></span>
+              <span class="status" v-else><i class="exc button">异常</i></span>
             </li>
           </ul>
         </div>
@@ -265,6 +265,11 @@ export default {
       position: relative;
       .table-box {
         margin-top: 15 * $height;
+        .table-body {
+          li {
+            padding: 8 * $height 0;
+          }
+        }
       }
     }
     .left-chart4 {
@@ -275,7 +280,7 @@ export default {
         height: 110 * $height;
       }
     }
-    .chart {
+    .padding-layout {
       padding: 15 * $height 25 * $width;
     }
   }
@@ -388,8 +393,8 @@ export default {
       .table-body {
         margin-top: 15 * $height;
         li {
-          height: 50 * $height;
-          line-height: 50 * $height;
+          //   height: 50 * $height;
+          //   line-height: 50 * $height;
           margin-top: 0 * $height;
           span {
             font-size: 14 * $font;
@@ -418,49 +423,8 @@ export default {
         }
       }
     }
-    .chart {
+    .padding-layout {
       padding: 15 * $height 30 * $width;
-    }
-  }
-
-  .table-box {
-    margin-top: 15 * $height;
-    .table-title {
-      height: 40 * $height;
-      background: rgba(34, 132, 202, 0.055);
-      width: 100%;
-      display: flex;
-      align-items: center;
-      box-shadow: inset 0px 0px 15px 5px rgba(34, 132, 202, 0.274);
-      li {
-        flex: 1;
-        text-align: center;
-        font-size: 14 * $font;
-        font-weight: 400;
-      }
-    }
-    .table-body {
-      li {
-        height: 30 * $height;
-        line-height: 30 * $height;
-        margin-top: 12 * $height;
-        display: flex;
-        span {
-          flex: 1;
-          text-align: center;
-          font-size: 13 * $font;
-          i {
-            // display: inline-block;
-            text-align: center;
-            // vertical-align: middle;
-            // width: 55 * $width;
-            // height: 28 * $height;
-            padding: 8 * $height 15 * $width;
-            background: rgb(31, 170, 250);
-            border-radius: 3px;
-          }
-        }
-      }
     }
   }
 }

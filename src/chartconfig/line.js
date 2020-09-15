@@ -150,7 +150,7 @@ const option = {
             [
               {
                 offset: 0,
-                color: hexToRgba(color[0], 0.3)
+                color: hexToRgba(color[0], 1)
               },
               {
                 offset: 1,
