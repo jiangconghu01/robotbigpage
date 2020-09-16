@@ -18,6 +18,7 @@
 <script>
 const dataMap = {
   Index: '综合视图',
+  Singleindex: '综合视图',
   Businessval: '业务价值',
   Monitor: 'IT监控'
 }
@@ -167,8 +168,8 @@ export default {
   100% {
     transform: translateY(-50px);
     transform-origin: 50% 50%;
-    text-shadow: 0 1px 0 #cccccc, 0 2px 0 #cccccc, 0 3px 0 #cccccc, 0 3px 0 #cccccc, 0 4px 0 #cccccc, 0 3px 0 #cccccc, 0 4px 0 #cccccc,
-      0 4px 0 #cccccc, 0 5px 0 #cccccc, 0 10px 8px rgba(0, 0, 0, 0.3), 10px 15px 6px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 1px 0 #cccccc, 0 2px 0 #cccccc, 0 3px 0 #cccccc, 0 3px 0 #cccccc, 0 4px 0 #cccccc, 0 3px 0 #cccccc, 0 4px 0 #cccccc, 0 4px 0 #cccccc, 0 5px 0 #cccccc, 0 10px 8px rgba(0, 0, 0, 0.3),
+      10px 15px 6px rgba(0, 0, 0, 0.5);
   }
 }
 </style>

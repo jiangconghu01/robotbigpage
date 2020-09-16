@@ -19,6 +19,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
+    path: '/singleindex',
+    name: 'Singleindex',
+    component: () => import('../views/index.single.view.vue')
+  },
+  {
     path: '/index',
     name: 'Index',
     component: () => import('../views/index.view.vue')
