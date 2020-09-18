@@ -235,7 +235,7 @@ export default {
       height: 350 * $height;
       margin-top: 8 * $height;
       position: relative;
-      overflow-y: hidden;
+      overflow: hidden;
       .lengends {
         position: absolute;
         right: 30 * $width;

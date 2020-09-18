@@ -3,7 +3,7 @@
     <!-- <page-container-box :config="{ width: 3840, height: 2194, isfix: true }"> -->
     <!-- <page-container-box :config="{ width: 5760, height: 3291, isfix: true }"> -->
     <!-- <page-container-box :config="{ width: 1920, height: 1080 }"> -->
-    <page-container-box :config="{ width: 1920, height: 1097, isfix: true }">
+    <page-container-box :config="{ width: 1920, height: 1097, isfix: false }">
       <commonHeader></commonHeader>
       <router-view />
     </page-container-box>

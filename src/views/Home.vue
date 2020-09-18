@@ -54,7 +54,7 @@
 <script>
 import 'echarts-liquidfill'
 import liq from '@/chartconfig/liq.js'
-import parallel from '@/chartconfig/parallel.js'
+import { option as parallel } from '@/chartconfig/parallel.js'
 import line from '@/chartconfig/line.js'
 import map from '@/chartconfig/map.js'
 import chinajson from '@/assets/json/china.json'
