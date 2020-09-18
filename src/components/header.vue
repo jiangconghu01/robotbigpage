@@ -220,6 +220,9 @@ export default {
     top: 0;
     font-size: 28 * $font;
   }
+  .wv-n-h-now-alarm {
+    display: none;
+  }
   .wv-n-h-now-txt {
     position: absolute;
     left: 60 * $width;

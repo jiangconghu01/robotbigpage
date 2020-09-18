@@ -27,7 +27,7 @@ module.exports = {
     'vue/max-attributes-per-line': [ // template里面写的一行多少个prop属性,单行3个，多余3个的必须每行写一个prop，不然不容易看
       'warn',
       {
-        singleline: 3,
+        singleline: 4,
         multiline: {
           max: 1,
           allowFirstLine: false

@@ -60,7 +60,7 @@
             <li>本月终端使用时长</li>
             <li>环比</li>
           </ul>
-          <ul class="table-body">
+          <ul class="table-body" id="unit-source-use-status">
             <li v-for="(item, index) in unitTimernalSourceList" :key="index">
               <span class="name">{{ item.name }}</span>
               <span class="accumulate">{{ item.accumulateTime }}</span>
@@ -70,9 +70,11 @@
           </ul>
         </div>
       </div>
-      <div class="left-chart4 bg_temp_1 padding-layout">
-        <chartTitle>终端资源使用情况</chartTitle>
-        <div class="title_part_line"></div>
+      <div class="left-chart4 bg_temp_1">
+        <div class="title">
+          <chartTitle>终端资源使用情况</chartTitle>
+          <div class="title_part_line"></div>
+        </div>
         <div class="charts-box">
           <termianlSourceLeftBottom></termianlSourceLeftBottom>
         </div>
@@ -90,7 +92,7 @@
       </div>
       <div class="bottom-list">
         <dv-border-box-8 :reverse="true">
-          <div class="company-list">
+          <div class="company-list" id="company-list-work-num">
             <ul>
               <li v-for="item in companyList" :key="item.name + (Math.random() * 100).toFixed(1)" :style="{ backgroundColor: item.color }">
                 <span class="company">{{ item.name }}</span>
@@ -127,17 +129,19 @@
             <li class="ip">IP</li>
             <li class="status">状态</li>
           </ul>
-          <ul class="table-body">
-            <li v-for="(item, index) in timernalRunStatus" :key="index">
-              <span class="index">{{ item.index }}</span>
-              <span class="termicode">{{ item.termicode }}</span>
-              <span class="ip">{{ item.ip }}</span>
+          <div class="table-body-layout">
+            <ul class="table-body">
+              <li v-for="(item, index) in timernalRunStatus" :key="index">
+                <span class="index">{{ item.index }}</span>
+                <span class="termicode">{{ item.termicode }}</span>
+                <span class="ip">{{ item.ip }}</span>
 
-              <span class="status" v-if="item.status == 'run'"> <i class="run button">运行</i></span>
-              <span class="status" v-else-if="item.status == 'free'"><i class="free button">闲置</i></span>
-              <span class="status" v-else><i class="exc button">异常</i></span>
-            </li>
-          </ul>
+                <span class="status" v-if="item.status == 'run'"> <i class="run button">运行</i></span>
+                <span class="status" v-else-if="item.status == 'free'"><i class="free button">闲置</i></span>
+                <span class="status" v-else><i class="exc button">异常</i></span>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -178,7 +182,14 @@ export default {
         { index: 2, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'free' },
         { index: 3, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'exc' },
         { index: 4, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'free' },
-        { index: 5, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'free' }
+        { index: 5, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'free' },
+        { index: 6, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'free' },
+        { index: 7, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'free' },
+        { index: 8, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'free' },
+        { index: 9, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'free' },
+        { index: 10, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'free' },
+        { index: 11, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'free' },
+        { index: 12, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'free' }
       ]
     }
   },
@@ -275,9 +286,14 @@ export default {
     .left-chart4 {
       height: 190 * $height;
       margin-top: 8 * $height;
+      .title {
+        padding: 15 * $height 30 * $width;
+      }
       .charts-box {
         margin-top: 15 * $height;
-        height: 110 * $height;
+        height: 115 * $height;
+        padding: 0 * $height 10 * $width;
+        // height: 110 * $height;
       }
     }
     .padding-layout {
@@ -390,8 +406,18 @@ export default {
           flex: 4;
         }
       }
-      .table-body {
+      .table-body-layout {
+        position: relative;
+        height: 250 * $height;
+        overflow: hidden;
         margin-top: 15 * $height;
+      }
+      .table-body {
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 0;
+        animation: monitor-right-chart3 17s linear infinite forwards;
         li {
           //   height: 50 * $height;
           //   line-height: 50 * $height;
@@ -426,6 +452,26 @@ export default {
     .padding-layout {
       padding: 15 * $height 30 * $width;
     }
+  }
+  #unit-source-use-status {
+    animation: over-turn 5s linear infinite forwards 3s;
+  }
+  #company-list-work-num {
+    animation: over-turn 7s linear infinite forwards 3s;
+  }
+}
+@keyframes monitor-right-chart3 {
+  0% {
+    top: 0 * $height;
+    opacity: 1;
+  }
+  90% {
+    top: -350 * $height;
+    opacity: 1;
+  }
+  100% {
+    top: -355 * $height;
+    opacity: 0;
   }
 }
 </style>

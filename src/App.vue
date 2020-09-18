@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <!-- <page-container-box :config="{ width: 4480, height: 2560 }"> -->
-    <!-- <page-container-box :config="{ width: 2240, height: 1280 }"> -->
+    <!-- <page-container-box :config="{ width: 3840, height: 2194, isfix: true }"> -->
+    <!-- <page-container-box :config="{ width: 5760, height: 3291, isfix: true }"> -->
     <!-- <page-container-box :config="{ width: 1920, height: 1080 }"> -->
-    <page-container-box :config="{ width: 1920, height: 1097, isfix: false }">
+    <page-container-box :config="{ width: 1920, height: 1097, isfix: true }">
       <commonHeader></commonHeader>
       <router-view />
     </page-container-box>
@@ -13,16 +13,10 @@
 import pageContainerBox from '@/components/pageContainerBox.vue'
 import commonHeader from '@/components/header.vue'
 export default {
-  data() {
-    return {}
-  },
-  created() {},
   components: {
     pageContainerBox,
     commonHeader
   },
-  computed: {},
-  methods: {},
   mounted() {}
 }
 </script>

@@ -1,7 +1,9 @@
 const path = require('path')
 const resolve = (dir) => path.join(__dirname, dir)
+console.log(process.env.NODE_ENV)
 module.exports = {
-  // publicPath: '/pms/',
+  //   publicPath: process.env.NODE_ENV === 'production' ? '/robot/dist/' : '',
+  publicPath: process.env.NODE_ENV === 'production' ? './' : '',
   css: {
     // 是否开启 CSS source maps
     sourceMap: true
