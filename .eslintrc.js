@@ -24,23 +24,24 @@ module.exports = {
     'vue/prop-name-casing': ['warn', 'camelCase'], //建议使用驼峰命名
     'vue/this-in-template': ['error', 'never'], //不允许在template里面使用this
     'no-trailing-spaces': 1, //一行结束后面不要有空格
-    'vue/max-attributes-per-line': [ // template里面写的一行多少个prop属性,单行3个，多余3个的必须每行写一个prop，不然不容易看
-      'warn',
-      {
-        singleline: 4,
-        multiline: {
-          max: 1,
-          allowFirstLine: false
-        }
-      }
-    ],
+    // 'vue/max-attributes-per-line': [ // template里面写的一行多少个prop属性,单行3个，多余3个的必须每行写一个prop，不然不容易看
+    //   'warn',
+    //   {
+    //     singleline: 4,
+    //     multiline: {
+    //       max: 1,
+    //       allowFirstLine: false
+    //     }
+    //   }
+    // ],
     'no-catch-shadow': 'error', //禁止catch子句参数与外部作用域变量同名
     'vue/v-bind-style': ['error', 'shorthand'], // 必须使用:来绑定
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'warn', // 只允许在开发环境中使用debugger
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'warn',
     'no-unused-vars': 0, // 禁止出现未使用过的变量
     'spaced-comment': 0, // 强制在注释中 // 或 /* 使用一致的空格
-    'newline-per-chained-call':0
+    'newline-per-chained-call':0,
+    'vue/no-unused-components':1
   },
   parserOptions: {
     ecmaVersion: 6,

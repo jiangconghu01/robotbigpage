@@ -67,7 +67,22 @@
         </div>
       </div>
       <div class="left-chart5 bg_temp_1 padding-layout">
-        <robot></robot>
+        <div class="robot-left">
+          <div class="t1">今日活跃机器人</div>
+          <div class="t2">今日工单量</div>
+        </div>
+        <div class="robot-list">
+          <div class="table-box">
+            <ul>
+              <li class="item" v-for="item in robotRuningList" :key="item.index">
+                <span class="icon"><robot class="r" :num="item.unitNum" :index="item.index"></robot></span>
+                <span class="name">{{ item.name }}</span>
+                <span class="num">{{ item.unitNum }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- <robot></robot> -->
       </div>
     </div>
     <div class="center">
@@ -175,7 +190,18 @@ export default {
         { name: '某某某某单位2', accumulateTime: 155, curMonthTime: 22, relativeRatio: '55%' }
       ],
       accumulateWorkNum: [0, 0, 6, 8, '亿', 0, 0, 6, 1, '万', 0, 0, 6, 8],
-      cutDownNum: [0, 0, 6, 8, 0, 0, 6, 8, 0, 0, 6, 8, 9, 'h']
+      cutDownNum: [0, 0, 6, 8, 0, 0, 6, 8, 0, 0, 6, 8, 9, 'h'],
+      robotRuningList: [
+        { index: 100, name: '单位名称', unitNum: 23 },
+        { index: 2, name: '单位名称', unitNum: 8 },
+        { index: 3, name: '单位名称', unitNum: 23 },
+        { index: 1, name: '单位xxxx名称', unitNum: 23 },
+        { index: 4, name: '单位fff名称', unitNum: 23 },
+        { index: 5, name: '单位名称', unitNum: 27 },
+        { index: 6, name: '单位名称', unitNum: 3 },
+        { index: 7, name: '单位名称', unitNum: 23 },
+        { index: 8, name: '单位名称', unitNum: 23 }
+      ]
     }
   },
   created() {},
@@ -270,6 +296,56 @@ export default {
     .left-chart5 {
       height: 125 * $height;
       margin-top: 8 * $height;
+      padding: 5 * $height 10 * $width;
+      display: flex;
+      .robot-left {
+        width: 135 * $width;
+        font-size: 14 * $font;
+        .t1 {
+          height: 75 * $height;
+          line-height: 75 * $height;
+          font-weight: 400;
+          //   text-align: center;
+        }
+        .t2 {
+          height: 37 * $height;
+          line-height: 37 * $height;
+          font-weight: 400;
+          //   text-align: center;
+        }
+      }
+      .robot-list {
+        flex: 1;
+        overflow: hidden;
+        .table-box {
+          width: 100%;
+          height: 100%;
+          ul {
+            width: 100%;
+            white-space: nowrap;
+          }
+          .item {
+            padding: 0 5 * $width;
+            // float: left;
+            display: inline-block;
+            span {
+              display: block;
+            }
+            .icon {
+              height: 46 * $height;
+            }
+            .name {
+              height: 24 * $height;
+              line-height: 24 * $height;
+            }
+            .num {
+              height: 20 * $height;
+              line-height: 20 * $height;
+              text-align: center;
+            }
+          }
+        }
+      }
     }
     .drowp-list {
       margin-top: 25 * $height;
