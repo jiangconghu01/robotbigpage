@@ -14,13 +14,13 @@
     </div>
     <div class="termi-other">
       <ul>
-        <li class="exception-num">
-          <span class="label">异常终端</span>
-          <span class="num num-ex">100 <i>个</i></span>
-        </li>
         <li class="free-num">
           <span class="label">空闲终端</span>
           <span class="num num-free">127 <i>个</i></span>
+        </li>
+        <li class="exception-num">
+          <span class="label">异常终端</span>
+          <span class="num num-ex">100 <i>个</i></span>
         </li>
       </ul>
     </div>

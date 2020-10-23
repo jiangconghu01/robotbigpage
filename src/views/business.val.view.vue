@@ -4,12 +4,12 @@
       <div class="left-title">
         <layoutTitle :direction="'left'">
           <template v-slot:left>
-            业务统计
+            作业统计(截止目前)
           </template>
         </layoutTitle>
       </div>
       <div class="left-num1 bg_temp_1 padding-layout">
-        <chartTitle>累计业务执行量（笔）</chartTitle>
+        <chartTitle>累计作业执行量（笔）</chartTitle>
         <div class="title_part_line"></div>
         <ul class="drowp-list accumulate-work">
           <li v-for="(item, index) in accumulateWorkNum" :key="index" :class="typeof item === 'number' ? 'num' : 'text'">
@@ -28,7 +28,8 @@
       </div>
       <div class="left-chart3 bg_temp_1">
         <div class="title">
-          <chartTitle>分流累计执行量及通过率</chartTitle>
+          <chartTitle>各流程累计作业量及通过率</chartTitle>
+          <!-- <chartTitle>各流程当日作业量及通过率</chartTitle> -->
           <div class="title_part_line"></div>
         </div>
         <div class="bar-list-layout">
@@ -46,7 +47,7 @@
           </div>
         </div>
       </div>
-      <div class="left-chart4 bg_temp_1 padding-layout">
+      <!-- <div class="left-chart4 bg_temp_1 padding-layout">
         <chartTitle>各单位业务流程执行情况</chartTitle>
         <div class="title_part_line"></div>
         <div class="table-box">
@@ -65,8 +66,8 @@
             </li>
           </ul>
         </div>
-      </div>
-      <div class="left-chart5 bg_temp_1 padding-layout">
+      </div> -->
+      <!-- <div class="left-chart5 bg_temp_1 padding-layout">
         <div class="robot-left">
           <div class="t1">今日活跃机器人</div>
           <div class="t2">今日工单量</div>
@@ -82,8 +83,7 @@
             </ul>
           </div>
         </div>
-        <!-- <robot></robot> -->
-      </div>
+      </div> -->
     </div>
     <div class="center">
       <div class="top-chart bg_temp_1">
@@ -93,7 +93,7 @@
         </div>
         <div class="container"><monthOrderMonitorResult></monthOrderMonitorResult></div>
       </div>
-      <div class="bottom-line">
+      <!-- <div class="bottom-line">
         <dv-border-box-8 :reverse="true">
           <div class="title">
             <chartTitle>各单位当月异常统计</chartTitle>
@@ -105,7 +105,7 @@
           </div>
           <div class="parallel-box" id="parallel-exc-box"></div>
         </dv-border-box-8>
-      </div>
+      </div> -->
     </div>
     <div class="right">
       <div class="right-title">
@@ -118,13 +118,33 @@
       <div class="right-chart1 bg_temp_1">
         <workRightTop></workRightTop>
       </div>
-      <div class="right-chart2 bg_temp_1">
+      <!-- <div class="right-chart2 bg_temp_1">
         <div class="title">
           <chartTitle>各单位任务情况（日）</chartTitle>
           <div class="title_part_line"></div>
         </div>
         <unitDayWorkStatus></unitDayWorkStatus>
-      </div>
+      </div> -->
+      <!-- <div class="left-chart3 bg_temp_1">
+        <div class="title">
+          <chartTitle>各流程累计作业量及通过率</chartTitle>
+          <div class="title_part_line"></div>
+        </div>
+        <div class="bar-list-layout">
+          <div class="bar-list-box">
+            <barScrollItem class="bar-list" :index="1"></barScrollItem>
+            <barScrollItem class="bar-list" :index="2"></barScrollItem>
+            <barScrollItem class="bar-list" :index="3"></barScrollItem>
+            <barScrollItem class="bar-list" :index="4"></barScrollItem>
+            <barScrollItem class="bar-list" :index="5"></barScrollItem>
+            <barScrollItem class="bar-list" :index="6"></barScrollItem>
+            <barScrollItem class="bar-list" :index="7"></barScrollItem>
+            <barScrollItem class="bar-list" :index="8"></barScrollItem>
+            <barScrollItem class="bar-list" :index="9"></barScrollItem>
+            <barScrollItem class="bar-list" :index="10"></barScrollItem>
+          </div>
+        </div>
+      </div> -->
       <div class="right-chart3 bg_temp_1 padding-layout">
         <chartTitle>各单位实时作业状态</chartTitle>
         <div class="title_part_line"></div>
@@ -167,6 +187,7 @@ import barScrollItem from '@/components/chartScrollItem.vue'
 export default {
   data() {
     return {
+      //执行 ，排队，异常
       unitWorkingStatus: [
         { index: 1, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'finish' },
         { index: 2, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'exe' },
@@ -238,7 +259,7 @@ export default {
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  //   align-items: center;
 
   .left {
     width: 532 * $width;

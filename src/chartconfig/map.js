@@ -46,7 +46,7 @@ let LableData = [
 
 const map = {
   title: {
-    text: '机器人终端运行时长分布',
+    text: '各单位机器人运行时长（截至目前）', //2业务价值页面.各单位作业总量（截至目前） 热区域：高低 --作业热力分布
     textStyle: {
       color: '#fff',
       fontSize: 26 * $font,

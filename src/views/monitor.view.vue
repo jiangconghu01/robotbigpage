@@ -11,30 +11,25 @@
       <div class="left-chart1 bg_temp_1">
         <div class="liq">
           <liquidfill :color="'rgba(0, 210, 255, 1)'" :percent="0.55">
-            业务资源等待率
+            终端资源占用率
           </liquidfill>
         </div>
         <div class="liq">
           <liquidfill :color="'rgba(244, 166, 40, 1)'" :percent="0.35">
-            业务资源等待率
+            终端资源闲置率
           </liquidfill>
         </div>
         <div class="liq">
           <liquidfill :color="'rgba(4, 228, 196, 1)'" :percent="0.75">
-            终端资源活跃率
-          </liquidfill>
-        </div>
-        <div class="liq">
-          <liquidfill :percent="0.15">
-            终端资源周转率
+            终端资源异常率
           </liquidfill>
         </div>
       </div>
       <div class="left-chart2 bg_temp_1 padding-layout">
-        <chartTitle>分流程分时终端占用情况</chartTitle>
+        <chartTitle>各流程机器人运行时长</chartTitle>
         <div class="title_part_line"></div>
         <ul class="lengends">
-          <li class="lengend">历史趋势</li>
+          <!-- <li class="lengend">历史趋势</li> -->
           <li class="lengend cur">实时趋势</li>
         </ul>
         <div class="chart-line-list" id="list-1">
@@ -50,7 +45,7 @@
           </scrollBox>
         </div>
       </div>
-      <div class="left-chart3 bg_temp_1 padding-layout">
+      <!-- <div class="left-chart3 bg_temp_1 padding-layout">
         <chartTitle>各单位资源使用情况</chartTitle>
         <div class="title_part_line"></div>
         <div class="table-box">
@@ -78,7 +73,7 @@
         <div class="charts-box">
           <termianlSourceLeftBottom></termianlSourceLeftBottom>
         </div>
-      </div>
+      </div> -->
     </div>
     <div class="center">
       <div class="top-map">
@@ -86,7 +81,9 @@
         <div class="map-scale-title">业务量热力级别</div>
         <div class="scale">
           <ul>
-            <li v-for="(item, index) in Array.from({ length: 10 })" :key="index">{{ index + 1 }}</li>
+            <li>忙</li>
+            <li v-for="(item, index) in Array.from({ length: 8 })" :key="index">{{ index + 1 }}</li>
+            <li>闲</li>
           </ul>
         </div>
       </div>
@@ -96,7 +93,7 @@
             <ul>
               <li v-for="item in companyList" :key="item.name + (Math.random() * 100).toFixed(1)" :style="{ backgroundColor: item.color }">
                 <span class="company">{{ item.name }}</span>
-                <span class="value">业务量：{{ item.value }}笔</span>
+                <span class="value">运行时长：{{ item.value }}小时</span>
               </li>
             </ul>
           </div>
@@ -114,19 +111,20 @@
       <div class="right-chart1 bg_temp_1">
         <terminalDaytopView></terminalDaytopView>
       </div>
-      <div class="right-chart2 bg_temp_1 padding-layout">
+      <!-- <div class="right-chart2 bg_temp_1 padding-layout">
         <chartTitle>终端异常情况（日）</chartTitle>
         <div class="title_part_line"></div>
         <terminalDayExc></terminalDayExc>
-      </div>
+      </div> -->
       <div class="right-chart3 bg_temp_1 padding-layout">
         <chartTitle>终端实时运行状态 </chartTitle>
         <div class="title_part_line"></div>
         <div class="table-box">
           <ul class="table-title">
             <li class="index">序号</li>
-            <li class="termicode">终端编号</li>
-            <li class="ip">IP</li>
+            <li class="termicode">终端IP</li>
+            <li class="ip">运行流程</li>
+            <li class="ip">运行单位</li>
             <li class="status">状态</li>
           </ul>
           <div class="table-body-layout">
@@ -177,6 +175,7 @@ export default {
         { name: '某某某某单位', accumulateTime: 2992, curMonthTime: 222, relativeRatio: '55%' },
         { name: '某某某某单位2', accumulateTime: 155, curMonthTime: 22, relativeRatio: '55%' }
       ],
+      //执行，排队，异常
       timernalRunStatus: [
         { index: 1, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'run' },
         { index: 2, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'free' },
@@ -213,7 +212,7 @@ export default {
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  //   align-items: center;
 
   .left {
     width: 532 * $width;
