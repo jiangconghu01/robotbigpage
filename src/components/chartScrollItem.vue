@@ -2,12 +2,14 @@
   <div class="scroll-item-box">
     <div class="num">{{ index }}</div>
     <div class="text">
-      <div>租赁类资产稽</div>
-      <div>核表编制流程</div>
+      <slot></slot>
     </div>
     <div class="chart">
-      <el-progress :stroke-width="18" :percentage="70"></el-progress>
+      <el-progress :stroke-width="18" :percentage="70" :text-inside="true"></el-progress>
       <!-- <div class="shadow"></div> -->
+    </div>
+    <div class="real-num">
+      3000
     </div>
   </div>
 </template>
@@ -31,7 +33,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .scroll-item-box {
-  height: 65 * $height;
+  height: 60 * $height;
   width: 100%;
   display: flex;
   align-items: center;
@@ -40,15 +42,22 @@ export default {
     margin: 0 10 * $width;
   }
   .num {
+    display: inline-block;
     font-size: 20 * $font;
+    min-width: 43 * $width;
     background-color: rgb(40, 161, 236);
-    padding: $height * 10 $width * 15;
+    padding: $height * 10 $width * 10;
     border-radius: 25% 0 25% 0;
     color: rgb(255, 255, 255);
+    text-align: center;
   }
   .text {
     font-size: 15 * $font;
     color: rgba(255, 255, 255, 0.534);
+  }
+  .real-num {
+    width: 50px;
+    font-size: 20px;
   }
   .chart {
     flex: 1;
@@ -80,6 +89,10 @@ export default {
     // box-shadow: -1px 0px 5px 5px rgb(0, 245, 253);
     // &::before {
     // }
+  }
+  /deep/ .el-progress-bar__innerText {
+    // color: rgb(229, 107, 9);
+    color: rgba(12, 0, 0, 0.582);
   }
 }
 </style>

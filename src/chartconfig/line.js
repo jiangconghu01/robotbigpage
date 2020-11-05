@@ -2,51 +2,81 @@ import echarts from 'echarts'
 import { $width, $height, $font } from './basesize.js'
 let color = ['#00aeff', '#dfa70f', '#FFC005', '#FF515A', '#8B5CFF', '#00CA69']
 let echartData = [
-  {
-    name: '1',
-    value1: 100,
-    value2: 233
-  },
-  {
-    name: '2',
-    value1: 138,
-    value2: 233
-  },
-  {
-    name: '3',
-    value1: 350,
-    value2: 200
-  },
-  {
-    name: '4',
-    value1: 173,
-    value2: 180
-  },
-  {
-    name: '5',
-    value1: 180,
-    value2: 199
-  },
-  {
-    name: '6',
-    value1: 150,
-    value2: 233
-  },
-  {
-    name: '7',
-    value1: 180,
-    value2: 210
-  },
-  {
-    name: '8',
-    value1: 230,
-    value2: 180
-  }
+  //   {
+  //     name: '1月',
+  //     value1: 100,
+  //     value2: 233
+  //   },
+  //   {
+  //     name: '2月',
+  //     value1: 138,
+  //     value2: 233
+  //   },
+  //   {
+  //     name: '3月',
+  //     value1: 350,
+  //     value2: 200
+  //   },
+  //   {
+  //     name: '4月',
+  //     value1: 173,
+  //     value2: 180
+  //   },
+  //   {
+  //     name: '5月',
+  //     value1: 180,
+  //     value2: 199
+  //   },
+  //   {
+  //     name: '6月',
+  //     value1: 150,
+  //     value2: 233
+  //   },
+  //   {
+  //     name: '7月',
+  //     value1: 180,
+  //     value2: 210
+  //   },
+  //   {
+  //     name: '8月',
+  //     value1: 230,
+  //     value2: 180
+  //   },
+  //   {
+  //     name: '9月',
+  //     value1: 230,
+  //     value2: 180
+  //   },
+  //   {
+  //     name: '10月',
+  //     value1: 230,
+  //     value2: 180
+  //   },
+  //   {
+  //     name: '11月',
+  //     value1: 230,
+  //     value2: 180
+  //   },
+  //   {
+  //     name: '12月',
+  //     value1: 230,
+  //     value2: 180
+  //   }
 ]
+for (let index = 0; index < 30; index++) {
+  echartData.push({
+    name: index + 1,
+    value1: (Math.random() * 100).toFixed(0),
+    value2: (Math.random() * 240).toFixed(0)
+  })
+}
 
 let xAxisData = echartData.map((v) => v.name)
 // ["1", "2", "3", "4", "5", "6", "7", "8"]
-let yAxisData1 = echartData.map((v) => v.value1)
+let yAxisData1 = echartData.map((v) => {
+  v.value = v.value1
+  return v
+})
 // [100, 138, 350, 173, 180, 150, 180, 230]
 let yAxisData2 = echartData.map((v) => v.value2)
 // [233, 233, 200, 180, 199, 233, 210, 180]
@@ -70,9 +100,9 @@ const option = {
   //     icon: "circle"
   //   },
   grid: {
-    x: 0,
+    x: 10 * $width,
     x2: 10 * $width,
-    y: 0,
+    y: 20,
     y2: 18 * $height
   },
   xAxis: [
@@ -103,7 +133,9 @@ const option = {
     {
       type: 'value',
       //   name: "",
-      axisLabel: {},
+      axisLabel: {
+        show: false
+      },
       //nameTextStyle: {
       //     color: '#666',
       //     fontSize: 12,
@@ -129,15 +161,24 @@ const option = {
       name: '历史趋势',
       type: 'line',
       smooth: true,
-      showSymbol: false,
-      symbolSize: 8,
+      showSymbol: true,
+      symbol: 'circle',
+      symbolSize: 1,
       zlevel: 3,
       lineStyle: {
         normal: {
           color: color[0]
+
           //   shadowBlur: 3,
           //   shadowColor: hexToRgba(color[0], 0.5),
           //   shadowOffsetY: 8
+        }
+      },
+      label: {
+        show: true,
+        position: 'top',
+        textStyle: {
+          color: '#fff'
         }
       },
       areaStyle: {
@@ -175,34 +216,8 @@ const option = {
       lineStyle: {
         normal: {
           color: color[1]
-          //   shadowBlur: 3,
-          //   shadowColor: hexToRgba(color[1], 0.5),
-          //   shadowOffsetY: 8
         }
       },
-      //   areaStyle: {
-      //     normal: {
-      //       color: new echarts.graphic.LinearGradient(
-      //         0,
-      //         0,
-      //         0,
-      //         1,
-      //         [
-      //           {
-      //             offset: 0,
-      //             color: hexToRgba(color[1], 0.3)
-      //           },
-      //           {
-      //             offset: 1,
-      //             color: hexToRgba(color[1], 0.1)
-      //           }
-      //         ],
-      //         false
-      //       ),
-      //       shadowColor: hexToRgba(color[1], 0.1),
-      //       shadowBlur: 10
-      //     }
-      //   },
       data: yAxisData2
     }
   ]

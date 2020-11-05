@@ -1,7 +1,7 @@
 <template>
   <div class="work-day-top-view-box">
     <div class="termi-runing">
-      <div class="text">执行作业</div>
+      <div class="text">当前执行作业</div>
       <div class="number"><i class="num">276</i><i class="unit">个</i></div>
     </div>
     <div class="work-finish">

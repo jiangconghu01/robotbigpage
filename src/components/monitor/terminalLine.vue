@@ -32,7 +32,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .line-box {
-  height: 65 * $height;
+  height: 115 * $height;
   width: 100%;
   display: flex;
   align-items: center;
@@ -45,7 +45,7 @@ export default {
     color: rgb(255, 255, 255);
   }
   .text {
-    width: 90 * $width;
+    width: 70 * $width;
     line-height: 18 * $font;
     margin: 0 10 * $width;
     font-size: 14 * $font;

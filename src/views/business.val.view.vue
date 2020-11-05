@@ -28,23 +28,54 @@
       </div>
       <div class="left-chart3 bg_temp_1">
         <div class="title">
-          <chartTitle>各流程累计作业量及通过率</chartTitle>
+          <chartTitle>各流程累计作业量</chartTitle>
           <!-- <chartTitle>各流程当日作业量及通过率</chartTitle> -->
           <div class="title_part_line"></div>
         </div>
         <div class="bar-list-layout">
-          <div class="bar-list-box">
-            <barScrollItem class="bar-list" :index="1"></barScrollItem>
-            <barScrollItem class="bar-list" :index="2"></barScrollItem>
-            <barScrollItem class="bar-list" :index="3"></barScrollItem>
-            <barScrollItem class="bar-list" :index="4"></barScrollItem>
-            <barScrollItem class="bar-list" :index="5"></barScrollItem>
-            <barScrollItem class="bar-list" :index="6"></barScrollItem>
-            <barScrollItem class="bar-list" :index="7"></barScrollItem>
-            <barScrollItem class="bar-list" :index="8"></barScrollItem>
-            <barScrollItem class="bar-list" :index="9"></barScrollItem>
-            <barScrollItem class="bar-list" :index="10"></barScrollItem>
-          </div>
+          <!-- <div class="bar-list-box">
+            <barScrollItem class="bar-list" :index="1">
+              <div>支付失败清单</div>
+              <div>整理</div>
+            </barScrollItem>
+            <barScrollItem class="bar-list" :index="2">
+              <div>资产转资确认</div>
+              <div>流程</div>
+            </barScrollItem>
+            <barScrollItem class="bar-list" :index="3">
+              <div>竣工决算辅助</div>
+              <div>审核流程</div>
+            </barScrollItem>
+            <barScrollItem class="bar-list" :index="4">
+              <div>租赁类资产稽</div>
+              <div>核表编制流程</div>
+            </barScrollItem>
+            <barScrollItem class="bar-list" :index="5">
+              <div>现金流量表编</div>
+              <div>制流程</div>
+            </barScrollItem>
+            <barScrollItem class="bar-list" :index="6">
+              <div>月末关账检查</div>
+              <div>流程</div>
+            </barScrollItem>
+            <barScrollItem class="bar-list" :index="7">
+              <div>开账关账管理</div>
+              <div>流程</div>
+            </barScrollItem>
+            <barScrollItem class="bar-list" :index="8">
+              <div>应交增值税结</div>
+              <div>转计提流程</div>
+            </barScrollItem>
+            <barScrollItem class="bar-list" :index="9">
+              <div>纳税申报流程</div>
+              <div></div>
+            </barScrollItem>
+            <barScrollItem class="bar-list" :index="10">
+              <div>关联交易表填</div>
+              <div>报流程</div>
+            </barScrollItem>
+          </div> -->
+          <unitDayWorkStatus></unitDayWorkStatus>
         </div>
       </div>
       <!-- <div class="left-chart4 bg_temp_1 padding-layout">
@@ -86,13 +117,14 @@
       </div> -->
     </div>
     <div class="center">
-      <div class="top-chart bg_temp_1">
+      <centerMap></centerMap>
+      <!-- <div class="top-chart bg_temp_1">
         <div class="title">
           <chartTitle>当月工单监控结果</chartTitle>
           <div class="title_part_line"></div>
         </div>
         <div class="container"><monthOrderMonitorResult></monthOrderMonitorResult></div>
-      </div>
+      </div> -->
       <!-- <div class="bottom-line">
         <dv-border-box-8 :reverse="true">
           <div class="title">
@@ -145,6 +177,56 @@
           </div>
         </div>
       </div> -->
+      <div class="right-chart2 bg_temp_1">
+        <div class="title">
+          <chartTitle>各流程当日作业量及异常率</chartTitle>
+          <div class="title_part_line"></div>
+        </div>
+        <div class="bar-list-layout">
+          <div class="bar-list-box">
+            <barScrollItem class="bar-list" :index="1">
+              <div>支付失败清单</div>
+              <div>整理</div>
+            </barScrollItem>
+            <barScrollItem class="bar-list" :index="2">
+              <div>资产转资确认</div>
+              <div>流程</div>
+            </barScrollItem>
+            <barScrollItem class="bar-list" :index="3">
+              <div>竣工决算辅助</div>
+              <div>审核流程</div>
+            </barScrollItem>
+            <barScrollItem class="bar-list" :index="4">
+              <div>租赁类资产稽</div>
+              <div>核表编制流程</div>
+            </barScrollItem>
+            <barScrollItem class="bar-list" :index="5">
+              <div>现金流量表编</div>
+              <div>制流程</div>
+            </barScrollItem>
+            <barScrollItem class="bar-list" :index="6">
+              <div>月末关账检查</div>
+              <div>流程</div>
+            </barScrollItem>
+            <barScrollItem class="bar-list" :index="7">
+              <div>开账关账管理</div>
+              <div>流程</div>
+            </barScrollItem>
+            <barScrollItem class="bar-list" :index="8">
+              <div>应交增值税结</div>
+              <div>转计提流程</div>
+            </barScrollItem>
+            <barScrollItem class="bar-list" :index="9">
+              <div>纳税申报流程</div>
+              <div></div>
+            </barScrollItem>
+            <barScrollItem class="bar-list" :index="10">
+              <div>关联交易表填</div>
+              <div>报流程</div>
+            </barScrollItem>
+          </div>
+        </div>
+      </div>
       <div class="right-chart3 bg_temp_1 padding-layout">
         <chartTitle>各单位实时作业状态</chartTitle>
         <div class="title_part_line"></div>
@@ -180,31 +262,33 @@ import { option as parallel } from '@/chartconfig/parallel.js'
 import layoutTitle from '@/components/layoutTitle'
 import chartTitle from '@/components/chartTitle'
 import workRightTop from '@/components/businessval/workRightTop.vue'
-import unitDayWorkStatus from '@/components/businessval/unitDayWorkStatus.vue'
+// import unitDayWorkStatus from '@/components/businessval/unitDayWorkStatus.vue'
+import unitDayWorkStatus from '@/components/businessval/unitDayWorkStatus2.vue'
 import robot from '@/components/businessval/robot.vue'
 import monthOrderMonitorResult from '@/components/businessval/monthOrderMonitorResult.vue'
 import barScrollItem from '@/components/chartScrollItem.vue'
+import centerMap from '@/components/centerMap'
 export default {
   data() {
     return {
       //执行 ，排队，异常
       unitWorkingStatus: [
-        { index: 1, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'finish' },
-        { index: 2, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'exe' },
-        { index: 3, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'beforhandle' },
-        { index: 4, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'lineup' },
-        { index: 5, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'exc' },
-        { index: 6, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'exc' },
-        { index: 7, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'exc' },
-        { index: 8, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'exc' },
-        { index: 9, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'exc' },
-        { index: 10, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'exc' },
-        { index: 11, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'exc' },
-        { index: 12, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'exc' },
-        { index: 13, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'exc' },
-        { index: 14, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'exc' },
-        { index: 15, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'exc' },
-        { index: 16, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'exc' }
+        { index: 1, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'lineup' },
+        { index: 2, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'exe' },
+        { index: 3, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'exe' },
+        { index: 4, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'lineup' },
+        { index: 5, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'exc' },
+        { index: 6, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'exe' },
+        { index: 7, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'lineup' },
+        { index: 8, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'lineup' },
+        { index: 9, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'exe' },
+        { index: 10, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'exe' },
+        { index: 11, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'exc' },
+        { index: 12, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'exe' },
+        { index: 13, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'lineup' },
+        { index: 14, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'exe' },
+        { index: 15, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'lineup' },
+        { index: 16, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'exc' }
       ],
       unitTimernalSourceList: [
         { name: '某某某某单位', accumulateTime: 2992, curMonthTime: 222, relativeRatio: '55%' },
@@ -226,7 +310,7 @@ export default {
     }
   },
   created() {},
-  components: { layoutTitle, chartTitle, workRightTop, unitDayWorkStatus, barScrollItem, robot, monthOrderMonitorResult },
+  components: { layoutTitle, chartTitle, workRightTop, unitDayWorkStatus, barScrollItem, robot, monthOrderMonitorResult, centerMap },
   computed: {},
   methods: {
     setLeftTopNum() {},
@@ -280,18 +364,18 @@ export default {
       padding-right: 0 * $width;
     }
     .left-chart3 {
-      height: 330 * $height;
+      height: 661 * $height;
       margin-top: 8 * $height;
       .title {
         padding: 15 * $height 30 * $width;
       }
       .bar-list-layout {
-        height: 260 * $height;
+        height: 590 * $height;
         position: relative;
         overflow: hidden;
       }
       .bar-list-box {
-        animation: business-left-chart2 17s linear infinite forwards;
+        // animation: business-left-chart2 17s linear infinite forwards;
         position: absolute;
         width: 100%;
         left: 0;
@@ -302,72 +386,72 @@ export default {
         padding-right: 0;
       }
     }
-    .left-chart4 {
-      height: 190 * $height;
-      margin-top: 8 * $height;
-      .table-box {
-        margin-top: 15 * $height;
-        .table-body {
-          li {
-            padding: 8 * $height 0;
-          }
-        }
-      }
-    }
-    .left-chart5 {
-      height: 125 * $height;
-      margin-top: 8 * $height;
-      padding: 5 * $height 10 * $width;
-      display: flex;
-      .robot-left {
-        width: 135 * $width;
-        font-size: 14 * $font;
-        .t1 {
-          height: 75 * $height;
-          line-height: 75 * $height;
-          font-weight: 400;
-          //   text-align: center;
-        }
-        .t2 {
-          height: 37 * $height;
-          line-height: 37 * $height;
-          font-weight: 400;
-          //   text-align: center;
-        }
-      }
-      .robot-list {
-        flex: 1;
-        overflow: hidden;
-        .table-box {
-          width: 100%;
-          height: 100%;
-          ul {
-            width: 100%;
-            white-space: nowrap;
-          }
-          .item {
-            padding: 0 5 * $width;
-            // float: left;
-            display: inline-block;
-            span {
-              display: block;
-            }
-            .icon {
-              height: 46 * $height;
-            }
-            .name {
-              height: 24 * $height;
-              line-height: 24 * $height;
-            }
-            .num {
-              height: 20 * $height;
-              line-height: 20 * $height;
-              text-align: center;
-            }
-          }
-        }
-      }
-    }
+    // .left-chart4 {
+    //   height: 190 * $height;
+    //   margin-top: 8 * $height;
+    //   .table-box {
+    //     margin-top: 15 * $height;
+    //     .table-body {
+    //       li {
+    //         padding: 8 * $height 0;
+    //       }
+    //     }
+    //   }
+    // }
+    // .left-chart5 {
+    //   height: 125 * $height;
+    //   margin-top: 8 * $height;
+    //   padding: 5 * $height 10 * $width;
+    //   display: flex;
+    //   .robot-left {
+    //     width: 135 * $width;
+    //     font-size: 14 * $font;
+    //     .t1 {
+    //       height: 75 * $height;
+    //       line-height: 75 * $height;
+    //       font-weight: 400;
+    //       //   text-align: center;
+    //     }
+    //     .t2 {
+    //       height: 37 * $height;
+    //       line-height: 37 * $height;
+    //       font-weight: 400;
+    //       //   text-align: center;
+    //     }
+    //   }
+    //   .robot-list {
+    //     flex: 1;
+    //     overflow: hidden;
+    //     .table-box {
+    //       width: 100%;
+    //       height: 100%;
+    //       ul {
+    //         width: 100%;
+    //         white-space: nowrap;
+    //       }
+    //       .item {
+    //         padding: 0 5 * $width;
+    //         // float: left;
+    //         display: inline-block;
+    //         span {
+    //           display: block;
+    //         }
+    //         .icon {
+    //           height: 46 * $height;
+    //         }
+    //         .name {
+    //           height: 24 * $height;
+    //           line-height: 24 * $height;
+    //         }
+    //         .num {
+    //           height: 20 * $height;
+    //           line-height: 20 * $height;
+    //           text-align: center;
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
     .drowp-list {
       margin-top: 25 * $height;
       li.num {
@@ -403,70 +487,70 @@ export default {
   .center {
     flex: 1;
     padding: 0 10 * $width;
-    .top-chart {
-      margin-top: 40 * $height;
-      height: 600 * $height;
-      .title {
-        width: 100%;
-        height: 105 * $height;
-        padding: 20 * $height 30 * $width;
-        padding-top: 30 * $height;
-        position: relative;
-        .title_part_line {
-          top: 85 * $height;
-        }
-      }
-      .container {
-        height: 489 * $height;
-      }
-    }
-    .bottom-line {
-      margin-top: 8 * $height;
-      height: 258 * $height;
-      background-color: rgba(0, 0, 0, 0.384);
-      .title {
-        padding: 15 * $height 30 * $width;
-        position: relative;
-        .title_part_line {
-          top: 60 * $height;
-        }
-        .lengends {
-          position: absolute;
-          right: 30 * $width;
-          top: 18 * $height;
-          display: flex;
-          li {
-            font-size: 12 * $font;
-            font-weight: 400;
-            padding-left: 12 * $width;
-            position: relative;
-            margin-left: 30 * $width;
-            &::before {
-              content: '';
-              display: block;
-              position: absolute;
-              width: 10 * $width;
-              height: 10 * $height;
-              background-color: #eea42c;
-              left: -5 * $width;
-              top: 1 * $height;
-            }
-          }
-          li.cur {
-            &::before {
-              background-color: #669aff;
-            }
-          }
-        }
-      }
-      .parallel-box {
-        position: absolute;
-        top: 60 * $height;
-        left: 0;
-        height: 198 * $height;
-        width: 100%;
-      }
-    }
+    // .top-chart {
+    //   margin-top: 40 * $height;
+    //   height: 600 * $height;
+    //   .title {
+    //     width: 100%;
+    //     height: 105 * $height;
+    //     padding: 20 * $height 30 * $width;
+    //     padding-top: 30 * $height;
+    //     position: relative;
+    //     .title_part_line {
+    //       top: 85 * $height;
+    //     }
+    //   }
+    //   .container {
+    //     height: 489 * $height;
+    //   }
+    // }
+    // .bottom-line {
+    //   margin-top: 8 * $height;
+    //   height: 258 * $height;
+    //   background-color: rgba(0, 0, 0, 0.384);
+    //   .title {
+    //     padding: 15 * $height 30 * $width;
+    //     position: relative;
+    //     .title_part_line {
+    //       top: 60 * $height;
+    //     }
+    //     .lengends {
+    //       position: absolute;
+    //       right: 30 * $width;
+    //       top: 18 * $height;
+    //       display: flex;
+    //       li {
+    //         font-size: 12 * $font;
+    //         font-weight: 400;
+    //         padding-left: 12 * $width;
+    //         position: relative;
+    //         margin-left: 30 * $width;
+    //         &::before {
+    //           content: '';
+    //           display: block;
+    //           position: absolute;
+    //           width: 10 * $width;
+    //           height: 10 * $height;
+    //           background-color: #eea42c;
+    //           left: -5 * $width;
+    //           top: 1 * $height;
+    //         }
+    //       }
+    //       li.cur {
+    //         &::before {
+    //           background-color: #669aff;
+    //         }
+    //       }
+    //     }
+    //   }
+    //   .parallel-box {
+    //     position: absolute;
+    //     top: 60 * $height;
+    //     left: 0;
+    //     height: 198 * $height;
+    //     width: 100%;
+    //   }
+    // }
   }
   .right {
     width: 532 * $width;
@@ -480,13 +564,26 @@ export default {
     }
     .right-chart2 {
       height: 350 * $height;
+      //   height: 661 * $height;
       margin-top: 8 * $height;
       .title {
         padding: 15 * $height 30 * $width;
+      }
+      .bar-list-layout {
+        height: 260 * $height;
         position: relative;
-        // .title_part_line {
-        //   top: 60 * $height;
-        // }
+        overflow: hidden;
+      }
+      .bar-list-box {
+        animation: business-right-chart2 17s linear infinite forwards;
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 0;
+      }
+      .bar-list {
+        padding-left: 10 * $width;
+        padding-right: 0;
       }
     }
     .right-chart3 {
@@ -588,6 +685,20 @@ export default {
   }
   100% {
     top: -395 * $height;
+    opacity: 0;
+  }
+}
+@keyframes business-right-chart2 {
+  0% {
+    top: 0 * $height;
+    opacity: 1;
+  }
+  90% {
+    top: -340 * $height;
+    opacity: 1;
+  }
+  100% {
+    top: -345 * $height;
     opacity: 0;
   }
 }

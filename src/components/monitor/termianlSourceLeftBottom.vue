@@ -1,8 +1,8 @@
 <template>
   <div class="termi-source-left-bottom">
-    <div class="pie-title t">当前使用率</div>
-    <div class="line-title t">资源池占用比趋势</div>
-    <div class="pie" id="monitor-left-bottom-pie">pie</div>
+    <!-- <div class="pie-title t">当前使用率</div> -->
+    <!-- <div class="line-title t">资源池占用比趋势</div> -->
+    <!-- <div class="pie" id="monitor-left-bottom-pie">pie</div> -->
     <div class="line" id="monitor-left-bottom-line"></div>
   </div>
 </template>
@@ -76,7 +76,8 @@ export default {
     width: 45%;
   }
   .line {
-    width: 55%;
+    height: 100%;
+    width: 100%;
   }
 }
 </style>

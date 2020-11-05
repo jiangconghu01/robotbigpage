@@ -74,18 +74,18 @@ const map = {
     min: 0,
     max: 200,
     inRange: {
-      color: ['#E74335', '#E56B09', '#F1C54F', '#03D9D1', '#1D7FC3'].reverse()
+      color: ['#E74335', '#E56B09', '#F1C54F', '#03D9D1', '#1D7FC3']
     },
     textStyle: {
       color: '#fff'
     },
     x: 0,
-    y2: 20 * $height
+    y2: 10 * $height
   },
   geo: {
     id: 1,
     map: 'china',
-    zoom: 1,
+    zoom: 1.3,
     zlevel: 0,
     layoutCenter: ['50%', '50%'], //地图位置
     layoutSize: '100%',
@@ -145,13 +145,13 @@ const map = {
       type: 'map',
       //   geoIndex: 0,
       map: 'china',
-      zoom: 1,
+      zoom: 1.3,
       layoutCenter: ['50%', '50%'], //地图位置
       layoutSize: '100%',
       data: [
-        { name: '安徽', value: 175 },
-        { name: '江苏', value: 90 },
-        { name: '重庆', value: 200 }
+        { name: '安徽', value: 0 },
+        { name: '江苏', value: 50 },
+        { name: '重庆', value: 100 }
       ],
       itemStyle: {
         normal: {

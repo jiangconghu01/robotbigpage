@@ -4,36 +4,37 @@
       <div class="left-title">
         <layoutTitle :direction="'left'">
           <template v-slot:left>
-            资源池统计
+            机器人统计（月）
           </template>
         </layoutTitle>
       </div>
       <div class="left-chart1 bg_temp_1">
         <div class="liq">
           <liquidfill :color="'rgba(0, 210, 255, 1)'" :percent="0.55">
-            终端资源占用率
+            机器人作业率
           </liquidfill>
         </div>
         <div class="liq">
           <liquidfill :color="'rgba(244, 166, 40, 1)'" :percent="0.35">
-            终端资源闲置率
+            机器人闲置率
           </liquidfill>
         </div>
         <div class="liq">
           <liquidfill :color="'rgba(4, 228, 196, 1)'" :percent="0.75">
-            终端资源异常率
+            机器人异常率
           </liquidfill>
         </div>
       </div>
       <div class="left-chart2 bg_temp_1 padding-layout">
-        <chartTitle>各流程机器人运行时长</chartTitle>
+        <chartTitle>各流程运行时长</chartTitle>
         <div class="title_part_line"></div>
         <ul class="lengends">
-          <!-- <li class="lengend">历史趋势</li> -->
-          <li class="lengend cur">实时趋势</li>
+          <li class="lengend">实时趋势</li>
+          <li class="lengend cur">历史趋势</li>
+          <!-- <li class="lengend">运行小时</li> -->
         </ul>
         <div class="chart-line-list" id="list-1">
-          <scrollBox :options="{ allNum: 4, itemHeight: 70, selector: '#list-1 .termi-line-item' }">
+          <!-- <scrollBox :options="{ allNum: 4, itemHeight: 70, selector: '#list-1 .termi-line-item' }">
             <chartScrollItem class="termi-line-item scroll-item" :index="1">租赁类资产稽核表编制流程</chartScrollItem>
             <chartScrollItem class="termi-line-item scroll-item" :index="2">支付失败清单整理流程</chartScrollItem>
             <chartScrollItem class="termi-line-item scroll-item" :index="3">支付失败清单整理流程</chartScrollItem>
@@ -42,8 +43,14 @@
             <chartScrollItem class="termi-line-item scroll-item" :index="2">支付失败清单整理流程</chartScrollItem>
             <chartScrollItem class="termi-line-item scroll-item" :index="3">支付失败清单整理流程</chartScrollItem>
             <chartScrollItem class="termi-line-item scroll-item" :index="4">支付失败清单整理流程</chartScrollItem>
-          </scrollBox>
+          </scrollBox> -->
+          <chartScrollItem class="termi-line-item scroll-item" :index="1">支付失败清单整理</chartScrollItem>
+          <chartScrollItem class="termi-line-item scroll-item" :index="2">资产转资确认流程</chartScrollItem>
+          <chartScrollItem class="termi-line-item scroll-item" :index="3">竣工决算辅助审核流程</chartScrollItem>
+          <!-- <chartScrollItem class="termi-line-item scroll-item" :index="4">租赁类资产稽核表编制流程</chartScrollItem>
+          <chartScrollItem class="termi-line-item scroll-item" :index="5">现金流量表编制流程 </chartScrollItem> -->
         </div>
+        <div class="parallel-box" id="parallel-exc-box"></div>
       </div>
       <!-- <div class="left-chart3 bg_temp_1 padding-layout">
         <chartTitle>各单位资源使用情况</chartTitle>
@@ -64,41 +71,19 @@
             </li>
           </ul>
         </div>
-      </div>
+      </div> -->
       <div class="left-chart4 bg_temp_1">
         <div class="title">
-          <chartTitle>终端资源使用情况</chartTitle>
+          <chartTitle>资源占用情况</chartTitle>
           <div class="title_part_line"></div>
         </div>
         <div class="charts-box">
           <termianlSourceLeftBottom></termianlSourceLeftBottom>
         </div>
-      </div> -->
+      </div>
     </div>
     <div class="center">
-      <div class="top-map">
-        <div id="china-map" class="map-container"></div>
-        <div class="map-scale-title">业务量热力级别</div>
-        <div class="scale">
-          <ul>
-            <li>忙</li>
-            <li v-for="(item, index) in Array.from({ length: 8 })" :key="index">{{ index + 1 }}</li>
-            <li>闲</li>
-          </ul>
-        </div>
-      </div>
-      <div class="bottom-list">
-        <dv-border-box-8 :reverse="true">
-          <div class="company-list" id="company-list-work-num">
-            <ul>
-              <li v-for="item in companyList" :key="item.name + (Math.random() * 100).toFixed(1)" :style="{ backgroundColor: item.color }">
-                <span class="company">{{ item.name }}</span>
-                <span class="value">运行时长：{{ item.value }}小时</span>
-              </li>
-            </ul>
-          </div>
-        </dv-border-box-8>
-      </div>
+      <centerMap></centerMap>
     </div>
     <div class="right">
       <div class="right-title">
@@ -121,7 +106,7 @@
         <div class="title_part_line"></div>
         <div class="table-box">
           <ul class="table-title">
-            <li class="index">序号</li>
+            <li class="index">机器人编号</li>
             <li class="termicode">终端IP</li>
             <li class="ip">运行流程</li>
             <li class="ip">运行单位</li>
@@ -131,16 +116,23 @@
             <ul class="table-body">
               <li v-for="(item, index) in timernalRunStatus" :key="index">
                 <span class="index">{{ item.index }}</span>
-                <span class="termicode">{{ item.termicode }}</span>
                 <span class="ip">{{ item.ip }}</span>
+                <span class="termicode">{{ item.termicode }}</span>
+                <span class="depart">{{ item.depart }}</span>
 
                 <span class="status" v-if="item.status == 'run'"> <i class="run button">运行</i></span>
                 <span class="status" v-else-if="item.status == 'free'"><i class="free button">闲置</i></span>
+                <span class="status" v-else-if="item.status == 'wait'"><i class="wait button">排队</i></span>
                 <span class="status" v-else><i class="exc button">异常</i></span>
               </li>
             </ul>
           </div>
         </div>
+      </div>
+      <div class="right-chart2 bg_temp_1 padding-layout">
+        <chartTitle>流程异常情况（日）</chartTitle>
+        <div class="title_part_line"></div>
+        <!-- <terminalDayExc></terminalDayExc> -->
       </div>
     </div>
   </div>
@@ -149,62 +141,53 @@
 import layoutTitle from '@/components/layoutTitle'
 import chartTitle from '@/components/chartTitle'
 import liquidfill from '@/components/monitor/liquidfill'
-import map from '@/chartconfig/map.js'
-import chinajson from '@/assets/json/china.json'
 import chartScrollItem from '@/components/monitor/terminalLine.vue'
 import termianlSourceLeftBottom from '@/components/monitor/termianlSourceLeftBottom.vue'
 import terminalDayExc from '@/components/monitor/terminalDayExc.vue'
 import terminalDaytopView from '@/components/monitor/terminalDaytopView.vue'
 import scrollBox from '@/components/scrollBox'
+import centerMap from '@/components/centerMap'
 export default {
   data() {
     return {
-      companyList: [
-        { name: 'IT公司', value: 99, color: '#E74335' },
-        { name: '互联网', value: 99, color: '#E56B09' },
-        { name: '铁通公司', value: 99, color: '#F1C54F' },
-        { name: '集团本部', value: 99, color: '#03D9D1' },
-        { name: '杭研院', value: 99, color: '#1D7FC3' },
-        { name: '咪咕文化', value: 99, color: '#1D7FC3' },
-        { name: '物联网', value: 99, color: '#1D7FC3' },
-        { name: '物联网', value: 99, color: '#1D7FC3' },
-        { name: '物联网', value: 99, color: '#1D7FC3' },
-        { name: '物联网', value: 99, color: '#1D7FC3' }
-      ],
       unitTimernalSourceList: [
         { name: '某某某某单位', accumulateTime: 2992, curMonthTime: 222, relativeRatio: '55%' },
         { name: '某某某某单位2', accumulateTime: 155, curMonthTime: 22, relativeRatio: '55%' }
       ],
       //执行，排队，异常
       timernalRunStatus: [
-        { index: 1, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'run' },
-        { index: 2, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'free' },
-        { index: 3, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'exc' },
-        { index: 4, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'free' },
-        { index: 5, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'free' },
-        { index: 6, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'free' },
-        { index: 7, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'free' },
-        { index: 8, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'free' },
-        { index: 9, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'free' },
-        { index: 10, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'free' },
-        { index: 11, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'free' },
-        { index: 12, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', status: 'free' }
+        { index: 1, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', depart: 'a单位', status: 'run' },
+        { index: 2, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', depart: 'a单位', status: 'wait' },
+        { index: 3, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', depart: 'a单位', status: 'exc' },
+        { index: 4, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', depart: 'a单位', status: 'run' },
+        { index: 5, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', depart: 'a单位', status: 'run' },
+        { index: 6, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', depart: 'a单位', status: 'exc' },
+        { index: 7, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', depart: 'a单位', status: 'wait' },
+        { index: 8, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', depart: 'a单位', status: 'free' },
+        { index: 9, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', depart: 'a单位', status: 'wait' },
+        { index: 10, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', depart: 'a单位', status: 'run' },
+        { index: 11, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', depart: 'a单位', status: 'run' },
+        { index: 12, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', depart: 'a单位', status: 'run' },
+        { index: 13, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', depart: 'a单位', status: 'exc' },
+        { index: 14, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', depart: 'a单位', status: 'run' },
+        { index: 15, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', depart: 'a单位', status: 'exc' },
+        { index: 16, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', depart: 'a单位', status: 'wait' },
+        { index: 17, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', depart: 'a单位', status: 'exc' },
+        { index: 18, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', depart: 'a单位', status: 'wait' },
+        { index: 19, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', depart: 'a单位', status: 'exc' },
+        { index: 20, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', depart: 'a单位', status: 'wait' },
+        { index: 21, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', depart: 'a单位', status: 'run' },
+        { index: 22, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', depart: 'a单位', status: 'wait' },
+        { index: 23, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', depart: 'a单位', status: 'exc' },
+        { index: 24, termicode: 'sdfsdfsjf231234', ip: '192.168.0.106', depart: 'a单位', status: 'wait' }
       ]
     }
   },
   created() {},
-  components: { layoutTitle, chartTitle, liquidfill, scrollBox, chartScrollItem, terminalDayExc, terminalDaytopView, termianlSourceLeftBottom },
+  components: { layoutTitle, chartTitle, liquidfill, scrollBox, chartScrollItem, terminalDayExc, terminalDaytopView, termianlSourceLeftBottom, centerMap },
   computed: {},
-  methods: {
-    inintMap() {
-      const map_box = this.$echarts.init(document.getElementById('china-map'))
-      this.$echarts.registerMap('china', chinajson)
-      map_box.setOption(map)
-    }
-  },
-  mounted() {
-    this.inintMap()
-  }
+  methods: {},
+  mounted() {}
 }
 </script>
 <style lang="scss" scoped>
@@ -231,7 +214,7 @@ export default {
       }
     }
     .left-chart2 {
-      height: 350 * $height;
+      height: 490 * $height;
       margin-top: 8 * $height;
       position: relative;
       overflow: hidden;
@@ -266,31 +249,34 @@ export default {
       }
       .chart-line-list {
         margin-top: 17 * $height;
-        height: 280 * $height;
-      }
-    }
-    .left-chart3 {
-      height: 190 * $height;
-      margin-top: 8 * $height;
-      position: relative;
-      .table-box {
-        margin-top: 15 * $height;
-        .table-body {
-          li {
-            padding: 8 * $height 0;
-          }
+        height: 390 * $height;
+        .termi-line-item {
+          margin-top: 20 * $height;
         }
       }
     }
+    // .left-chart3 {
+    //   height: 190 * $height;
+    //   margin-top: 8 * $height;
+    //   position: relative;
+    //   .table-box {
+    //     margin-top: 15 * $height;
+    //     .table-body {
+    //       li {
+    //         padding: 8 * $height 0;
+    //       }
+    //     }
+    //   }
+    // }
     .left-chart4 {
-      height: 190 * $height;
+      height: 250 * $height;
       margin-top: 8 * $height;
       .title {
         padding: 15 * $height 30 * $width;
       }
       .charts-box {
         margin-top: 15 * $height;
-        height: 115 * $height;
+        height: 175 * $height;
         padding: 0 * $height 10 * $width;
         // height: 110 * $height;
       }
@@ -302,78 +288,6 @@ export default {
   .center {
     flex: 1;
     padding: 0 10 * $width;
-
-    .top-map {
-      margin-top: 60 * $height;
-      height: 660 * $height;
-      position: relative;
-      .map-container {
-        width: 100%;
-        height: 100%;
-      }
-      .map-scale-title {
-        position: absolute;
-        padding-left: 5 * $width;
-        width: 225 * $width;
-        height: 29 * $height;
-        line-height: 29 * $height;
-        font-size: 14 * $font;
-        left: 15 * $width;
-        bottom: 70 * $height;
-        background: linear-gradient(90deg, #1d7fc3 0%, rgba(80, 236, 255, 0) 100%);
-      }
-      .scale {
-        position: absolute;
-        width: 225 * $width;
-        height: 20 * $height;
-        font-size: 12 * $font;
-        left: 15 * $width;
-        bottom: 0 * $height;
-        ul {
-          width: 100%;
-          height: 100%;
-          display: flex;
-          li {
-            flex: 1;
-            text-align: center;
-          }
-        }
-      }
-    }
-    .bottom-list {
-      margin-top: 8 * $height;
-      height: 164 * $height;
-      .company-list {
-        height: 100%;
-        ul {
-          height: 100%;
-          width: 100%;
-          display: flex;
-          align-items: center;
-          //   align-content: center;
-          flex-wrap: wrap;
-          li {
-            margin: 0 15 * $width;
-            width: 120 * $width;
-            height: 64 * $height;
-            padding: 5 * $height 0;
-            box-shadow: -2px 2px 8px 2px rgba(0, 0, 0, 0.26);
-            // border: 1 * $width solid rgba(255, 255, 255, 0.438);
-            // display: flex;
-            // flex-direction: column;
-            & > span {
-              //   flex: 1;
-              display: block;
-              height: 25 * $height;
-              line-height: 25 * $height;
-              font-size: 13 * $font;
-              font-weight: 400;
-              padding-left: 8 * $width;
-            }
-          }
-        }
-      }
-    }
   }
   .right {
     width: 532 * $width;
@@ -385,20 +299,23 @@ export default {
     .right-chart1 {
     }
     .right-chart2 {
-      height: 350 * $height;
+      height: 250 * $height;
       margin-top: 8 * $height;
     }
     .right-chart3 {
-      height: 388 * $height;
+      height: 490 * $height;
       margin-top: 8 * $height;
       .table-title {
         .index {
-          flex: 2;
+          flex: 3;
         }
         .status {
-          flex: 2;
+          flex: 3;
         }
         .termicode {
+          flex: 4;
+        }
+        .depart {
           flex: 4;
         }
         .ip {
@@ -407,7 +324,7 @@ export default {
       }
       .table-body-layout {
         position: relative;
-        height: 250 * $height;
+        height: 352 * $height;
         overflow: hidden;
         margin-top: 15 * $height;
       }
@@ -432,14 +349,20 @@ export default {
             .exc {
               background-color: #ff3330;
             }
+            .wait {
+              background-color: #00aeff;
+            }
           }
           .index {
-            flex: 2;
+            flex: 3;
           }
           .status {
-            flex: 2;
+            flex: 3;
           }
           .termicode {
+            flex: 4;
+          }
+          .depart {
             flex: 4;
           }
           .ip {
@@ -455,9 +378,6 @@ export default {
   #unit-source-use-status {
     animation: over-turn 5s linear infinite forwards 3s;
   }
-  #company-list-work-num {
-    animation: over-turn 7s linear infinite forwards 3s;
-  }
 }
 @keyframes monitor-right-chart3 {
   0% {
@@ -465,11 +385,11 @@ export default {
     opacity: 1;
   }
   90% {
-    top: -350 * $height;
+    top: -600 * $height;
     opacity: 1;
   }
   100% {
-    top: -355 * $height;
+    top: -605 * $height;
     opacity: 0;
   }
 }
