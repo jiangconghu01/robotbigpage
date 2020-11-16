@@ -79,11 +79,12 @@ $font:$base;
     }
     .table-body {
       li {
-        // height: 30 * $height;
-        // line-height: 30 * $height;
-        padding: 18* $height 0;
+        height: 50 * $height;
+        line-height: 18 * $height;
+        // padding: 18* $height 0;
         margin-top: 12 * $height;
         display: flex;
+        align-items: center;
         span {
           flex: 1;
           text-align: center;

@@ -9,8 +9,8 @@
           <stop offset="0%" stop-color="rgb(5, 211, 253)" stop-opacity="0.8" />
           <stop offset="50%" stop-color="rgb(5, 211, 253)" stop-opacity=".3" />
           <stop offset="100%" stop-color="rgb(5, 211, 253)" stop-opacity="0" />
-          <animate id="light-up-left" attributeName="y2" from="20" to="200" dur="2s" begin="0; light-down-left.end + 0.5s" fill="freeze" />
-          <animate id="light-down-left" attributeName="y2" from="200" to="20" dur="2s" begin="light-up-left.end + 0.5s" fill="freeze" />
+          <animate id="lightupleft" attributeName="y2" from="20" to="200" dur="2s" begin="0; lightdownleft.end + 0.5s" fill="freeze" />
+          <animate id="lightdownleft" attributeName="y2" from="200" to="20" dur="2s" begin="lightupleft.end + 0.5s" fill="freeze" />
         </linearGradient>
       </defs>
       <rect x="0" y="0" width="228" height="288" fill="url(#polygon-light-linear-left)" mask="url(#Mask-polygon-left)"></rect>

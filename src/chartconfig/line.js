@@ -1,85 +1,7 @@
 import echarts from 'echarts'
 import { $width, $height, $font } from './basesize.js'
-let color = ['#00aeff', '#dfa70f', '#FFC005', '#FF515A', '#8B5CFF', '#00CA69']
-let echartData = [
-  //   {
-  //     name: '1月',
-  //     value1: 100,
-  //     value2: 233
-  //   },
-  //   {
-  //     name: '2月',
-  //     value1: 138,
-  //     value2: 233
-  //   },
-  //   {
-  //     name: '3月',
-  //     value1: 350,
-  //     value2: 200
-  //   },
-  //   {
-  //     name: '4月',
-  //     value1: 173,
-  //     value2: 180
-  //   },
-  //   {
-  //     name: '5月',
-  //     value1: 180,
-  //     value2: 199
-  //   },
-  //   {
-  //     name: '6月',
-  //     value1: 150,
-  //     value2: 233
-  //   },
-  //   {
-  //     name: '7月',
-  //     value1: 180,
-  //     value2: 210
-  //   },
-  //   {
-  //     name: '8月',
-  //     value1: 230,
-  //     value2: 180
-  //   },
-  //   {
-  //     name: '9月',
-  //     value1: 230,
-  //     value2: 180
-  //   },
-  //   {
-  //     name: '10月',
-  //     value1: 230,
-  //     value2: 180
-  //   },
-  //   {
-  //     name: '11月',
-  //     value1: 230,
-  //     value2: 180
-  //   },
-  //   {
-  //     name: '12月',
-  //     value1: 230,
-  //     value2: 180
-  //   }
-]
-for (let index = 0; index < 30; index++) {
-  echartData.push({
-    name: index + 1,
-    value1: (Math.random() * 100).toFixed(0),
-    value2: (Math.random() * 240).toFixed(0)
-  })
-}
+const color = ['#00aeff', '#dfa70f', '#FFC005', '#FF515A', '#8B5CFF', '#00CA69']
 
-let xAxisData = echartData.map((v) => v.name)
-// ["1", "2", "3", "4", "5", "6", "7", "8"]
-let yAxisData1 = echartData.map((v) => {
-  v.value = v.value1
-  return v
-})
-// [100, 138, 350, 173, 180, 150, 180, 230]
-let yAxisData2 = echartData.map((v) => v.value2)
-// [233, 233, 200, 180, 199, 233, 210, 180]
 const hexToRgba = (hex, opacity) => {
   let rgbaColor = ''
   let reg = /^#[\da-f]{6}$/i
@@ -94,15 +16,10 @@ const option = {
   textStyle: {
     color: '#fff'
   },
-  //   legend: {
-  //     right: 10,
-  //     top: 10,
-  //     icon: "circle"
-  //   },
   grid: {
     x: 10 * $width,
     x2: 10 * $width,
-    y: 20,
+    y: 20 * $height,
     y2: 18 * $height
   },
   xAxis: [
@@ -112,21 +29,22 @@ const option = {
       axisLabel: {
         formatter: '{value}',
         fontSize: 10 * $font,
-        color: hexToRgba('#FFFFFF', 0.7)
+        // color: hexToRgba('#FFFFFF', 0.7)
+        color: '#048FD5'
       },
       axisLine: {
         lineStyle: {
-          color: 'rgba(233, 233, 233,0.4)'
+          color: 'rgba(255, 255, 255,0.1)'
         }
       },
       splitLine: {
         show: true,
         lineStyle: {
           type: 'dashed',
-          color: 'rgba(233, 233, 233,0.4)'
+          color: 'rgba(255, 255, 255,0.1)'
         }
       },
-      data: xAxisData
+      data: []
     }
   ],
   yAxis: [
@@ -145,7 +63,7 @@ const option = {
         show: true,
         lineStyle: {
           //   type: "dashed",
-          color: 'rgba(233, 233, 233,0.4)'
+          color: 'rgba(255, 255, 255,0.1)'
         }
       },
       axisLine: {
@@ -158,7 +76,7 @@ const option = {
   ],
   series: [
     {
-      name: '历史趋势',
+      name: '实时趋势',
       type: 'line',
       smooth: true,
       showSymbol: true,
@@ -167,7 +85,8 @@ const option = {
       zlevel: 3,
       lineStyle: {
         normal: {
-          color: color[0]
+          color: color[0],
+          width: 1
 
           //   shadowBlur: 3,
           //   shadowColor: hexToRgba(color[0], 0.5),
@@ -178,7 +97,7 @@ const option = {
         show: true,
         position: 'top',
         textStyle: {
-          color: '#fff'
+          color: '#048FD5'
         }
       },
       areaStyle: {
@@ -204,10 +123,10 @@ const option = {
           shadowBlur: 10
         }
       },
-      data: yAxisData1
+      data: []
     },
     {
-      name: '实时趋势',
+      name: '历史趋势',
       type: 'line',
       smooth: true,
       showSymbol: false,
@@ -215,12 +134,17 @@ const option = {
       zlevel: 3,
       lineStyle: {
         normal: {
-          color: color[1]
+          color: color[1],
+          width: 1
         }
       },
-      data: yAxisData2
+      data: []
     }
-  ]
+  ],
+  animationEasing: 'elasticOut',
+  animationDelayUpdate: function(idx) {
+    return idx * 50
+  }
 }
 // console.log(hexToRgba(color[0], 0.3));
 // console.log(hexToRgba(color[1], 0.3));

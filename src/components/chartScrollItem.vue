@@ -5,11 +5,11 @@
       <slot></slot>
     </div>
     <div class="chart">
-      <el-progress :stroke-width="18" :percentage="70" :text-inside="true"></el-progress>
+      <el-progress :stroke-width="18" :percentage="per" :text-inside="true"></el-progress>
       <!-- <div class="shadow"></div> -->
     </div>
     <div class="real-num">
-      3000
+      {{ max }}
     </div>
   </div>
 </template>
@@ -19,6 +19,14 @@ export default {
     index: {
       type: Number,
       default: 0
+    },
+    datanum: {
+      type: Number,
+      default: 0
+    },
+    max: {
+      type: Number,
+      default: 0
     }
   },
   data() {
@@ -26,7 +34,11 @@ export default {
   },
   created() {},
   components: {},
-  computed: {},
+  computed: {
+    per() {
+      return Number(((this.datanum / this.max) * 100).toFixed(1))
+    }
+  },
   methods: {},
   mounted() {}
 }
@@ -53,7 +65,8 @@ export default {
   }
   .text {
     font-size: 15 * $font;
-    color: rgba(255, 255, 255, 0.534);
+    // color: rgba(255, 255, 255, 0.534);
+    color: #fff;
   }
   .real-num {
     width: 50px;
@@ -91,8 +104,8 @@ export default {
     // }
   }
   /deep/ .el-progress-bar__innerText {
-    // color: rgb(229, 107, 9);
-    color: rgba(12, 0, 0, 0.582);
+    color: #fff;
+    // color: rgba(12, 0, 0, 0.582);
   }
 }
 </style>

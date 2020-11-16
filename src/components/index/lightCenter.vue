@@ -1,6 +1,6 @@
 <template>
   <div class="light-center-box">
-    <svg viewBox="0 0 342 368" xmlns="http://www.w3.org/2000/svg" version="1.1">
+    <svg viewBox="-10 0 342 368" xmlns="http://www.w3.org/2000/svg" version="1.1">
       <defs>
         <mask id="Mask-polygon-center">
           <path
@@ -53,8 +53,8 @@
           <stop offset="0%" stop-color="rgb(5, 211, 253)" stop-opacity="0.5" />
           <stop offset="50%" stop-color="rgb(5, 211, 253)" stop-opacity=".3" />
           <stop offset="100%" stop-color="rgb(5, 211, 253)" stop-opacity="0" />
-          <animate id="light-up-center" attributeName="y2" from="20" to="200" dur="2.5s" begin="0; light-down-center.end + 0.5s" fill="freeze" />
-          <animate id="light-down-center" attributeName="y2" from="200" to="20" dur="1s" begin="light-up-center.end + 0.5s" fill="freeze" />
+          <animate id="xxx" attributeName="y2" from="20" to="200" dur="2.5s" begin="0; yyy.end + 0.5s" fill="freeze" />
+          <animate id="yyy" attributeName="y2" from="200" to="20" dur="1s" begin="xxx.end + 0.5s" fill="freeze" />
         </linearGradient>
         <linearGradient id="polygon-light-linear-center-circle" gradientUnits="userSpaceOnUse" x1="53" y1="308" x2="53" y2="0">
           <stop offset="0%" stop-color="rgb(5, 211, 253)" stop-opacity="1" />
@@ -92,7 +92,7 @@
       <!-- <circle cx="177.5" cy="209" r="10" stroke="none" fill="url(#grad1)" transform="translate(89.750000, 145.500000) scale(1, -1) translate(-89.750000, -145.500000)"> -->
 
       <!-- 中间大灯 -->
-      <rect x="0" y="0" width="330" height="368" fill="url(#polygon-light-linear-center)" mask="url(#Mask-polygon-center)"></rect>
+      <rect x="-10" y="0" width="340" height="368" fill="url(#polygon-light-linear-center)" mask="url(#Mask-polygon-center)"></rect>
       <!-- 底部光做 -->
       <ellipse stroke="none" fill-opacity="0.703862544" fill="#54D8DF" cx="176.5" cy="337" rx="51" ry="29.5"></ellipse>
       <circle cx="0" cy="0" r="10" stroke="none" fill="url(#grad1)" opacity="1">

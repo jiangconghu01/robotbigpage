@@ -28,116 +28,16 @@
       </div>
       <div class="left-chart3 bg_temp_1">
         <div class="title">
-          <chartTitle>各流程累计作业量</chartTitle>
-          <!-- <chartTitle>各流程当日作业量及通过率</chartTitle> -->
+          <chartTitle>各流程累计作业量(笔)</chartTitle>
           <div class="title_part_line"></div>
         </div>
         <div class="bar-list-layout">
-          <!-- <div class="bar-list-box">
-            <barScrollItem class="bar-list" :index="1">
-              <div>支付失败清单</div>
-              <div>整理</div>
-            </barScrollItem>
-            <barScrollItem class="bar-list" :index="2">
-              <div>资产转资确认</div>
-              <div>流程</div>
-            </barScrollItem>
-            <barScrollItem class="bar-list" :index="3">
-              <div>竣工决算辅助</div>
-              <div>审核流程</div>
-            </barScrollItem>
-            <barScrollItem class="bar-list" :index="4">
-              <div>租赁类资产稽</div>
-              <div>核表编制流程</div>
-            </barScrollItem>
-            <barScrollItem class="bar-list" :index="5">
-              <div>现金流量表编</div>
-              <div>制流程</div>
-            </barScrollItem>
-            <barScrollItem class="bar-list" :index="6">
-              <div>月末关账检查</div>
-              <div>流程</div>
-            </barScrollItem>
-            <barScrollItem class="bar-list" :index="7">
-              <div>开账关账管理</div>
-              <div>流程</div>
-            </barScrollItem>
-            <barScrollItem class="bar-list" :index="8">
-              <div>应交增值税结</div>
-              <div>转计提流程</div>
-            </barScrollItem>
-            <barScrollItem class="bar-list" :index="9">
-              <div>纳税申报流程</div>
-              <div></div>
-            </barScrollItem>
-            <barScrollItem class="bar-list" :index="10">
-              <div>关联交易表填</div>
-              <div>报流程</div>
-            </barScrollItem>
-          </div> -->
           <unitDayWorkStatus></unitDayWorkStatus>
         </div>
       </div>
-      <!-- <div class="left-chart4 bg_temp_1 padding-layout">
-        <chartTitle>各单位业务流程执行情况</chartTitle>
-        <div class="title_part_line"></div>
-        <div class="table-box">
-          <ul class="table-title">
-            <li>单位名称</li>
-            <li>累计终端使用时长</li>
-            <li>本月终端使用时长</li>
-            <li>环比</li>
-          </ul>
-          <ul class="table-body" id="unit-work-run-status">
-            <li v-for="(item, index) in unitTimernalSourceList" :key="index">
-              <span class="name">{{ item.name }}</span>
-              <span class="accumulate">{{ item.accumulateTime }}</span>
-              <span class="curmonth">{{ item.curMonthTime }}</span>
-              <span class="relativeratio">{{ item.relativeRatio }}</span>
-            </li>
-          </ul>
-        </div>
-      </div> -->
-      <!-- <div class="left-chart5 bg_temp_1 padding-layout">
-        <div class="robot-left">
-          <div class="t1">今日活跃机器人</div>
-          <div class="t2">今日工单量</div>
-        </div>
-        <div class="robot-list">
-          <div class="table-box">
-            <ul>
-              <li class="item" v-for="item in robotRuningList" :key="item.index">
-                <span class="icon"><robot class="r" :num="item.unitNum" :index="item.index"></robot></span>
-                <span class="name">{{ item.name }}</span>
-                <span class="num">{{ item.unitNum }}</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div> -->
     </div>
     <div class="center">
       <centerMap></centerMap>
-      <!-- <div class="top-chart bg_temp_1">
-        <div class="title">
-          <chartTitle>当月工单监控结果</chartTitle>
-          <div class="title_part_line"></div>
-        </div>
-        <div class="container"><monthOrderMonitorResult></monthOrderMonitorResult></div>
-      </div> -->
-      <!-- <div class="bottom-line">
-        <dv-border-box-8 :reverse="true">
-          <div class="title">
-            <chartTitle>各单位当月异常统计</chartTitle>
-            <div class="title_part_line"></div>
-            <ul class="lengends">
-              <li class="lengend">异常量</li>
-              <li class="lengend cur">异常比例</li>
-            </ul>
-          </div>
-          <div class="parallel-box" id="parallel-exc-box"></div>
-        </dv-border-box-8>
-      </div> -->
     </div>
     <div class="right">
       <div class="right-title">
@@ -150,33 +50,7 @@
       <div class="right-chart1 bg_temp_1">
         <workRightTop></workRightTop>
       </div>
-      <!-- <div class="right-chart2 bg_temp_1">
-        <div class="title">
-          <chartTitle>各单位任务情况（日）</chartTitle>
-          <div class="title_part_line"></div>
-        </div>
-        <unitDayWorkStatus></unitDayWorkStatus>
-      </div> -->
-      <!-- <div class="left-chart3 bg_temp_1">
-        <div class="title">
-          <chartTitle>各流程累计作业量及通过率</chartTitle>
-          <div class="title_part_line"></div>
-        </div>
-        <div class="bar-list-layout">
-          <div class="bar-list-box">
-            <barScrollItem class="bar-list" :index="1"></barScrollItem>
-            <barScrollItem class="bar-list" :index="2"></barScrollItem>
-            <barScrollItem class="bar-list" :index="3"></barScrollItem>
-            <barScrollItem class="bar-list" :index="4"></barScrollItem>
-            <barScrollItem class="bar-list" :index="5"></barScrollItem>
-            <barScrollItem class="bar-list" :index="6"></barScrollItem>
-            <barScrollItem class="bar-list" :index="7"></barScrollItem>
-            <barScrollItem class="bar-list" :index="8"></barScrollItem>
-            <barScrollItem class="bar-list" :index="9"></barScrollItem>
-            <barScrollItem class="bar-list" :index="10"></barScrollItem>
-          </div>
-        </div>
-      </div> -->
+
       <div class="right-chart2 bg_temp_1">
         <div class="title">
           <chartTitle>各流程当日作业量及异常率</chartTitle>
@@ -184,43 +58,43 @@
         </div>
         <div class="bar-list-layout">
           <div class="bar-list-box">
-            <barScrollItem class="bar-list" :index="1">
+            <barScrollItem class="bar-list" :index="1" :datanum="23" :max="67">
               <div>支付失败清单</div>
               <div>整理</div>
             </barScrollItem>
-            <barScrollItem class="bar-list" :index="2">
+            <barScrollItem class="bar-list" :index="2" :datanum="56" :max="125">
               <div>资产转资确认</div>
               <div>流程</div>
             </barScrollItem>
-            <barScrollItem class="bar-list" :index="3">
+            <barScrollItem class="bar-list" :index="3" :datanum="211" :max="225">
               <div>竣工决算辅助</div>
               <div>审核流程</div>
             </barScrollItem>
-            <barScrollItem class="bar-list" :index="4">
+            <barScrollItem class="bar-list" :index="4" :datanum="23" :max="55">
               <div>租赁类资产稽</div>
               <div>核表编制流程</div>
             </barScrollItem>
-            <barScrollItem class="bar-list" :index="5">
+            <barScrollItem class="bar-list" :index="5" :datanum="123" :max="231">
               <div>现金流量表编</div>
               <div>制流程</div>
             </barScrollItem>
-            <barScrollItem class="bar-list" :index="6">
+            <barScrollItem class="bar-list" :index="6" :datanum="88" :max="321">
               <div>月末关账检查</div>
               <div>流程</div>
             </barScrollItem>
-            <barScrollItem class="bar-list" :index="7">
+            <barScrollItem class="bar-list" :index="7" :datanum="167" :max="167">
               <div>开账关账管理</div>
               <div>流程</div>
             </barScrollItem>
-            <barScrollItem class="bar-list" :index="8">
+            <barScrollItem class="bar-list" :index="8" :datanum="33" :max="67">
               <div>应交增值税结</div>
               <div>转计提流程</div>
             </barScrollItem>
-            <barScrollItem class="bar-list" :index="9">
+            <barScrollItem class="bar-list" :index="9" :datanum="55" :max="67">
               <div>纳税申报流程</div>
               <div></div>
             </barScrollItem>
-            <barScrollItem class="bar-list" :index="10">
+            <barScrollItem class="bar-list" :index="10" :datanum="145" :max="211">
               <div>关联交易表填</div>
               <div>报流程</div>
             </barScrollItem>
@@ -241,8 +115,8 @@
             <ul class="table-body-scroll">
               <li v-for="(item, index) in unitWorkingStatus" :key="index">
                 <span class="index">{{ item.index }}</span>
-                <span class="unitname">{{ item.termicode }}</span>
-                <span class="workflow">{{ item.ip }}</span>
+                <span class="unitname">{{ item.unitname }}</span>
+                <span class="workflow">{{ item.workflow }}</span>
 
                 <span class="status" v-if="item.status == 'finish'"> <i class="finish button">完成</i></span>
                 <span class="status" v-else-if="item.status == 'exe'"><i class="exe button">执行</i></span>
@@ -268,74 +142,25 @@ import robot from '@/components/businessval/robot.vue'
 import monthOrderMonitorResult from '@/components/businessval/monthOrderMonitorResult.vue'
 import barScrollItem from '@/components/chartScrollItem.vue'
 import centerMap from '@/components/centerMap'
+import { busLastList } from './mockdata'
 export default {
   data() {
     return {
       //执行 ，排队，异常
-      unitWorkingStatus: [
-        { index: 1, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'lineup' },
-        { index: 2, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'exe' },
-        { index: 3, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'exe' },
-        { index: 4, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'lineup' },
-        { index: 5, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'exc' },
-        { index: 6, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'exe' },
-        { index: 7, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'lineup' },
-        { index: 8, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'lineup' },
-        { index: 9, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'exe' },
-        { index: 10, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'exe' },
-        { index: 11, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'exc' },
-        { index: 12, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'exe' },
-        { index: 13, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'lineup' },
-        { index: 14, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'exe' },
-        { index: 15, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'lineup' },
-        { index: 16, termicode: 'sdfsdfsjf231234', ip: '某某流程', status: 'exc' }
-      ],
+      unitWorkingStatus: busLastList,
       unitTimernalSourceList: [
         { name: '某某某某单位', accumulateTime: 2992, curMonthTime: 222, relativeRatio: '55%' },
         { name: '某某某某单位2', accumulateTime: 155, curMonthTime: 22, relativeRatio: '55%' }
       ],
-      accumulateWorkNum: [0, 0, 6, 8, '亿', 0, 0, 6, 1, '万', 0, 0, 6, 8],
-      cutDownNum: [0, 0, 6, 8, 0, 0, 6, 8, 0, 0, 6, 8, 9, 'h'],
-      robotRuningList: [
-        { index: 100, name: '单位名称', unitNum: 23 },
-        { index: 2, name: '单位名称', unitNum: 8 },
-        { index: 3, name: '单位名称', unitNum: 23 },
-        { index: 1, name: '单位xxxx名称', unitNum: 23 },
-        { index: 4, name: '单位fff名称', unitNum: 23 },
-        { index: 5, name: '单位名称', unitNum: 27 },
-        { index: 6, name: '单位名称', unitNum: 3 },
-        { index: 7, name: '单位名称', unitNum: 23 },
-        { index: 8, name: '单位名称', unitNum: 23 }
-      ]
+      accumulateWorkNum: [0, 0, 0, 0, '亿', 0, 0, 0, 1, '万', 3, 8, 9, 2],
+      cutDownNum: [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 5, 8, 'h']
     }
   },
   created() {},
   components: { layoutTitle, chartTitle, workRightTop, unitDayWorkStatus, barScrollItem, robot, monthOrderMonitorResult, centerMap },
   computed: {},
-  methods: {
-    setLeftTopNum() {},
-    setParallelExc() {
-      const box = this.$echarts.init(document.getElementById('parallel-exc-box'))
-      box.setOption(parallel)
-      let center = 0
-      let flag = 'to'
-      ;(function loop() {
-        flag === 'to' && (center += 2)
-        flag === 'back' && (center -= 2)
-        center > 56 && flag === 'to' && (flag = 'back')
-        center < 4 && flag === 'back' && (flag = 'to')
-        // console.log(center)
-        // box.setOption({ parallel: [{ axisExpandCenter: center }, { axisExpandCenter: center }] })
-        box.setOption({ parallel: { axisExpandCenter: center } })
-        setTimeout(function() {
-          loop()
-        }, 600)
-      })()
-    }
-  },
-  mounted() {
-    this.setParallelExc()
-  }
+  methods: {},
+  mounted() {}
 }
 </script>
 <style lang="scss" scoped>
@@ -594,10 +419,10 @@ export default {
           flex: 2;
         }
         .status {
-          flex: 2;
+          flex: 3;
         }
         .unitname {
-          flex: 4;
+          flex: 3;
         }
         .workflow {
           flex: 4;
@@ -634,10 +459,10 @@ export default {
             flex: 2;
           }
           .status {
-            flex: 2;
+            flex: 3;
           }
           .unitname {
-            flex: 4;
+            flex: 3;
           }
           .workflow {
             flex: 4;
@@ -649,7 +474,7 @@ export default {
         width: 100%;
         left: 0;
         top: 0;
-        animation: business-right-charts3 17s linear infinite forwards;
+        animation: business-right-charts3 87s linear infinite forwards;
       }
     }
   }
@@ -665,12 +490,12 @@ export default {
     top: 0 * $height;
     opacity: 1;
   }
-  90% {
-    top: -550 * $height;
+  98% {
+    top: -3550 * $height;
     opacity: 1;
   }
   100% {
-    top: -555 * $height;
+    top: -3555 * $height;
     opacity: 0;
   }
 }

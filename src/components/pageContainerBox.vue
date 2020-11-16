@@ -65,8 +65,7 @@ export default {
   overflow: hidden;
   transform-origin: left top;
   z-index: 999;
-  background-image: linear-gradient(90deg, rgba(125, 186, 243, 0.075) 2 * $width, transparent 0),
-    linear-gradient(rgba(121, 183, 241, 0.075) 2 * $height, transparent 0);
+  background-image: linear-gradient(90deg, rgba(125, 186, 243, 0.041) 2 * $width, transparent 0), linear-gradient(rgba(121, 183, 241, 0.041) 2 * $height, transparent 0);
   background-size: 35 * $width 35 * $height;
   //   background-image: linear-gradient(90deg, #0e2251 0%, #1b437b 25%, #2e6ca7 50%, #1b437b 75%, #0e2251 100%),
   //     linear-gradient(to bottom, #dae6ec 0, #e8ebec 1px, transparent 1px), linear-gradient(to right, #0f2937 0, #0f2937 1px, transparent 1px);

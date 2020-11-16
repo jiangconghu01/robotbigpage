@@ -33,7 +33,7 @@ export default {
   align-items: center;
   .label {
     font-size: 24 * $font;
-    // font-weight: bold;
+    font-weight: bold;
     text-align: left;
   }
   .label-l {

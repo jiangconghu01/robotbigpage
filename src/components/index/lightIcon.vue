@@ -13,8 +13,9 @@
           <stop offset="0%" stop-color="rgb(5, 211, 253)" stop-opacity=".8" />
           <stop offset="50%" stop-color="rgb(5, 211, 253)" stop-opacity=".3" />
           <stop offset="100%" stop-color="rgb(5, 211, 253)" stop-opacity="0" />
-          <animate id="light-up-icon" attributeName="y2" from="30" to="15" dur="2.5s" begin="0; light-down-icon.end + 0.5s" fill="freeze" />
-          <animate id="light-down-icon" attributeName="y2" from="15" to="30" dur="2.5s" begin="light-up-icon.end + 0.5s" fill="freeze" />
+          <!-- <animate id="light-up-icon" attributeName="y2" from="30" to="15" dur="2.5s" begin="0; light-down-icon.end + 0.5s" fill="freeze" />
+          <animate id="light-down-icon" attributeName="y2" from="15" to="30" dur="2.5s" begin="light-up-icon.end + 0.5s" fill="freeze" /> -->
+          <animate id="light-down-icon" attributeName="y2" from="45" to="15" dur="3.5s" begin="0" fill="freeze" repeatCount="indefinite" />
         </linearGradient>
       </defs>
       <rect x="0" y="0" width="103" height="52" fill="url(#polygon-light-linear)" mask="url(#Mask-polygon-light-icon)"></rect>

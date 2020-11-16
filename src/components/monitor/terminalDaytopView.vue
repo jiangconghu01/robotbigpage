@@ -4,11 +4,11 @@
       <ul>
         <li class="runing-num">
           <span class="label">运行终端</span>
-          <span class="num">100 <i>个</i> </span>
+          <span class="num">76 <i>个</i> </span>
         </li>
         <li class="runing-rate">
           <span class="label">占比</span>
-          <span class="num num-rote">55%</span>
+          <span class="num num-rote">78.4%</span>
         </li>
       </ul>
     </div>
@@ -16,11 +16,11 @@
       <ul>
         <li class="free-num">
           <span class="label">空闲终端</span>
-          <span class="num num-free">127 <i>个</i></span>
+          <span class="num num-free">21 <i>个</i></span>
         </li>
         <li class="exception-num">
           <span class="label">异常终端</span>
-          <span class="num num-ex">100 <i>个</i></span>
+          <span class="num num-ex">3 <i>个</i></span>
         </li>
       </ul>
     </div>

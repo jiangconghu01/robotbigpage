@@ -1,90 +1,127 @@
 <template>
   <div class="all-view">
     <div class="view-desc">
-      <div class="label">
-        <img src="../assets/images/label@2.png" alt="" />
+      <div class="item t1">
+        <div class="title">
+          <span class="icon">
+            <img src="../assets/images/t1_new@2.png" alt="" />
+          </span>
+          <span class="t-text">赋能效率提升的自动化工具</span>
+        </div>
+        <ul class="desc">
+          <li class="line point">RPA（ Robotic Process Automation ，机器人流程自动化）是一种自动化工具，通过机器人模拟人工进行某些操作，辅助企业员工完成重复密集的工作。</li>
+          <li class="line point">RPA作为自动化工具，显著提高业务操作的精确度、缩短处理周期，赋能业务发展，有效提升业务处理效率。</li>
+        </ul>
       </div>
-      <div class="house"></div>
-      <div class="text">
-        <div class="item t1">
-          <div class="title">
-            <span class="icon">
-              <img src="../assets/images/t1@2.png" alt="" />
-            </span>
-            <span class="t-text">践行大连接战略的重要举措</span>
-          </div>
-          <ul class="desc">
-            <li class="line point">”资源共享、能力集中、合理管控“</li>
-            <li class="line point">践行”五化“改革”管理集中化、流程标准化“</li>
-            <li class="line point">RPA作为最成熟的企业自动化技术，首先进行全面推广具有实践意义。</li>
-          </ul>
+      <div class="item t2">
+        <div class="title">
+          <span class="icon">
+            <img src="../assets/images/t2_new@2.png" alt="" />
+          </span>
+          <span class="t-text">依托ERP集中化系统的智能化平台</span>
         </div>
-        <div class="item t2">
-          <div class="title">
-            <span class="icon">
-              <img src="../assets/images/t2@2.png" alt="" />
-            </span>
-            <span class="t-text">落地业务自动化处理工具</span>
-          </div>
-          <ul class="desc">
-            <li class="line point">
-              企业ERP、报账、资金、税务等系统集中后，更增加了业务操作人员的手工系统操作工作量，合理落地必要的业务场景，使用RPA替代人工操作，也是企业自身人工资源再分配的需要
-            </li>
-          </ul>
+        <ul class="desc">
+          <li class="line point">
+            当前，ERP系统已实现全集团各单位统一建设、集中管理，集中化建设带来业务规则协同一致、系统功能标准统一，在此基础上，引入机器人流程自动化技术（RPA），打造了全集团财务领域共享、创新、轻量的财务机器人智能化平台，是落实集团公司“三融三力”理念的有效举措
+          </li>
+        </ul>
+      </div>
+      <div class="item t3">
+        <div class="title">
+          <span class="icon">
+            <img src="../assets/images/t3_new@2.png" alt="" />
+          </span>
+          <span class="t-text">替代财务人员操作的虚拟员工</span>
         </div>
-        <div class="item t3">
-          <div class="title">
-            <span class="icon">
-              <img src="../assets/images/t3@2.png" alt="" />
-            </span>
-            <span class="t-text">支撑财务转型的技术手段</span>
-          </div>
-          <ul class="desc">
-            <li class="line point">
-              近些年，公司在战略财务、业务财务、共享财务领域开展了诸多探索和实践。实践证明，共享财务是支撑财务转型的基础，而RPA是支持财务共享中心落地的智能化新技术
-            </li>
-          </ul>
+        <ul class="desc">
+          <li class="line point">
+            “重复性高”、“出错率高”、“跨系统操作频繁”的财务工作是基层财务人员经常面临的业务痛难点，RPA技术的引入充分响应集团公司“降本增效”号召，实现了财务领域的“IT换人”，可突破人工限制，实现24小时无人值守，操作准确性高达100%，是优秀的数字化劳动力。
+          </li>
+        </ul>
+      </div>
+      <div class="item t4">
+        <div class="title">
+          <span class="icon">
+            <img src="../assets/images/t4_new@2.png" alt="" />
+          </span>
+          <span class="t-text">助力财务职能转型的数字引擎</span>
         </div>
+        <ul class="desc">
+          <li class="line point">
+            中国移动“力量大厦”的建设重点强调转型升级和改革创新，财务领域响应号召，积极引入数字化技术，向集中化、数字化、标准化、价值型财务转型。
+          </li>
+          <li class="line point">
+            RPA技术的推广使用，可推动财务团队的能力与价值发挥，提升财务运营质量与效率，实现人员结构调优，是财务职能转型重要的推手和引擎。
+          </li>
+        </ul>
       </div>
     </div>
     <div class="view-carousel">
-      <img src="../assets/images/carousel_bg@2.png" />
+      <img src="../assets/images/carousel_bg_new@2.png" />
       <div class="left-arrow arrow">
-        <img src="../assets/images/arrow@2.png" />
+        <arrowMove></arrowMove>
       </div>
       <div class="right-arrow arrow">
-        <img src="../assets/images/arrow@2.png" />
+        <arrowMove></arrowMove>
       </div>
-      <div class="carousel-item" :class="carousels[0]">123</div>
-      <div class="carousel-item" :class="carousels[1]">abc</div>
-      <div class="carousel-item" :class="carousels[2]">ddd</div>
+      <!-- 这里的左右和left,right是反的，代码写乱了不知道为啥讲究用 -->
+      <div class="carousel-item" @mouseover="ishover('right')" @mouseleave="out" :class="carousels[0]"><carouselLeft></carouselLeft></div>
+      <div class="carousel-item import-page-box" :class="carousels[1]">
+        <div class="import-page" @mouseover="ishover('center')" @mouseleave="out" :style="{ opacity: importPageOpac }"><singlePage></singlePage></div>
+      </div>
+      <div class="carousel-item" @mouseover="ishover('left')" @mouseleave="out" :class="carousels[2]"><carouselRight></carouselRight></div>
     </div>
   </div>
 </template>
 <script>
+import singlePage from '@/views/index.single.view.new.vue'
+import carouselLeft from '@/components/carouIndex/carousel.item.left.vue'
+import carouselRight from '@/components/carouIndex/carousel.item.right.vue'
+import arrowMove from '@/components/index/arrowMove.vue'
 export default {
   data() {
     return {
-      carousels: ['left', 'center', 'right']
+      carousels: ['left', 'center', 'right'],
+      //   carousels: ['right', 'center', 'left'],
+      //   carousels: ['center', 'left', 'right'],
+      importPageOpac: 0,
+      ishoverCenterItem: false
     }
   },
   created() {},
-  components: {},
+  components: {
+    carouselLeft,
+    carouselRight,
+    singlePage,
+    arrowMove
+  },
   computed: {},
   methods: {
+    out() {
+      this.ishoverCenterItem = false
+    },
+    ishover(p) {
+      console.log(this.carousels[0], p)
+      this.ishoverCenterItem = this.carousels[0] === p
+    },
     carouselsPage() {
       const copy = this.carousels.slice(0)
       copy.unshift(copy[copy.length - 1])
 
       copy.length = copy.length - 1
-      this.carousels = copy
+      if (!this.ishoverCenterItem) {
+        this.carousels = copy
+      }
       setTimeout(() => {
         this.carouselsPage()
-      }, 4000)
+      }, 5000)
     }
   },
   mounted() {
     this.carouselsPage()
+    setTimeout(() => {
+      this.importPageOpac = 1
+    }, 500)
   }
 }
 </script>
@@ -93,71 +130,69 @@ export default {
   width: 100%;
   margin-top: 25 * $height;
   .view-desc {
-    height: 265 * $height;
+    height: 258 * $height;
+    padding-top: 25 * $height;
+    padding-left: 20 * $width;
+    padding-right: 20 * $width;
+    background: url('../assets/images/all_textbg_new@2.png') no-repeat;
+    background-size: cover;
     display: flex;
-    align-items: center;
-    .label {
-      height: 236 * $height;
-      width: 40 * $width;
-      margin-left: 35 * $width;
-      img {
-        width: 100%;
+    align-items: flex-start;
+    .item {
+      width: 29%;
+      margin-left: 2.5%;
+      position: relative;
+      &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        height: 250 * $height;
+        width: 2 * $width;
+        background-image: linear-gradient(0deg, rgba(5, 255, 255, 0), rgba(5, 255, 255, 0.2), rgba(5, 255, 255, 0.8), rgba(5, 255, 255, 0.2), rgba(5, 255, 255, 0));
+        left: -20 * $width;
+        top: -20 * $height;
       }
-    }
-    .house {
-      height: 262 * $height;
-      width: 394 * $width;
-      margin-bottom: 20 * $height;
-      margin-left: 60 * $width;
-      background: url('../assets/images/house@2.png') no-repeat;
-      background-size: contain;
-    }
-    .text {
-      height: 238 * $height;
-      width: 1305 * $width;
-      margin-left: 60 * $width;
-      background: url('../assets/images/all_textbg@2.png') no-repeat;
-      background-size: contain;
-      display: flex;
-      align-items: center;
-      .item {
-        width: 29%;
-        margin-left: 3%;
-        .title {
-          display: flex;
-          height: 45 * $height;
-          .t-text {
-            height: 26 * $height;
-            line-height: 26 * $height;
-            font-size: 22 * $font;
-            margin-left: 10 * $width;
-          }
-          .icon {
-            width: 26 * $width;
-            height: 26 * $height;
-            img {
-              width: 100%;
-            }
+      &:nth-child(1) {
+        margin-left: 0.7%;
+      }
+      &:nth-child(1)::before {
+        display: none;
+      }
+      .title {
+        display: flex;
+        height: 40 * $height;
+        .t-text {
+          height: 26 * $height;
+          line-height: 26 * $height;
+          font-size: 23 * $font;
+          margin-left: 10 * $width;
+          font-weight: bold;
+        }
+        .icon {
+          width: 26 * $width;
+          height: 26 * $height;
+          img {
+            width: 100%;
           }
         }
-        .desc {
-          .line {
-            // height: 26 * $height;
-            line-height: 30 * $height;
-            font-size: 14 * $font;
-            padding-left: 30 * $width;
-            position: relative;
-            &::before {
-              display: inline-block;
-              content: '';
-              position: absolute;
-              width: 12 * $width;
-              height: 12 * $height;
-              border-radius: 50%;
-              left: 8 * $width;
-              top: 9 * $height;
-              background-color: #7ce2ff;
-            }
+      }
+      .desc {
+        .line {
+          // height: 26 * $height;
+          line-height: 27 * $height;
+          font-size: 17 * $font;
+          padding-left: 30 * $width;
+          position: relative;
+          &::before {
+            display: inline-block;
+            content: '';
+            position: absolute;
+            width: 12 * $width;
+            height: 12 * $height;
+            border-radius: 50%;
+            left: 8 * $width;
+            top: 9 * $height;
+            background-color: #7ce2ff;
           }
         }
       }
@@ -168,7 +203,10 @@ export default {
     height: 660 * $height;
     position: relative;
     img {
-      width: 100%;
+      position: absolute;
+      left: -5%;
+      top: -10%;
+      width: 110%;
     }
     .arrow {
       position: absolute;
@@ -198,6 +236,17 @@ export default {
 
       transition: transform-origin 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985) 0s, transform 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985) 0s;
       //     visibility 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985) 0s, opacity 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985) 0s;
+    }
+    .import-page-box {
+      //   position: relative;
+      padding-top: 30 * $height;
+      .import-page {
+        transform: scale(0.57);
+        transform-origin: left top;
+        // position: absolute;
+        // left: 0;
+        // top: 0;
+      }
     }
     .center {
       left: 410 * $width;
@@ -268,6 +317,7 @@ export default {
     background: url('../assets/images/ca_aside@2.png') no-repeat;
     background-size: contain;
     opacity: 1;
+    cursor: pointer;
   }
 }
 @keyframes carousel-scroll-left {
@@ -307,6 +357,7 @@ export default {
     background: url('../assets/images/ca_aside@2.png') no-repeat;
     background-size: contain;
     opacity: 1;
+    cursor: pointer;
   }
 }
 @keyframes carousel-scroll-right {

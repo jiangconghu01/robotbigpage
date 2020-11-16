@@ -22,29 +22,25 @@ export default {
       const box = this.$echarts.init(document.getElementById('monitor-left-bottom-line'))
       const para_config = JSON.parse(JSON.stringify(parallel))
       box.setOption(para_config)
+      const countLength = para_config.parallelAxis.length
       let center = 0
       let flag = 'to'
       ;(function loop() {
         flag === 'to' && (center += 2)
         flag === 'back' && (center -= 2)
-        center > 46 && flag === 'to' && (flag = 'back')
+        center > countLength - 4 && flag === 'to' && (flag = 'back')
         center < 4 && flag === 'back' && (flag = 'to')
         // console.log(center)
         // box.setOption({ parallel: [{ axisExpandCenter: center }, { axisExpandCenter: center }] })
         box.setOption({ parallel: { axisExpandCenter: center } })
         setTimeout(function() {
           loop()
-        }, 600)
+        }, 800)
       })()
-    },
-    initPie() {
-      const box = this.$echarts.init(document.getElementById('monitor-left-bottom-pie'))
-      box.setOption(pie)
     }
   },
   mounted() {
     this.setParallelSource()
-    this.initPie()
   }
 }
 </script>

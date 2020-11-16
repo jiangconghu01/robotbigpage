@@ -2,15 +2,15 @@
   <div class="work-day-top-view-box">
     <div class="termi-runing">
       <div class="text">当前执行作业</div>
-      <div class="number"><i class="num">276</i><i class="unit">个</i></div>
+      <div class="number"><i class="num">76</i><i class="unit">个</i></div>
     </div>
     <div class="work-finish">
       <div class="text">已完成作业</div>
-      <div class="number"><i class="num">276</i><i class="unit">个</i></div>
+      <div class="number"><i class="num">582</i><i class="unit">个</i></div>
     </div>
     <div class="work-manual">
       <div class="text">异常作业</div>
-      <div class="number"><i class="num">276</i><i class="unit">个</i></div>
+      <div class="number"><i class="num">3</i><i class="unit">个</i></div>
     </div>
   </div>
 </template>

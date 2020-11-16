@@ -9,8 +9,8 @@
           <stop offset="0%" stop-color="rgb(5, 211, 253)" stop-opacity=".8" />
           <stop offset="50%" stop-color="rgb(5, 211, 253)" stop-opacity=".3" />
           <stop offset="100%" stop-color="rgb(5, 211, 253)" stop-opacity="0" />
-          <animate id="light-up" attributeName="r" from="170" to="330" dur="1.5s" begin="0; light-down.end + 0.5s" fill="freeze" />
-          <animate id="light-down" attributeName="r" from="330" to="170" dur="1.5s" begin="light-up.end + 0.5s" fill="freeze" />
+          <animate id="lightup" attributeName="r" from="170" to="330" dur="1.5s" begin="0; lightdown.end + 0.5s" fill="freeze" />
+          <animate id="lightdown" attributeName="r" from="330" to="170" dur="1.5s" begin="lightup.end + 0.5s" fill="freeze" />
         </radialGradient>
       </defs>
       <g>

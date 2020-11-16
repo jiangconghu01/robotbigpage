@@ -31,4 +31,7 @@ export default {
   height: 100%;
   background-image: linear-gradient(90deg, #0e2251 0%, #1b437b 25%, #2e6ca7 50%, #1b437b 75%, #0e2251 100%);
 }
+.test {
+  color: rgba(15, 201, 247, 0);
+}
 </style>

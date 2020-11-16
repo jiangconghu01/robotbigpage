@@ -33,28 +33,6 @@
         </tbody>
       </table>
     </div>
-    <!-- <ul class="table-body">
-      <li v-for="(item, index) in unitTimernalSourceList" :key="index">
-        <span class="index">{{ item.index }}</span>
-        <span class="name">{{ item.name }}</span>
-        <span class="planwork">
-          <i class="num">{{ item.planwork }}</i>
-          <span class="text"><i class="text">同上月</i><i class="icon"></i></span>
-        </span>
-        <span class="finishwork">
-          <i class="num">{{ item.finishwork }}</i
-          ><span class="text"><i class="text">同上月</i><i class="icon"></i> </span>
-        </span>
-        <span class="manualwork">
-          <i class="num">{{ item.manualwork }}</i>
-          <span class="text"><i class="text">同上月</i><i class="icon"></i></span>
-        </span>
-        <span class="resetwork">
-          <i class="num">{{ item.resetwork }}</i
-          ><span class="text"><i class="text">同上月</i><i class="icon"></i></span>
-        </span>
-      </li>
-    </ul> -->
   </div>
 </template>
 <script>

@@ -4,5 +4,6 @@ Vue.use(borderBox8)
 Vue.use(decoration3)
 
 import 'element-ui/lib/theme-chalk/index.css'
-import { Progress } from 'element-ui'
+import { Progress, Tooltip } from 'element-ui'
 Vue.use(Progress)
+Vue.use(Tooltip)

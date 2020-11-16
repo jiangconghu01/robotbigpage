@@ -6,13 +6,13 @@
       <!-- {{ getFormatDate(date) }} -->
     </div>
     <div class="background">
-      <i>中国移动智慧财务机器人</i>
+      <i @click="toNewPage">中国移动智慧财务机器人</i>
     </div>
     <div class="weather">
       <div id="weather-v2-plugin-standard" v-show="isload"></div>
       <div class="temperature">{{ getTemperature }}</div>
     </div>
-    <div class="sub-title">{{ subTitle }}</div>
+    <div @click="toNewPage" class="sub-title">{{ subTitle }}</div>
   </div>
 </template>
 <script>
@@ -77,6 +77,15 @@ export default {
       } catch (error) {
         console.log(error)
       }
+    },
+    toNewPage() {
+      const ruotes = ['Index', 'Monitor', 'Businessval']
+      const href1 = this.$router.resolve({ name: ruotes[0] })
+      const href2 = this.$router.resolve({ name: ruotes[1] })
+      const href3 = this.$router.resolve({ name: ruotes[2] })
+      this.$route.name === 'Index' && window.open(href2.href, '_blank')
+      this.$route.name === 'Monitor' && window.open(href3.href, '_blank')
+      this.$route.name === 'Businessval' && window.open(href1.href, '_blank')
     }
   },
   mounted() {
@@ -149,6 +158,7 @@ export default {
     i {
       font-size: 50 * $font;
       animation: text-pop-up-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+      cursor: pointer;
     }
   }
   .sub-title {
@@ -157,6 +167,7 @@ export default {
     padding-left: 45 * $width; //阴影后位置不居中调整
     font-size: 28 * $font;
     font-weight: bold;
+    cursor: pointer;
   }
 }
 @keyframes text-pop-up-top {

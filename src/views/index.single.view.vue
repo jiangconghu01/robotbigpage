@@ -1,6 +1,6 @@
 <template>
   <div class="single-index-box">
-    <img class="bg" src="../assets/images/index/index_bg@2.png" />
+    <img class="bg" src="../assets/images/index/index_bg_new_2@2.png" />
     <div class="title">
       <ul>
         <li class="circle-title t1"><span>保</span><i>流程顺畅</i></li>

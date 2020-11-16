@@ -1,10 +1,10 @@
 import echarts from 'echarts'
 import { $width, $height, $font } from './basesize.js'
+import { getDaysArr } from '../util/comFunction'
 const axis = []
-const axis2 = []
 const datas = []
-const datas2 = []
-let color = ['#EEA42C', '#669AFF', '#0090FF', '#36CE9E', '#FFC005', '#FF515A', '#8B5CFF', '#00CA69']
+
+let color = ['#669AFF', '#EEA42C', '#0090FF', '#36CE9E', '#FFC005', '#FF515A', '#8B5CFF', '#00CA69']
 for (let i = 0; i < 160; i++) {
   axis.push({ dim: i, name: '08:' + (i > 9 ? i : '0' + i) })
 }
@@ -17,36 +17,20 @@ for (let index = 0; index < 2; index++) {
   datas[index] = { value: d, lineStyle: { color: color[index] } }
 }
 
-for (let i = 0; i < 50; i++) {
-  axis2.push({ dim: i, name: '08:' + (i > 9 ? i : '0' + i) })
-}
-for (let index = 0; index < 2; index++) {
+//当前日期往前两个月，以天为单位的数组
+const axis2 = getDaysArr(90).map((val, index) => ({ dim: index, name: val }))
+const datas2 = []
+const len = axis2.length
+for (let k = 0; k < 1; k++) {
   const d = []
-  for (let i = 0; i < 61; i++) {
-    i !== 50 && d.push(Math.random() * 100)
-    i === 50 && d.push('item' + index)
+  for (let i = 0; i < len; i++) {
+    i !== len - 1 && d.push(~~(Math.random() * 460 + 40))
+    i === len - 1 && d.push('item' + k)
   }
-  datas2[index] = { value: d, lineStyle: { color: color[index] } }
+  datas2[k] = { value: d, lineStyle: { color: color[k] } }
 }
 
 const option = {
-  //   backgroundColor: new echarts.graphic.RadialGradient(0.5, 0.5, 0.4, [
-  //     {
-  //       offset: 0,
-  //       color: '#4b5769'
-  //     },
-  //     {
-  //       offset: 1,
-  //       color: '#404a59'
-  //     }
-  //   ]),
-  //   grid: {
-  //     // show: true,
-  //     left: 0,
-  //     right: 0,
-  //     top: 0,
-  //     bottom: 0
-  //   },
   parallelAxis: axis,
   parallel: {
     top: '10%',
@@ -106,14 +90,14 @@ const option = {
 const option2 = {
   parallelAxis: axis2,
   parallel: {
-    top: 0,
+    top: 20 * $height,
     left: 20 * $width,
     right: 0 * $width,
     bottom: 40 * $height,
     axisExpandable: true,
     axisExpandCenter: 2,
     axisExpandCount: 4,
-    axisExpandWidth: 35 * $width,
+    axisExpandWidth: 40 * $width,
     // axisExpandTriggerOn: "mousemove",
     z: 100,
     parallelAxisDefault: {
@@ -126,7 +110,7 @@ const option2 = {
       },
       nameGap: 20,
       splitNumber: 3,
-      max: 100,
+      max: 550,
       //   tooltip: {
       //     show: true
       //   },
@@ -151,7 +135,7 @@ const option2 = {
     lineStyle: {
       normal: {
         color: '#577ceb',
-        width: 1 * $width,
+        width: 2 * $width,
         opacity: 0.8
       }
     },

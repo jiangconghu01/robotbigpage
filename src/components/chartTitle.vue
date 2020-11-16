@@ -8,6 +8,7 @@
   height: 22 * $height;
   width: 100%;
   font-size: 20 * $font;
+  font-weight: bold;
   position: relative;
   padding-left: 18 * $width;
   &::before {
