@@ -53,48 +53,48 @@
 
       <div class="right-chart2 bg_temp_1">
         <div class="title">
-          <chartTitle>各流程当日作业量及异常率</chartTitle>
+          <chartTitle>各流程当日作业量占比</chartTitle>
           <div class="title_part_line"></div>
         </div>
         <div class="bar-list-layout">
           <div class="bar-list-box">
-            <barScrollItem class="bar-list" :index="1" :datanum="23" :max="67">
+            <barScrollItem class="bar-list" :index="1" :datanum="9" :max="62">
               <div>支付失败清单</div>
               <div>整理</div>
             </barScrollItem>
-            <barScrollItem class="bar-list" :index="2" :datanum="56" :max="125">
+            <barScrollItem class="bar-list" :index="2" :datanum="0" :max="62">
               <div>资产转资确认</div>
               <div>流程</div>
             </barScrollItem>
-            <barScrollItem class="bar-list" :index="3" :datanum="211" :max="225">
+            <barScrollItem class="bar-list" :index="3" :datanum="0" :max="62">
               <div>竣工决算辅助</div>
               <div>审核流程</div>
             </barScrollItem>
-            <barScrollItem class="bar-list" :index="4" :datanum="23" :max="55">
+            <barScrollItem class="bar-list" :index="4" :datanum="1" :max="62">
               <div>租赁类资产稽</div>
               <div>核表编制流程</div>
             </barScrollItem>
-            <barScrollItem class="bar-list" :index="5" :datanum="123" :max="231">
+            <barScrollItem class="bar-list" :index="5" :datanum="7" :max="62">
               <div>现金流量表编</div>
               <div>制流程</div>
             </barScrollItem>
-            <barScrollItem class="bar-list" :index="6" :datanum="88" :max="321">
+            <barScrollItem class="bar-list" :index="6" :datanum="23" :max="62">
               <div>月末关账检查</div>
               <div>流程</div>
             </barScrollItem>
-            <barScrollItem class="bar-list" :index="7" :datanum="167" :max="167">
+            <barScrollItem class="bar-list" :index="7" :datanum="0" :max="62">
               <div>开账关账管理</div>
               <div>流程</div>
             </barScrollItem>
-            <barScrollItem class="bar-list" :index="8" :datanum="33" :max="67">
+            <barScrollItem class="bar-list" :index="8" :datanum="3" :max="62">
               <div>应交增值税结</div>
               <div>转计提流程</div>
             </barScrollItem>
-            <barScrollItem class="bar-list" :index="9" :datanum="55" :max="67">
+            <barScrollItem class="bar-list" :index="9" :datanum="18" :max="62">
               <div>纳税申报流程</div>
               <div></div>
             </barScrollItem>
-            <barScrollItem class="bar-list" :index="10" :datanum="145" :max="211">
+            <barScrollItem class="bar-list" :index="10" :datanum="1" :max="62">
               <div>关联交易表填</div>
               <div>报流程</div>
             </barScrollItem>
@@ -141,9 +141,10 @@ import unitDayWorkStatus from '@/components/businessval/unitDayWorkStatus2.vue'
 import robot from '@/components/businessval/robot.vue'
 import monthOrderMonitorResult from '@/components/businessval/monthOrderMonitorResult.vue'
 import barScrollItem from '@/components/chartScrollItem.vue'
-import centerMap from '@/components/centerMap'
+import centerMap from '@/components/centerMap2' //路由缓存后不会刷新，静态页面演示时候用
 import { busLastList } from './mockdata'
 export default {
+  name: 'Businessval',
   data() {
     return {
       //执行 ，排队，异常
@@ -152,8 +153,8 @@ export default {
         { name: '某某某某单位', accumulateTime: 2992, curMonthTime: 222, relativeRatio: '55%' },
         { name: '某某某某单位2', accumulateTime: 155, curMonthTime: 22, relativeRatio: '55%' }
       ],
-      accumulateWorkNum: [0, 0, 0, 0, '亿', 0, 0, 0, 1, '万', 3, 8, 9, 2],
-      cutDownNum: [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 5, 8, 'h']
+      accumulateWorkNum: [0, 0, 0, 0, '亿', 0, 0, 0, 0, '万', 0, 6, 3, 9],
+      cutDownNum: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 1, 'h']
     }
   },
   created() {},
@@ -474,7 +475,7 @@ export default {
         width: 100%;
         left: 0;
         top: 0;
-        animation: business-right-charts3 87s linear infinite forwards;
+        animation: business-right-charts3 15s linear infinite forwards;
       }
     }
   }
@@ -490,12 +491,12 @@ export default {
     top: 0 * $height;
     opacity: 1;
   }
-  98% {
-    top: -3550 * $height;
+  90% {
+    top: -195 * $height;
     opacity: 1;
   }
   100% {
-    top: -3555 * $height;
+    top: -200 * $height;
     opacity: 0;
   }
 }

@@ -1,11 +1,16 @@
 <template>
+  <!-- <div id="app" :style="{ ...a }"> -->
   <div id="app">
     <!-- <page-container-box :config="{ width: 3840, height: 2194, isfix: true }"> -->
     <!-- <page-container-box :config="{ width: 5760, height: 3291, isfix: true }"> -->
     <!-- <page-container-box :config="{ width: 1920, height: 1080 }"> -->
     <page-container-box :config="{ width: 1920, height: 1097, isfix: false }">
       <commonHeader></commonHeader>
-      <router-view />
+      <transition :name="'slide-left'">
+        <keep-alive :include="cashViews">
+          <router-view />
+        </keep-alive>
+      </transition>
     </page-container-box>
   </div>
 </template>
@@ -13,11 +18,21 @@
 import pageContainerBox from '@/components/pageContainerBox.vue'
 import commonHeader from '@/components/header.vue'
 export default {
+  data() {
+    return {
+      a: { height: '30px' },
+      cashViews: ['Index', 'Monitor', 'Businessval']
+    }
+  },
   components: {
     pageContainerBox,
     commonHeader
   },
-  mounted() {}
+  mounted() {
+    // this.$http.post('/eas-robot/targetData/getTargetData').then((res) => {
+    //   console.log(res)
+    // })
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -33,5 +48,31 @@ export default {
 }
 .test {
   color: rgba(15, 201, 247, 0);
+}
+</style>
+<style>
+.slide-right-enter-active,
+.slide-right-leave-active,
+.slide-left-enter-active,
+.slide-left-leave-active {
+  will-change: transform;
+  transition: all 900ms;
+  position: absolute;
+}
+.slide-right-enter {
+  opacity: 0;
+  transform: translate3d(-100%, 0, 0);
+}
+.slide-right-leave-active {
+  opacity: 0;
+  transform: translate3d(100%, 0, 0);
+}
+.slide-left-enter {
+  opacity: 0;
+  transform: translate3d(100%, 0, 0);
+}
+.slide-left-leave-active {
+  opacity: 0;
+  transform: translate3d(-100%, 0, 0);
 }
 </style>

@@ -18,18 +18,50 @@ for (let index = 0; index < 2; index++) {
 }
 
 //当前日期往前两个月，以天为单位的数组
-const axis2 = getDaysArr(90).map((val, index) => ({ dim: index, name: val }))
+// const axis2 = getDaysArr(90).map((val, index) => ({ dim: index, name: val }))
+// const datas2 = []
+// const len = axis2.length
+// for (let k = 0; k < 1; k++) {
+//   const d = []
+//   for (let i = 0; i < len; i++) {
+//     i !== len - 1 && d.push(~~(Math.random() * 460 + 40))
+//     i === len - 1 && d.push('item' + k)
+//   }
+//   datas2[k] = { value: d, lineStyle: { color: color[k] } }
+// }
+const s = `10.04
+28.03
+57.15
+21.48
+26.28
+16.62
+2.84
+0.03
+6.82
+20.42
+11.5
+30.33
+21.26
+0.03
+0.03
+26.38
+7.48`
+const axis2 = Array.from({ length: 30 }, (v, k) => {
+  const d = k + 1 > 9 ? k + 1 : '0' + (k + 1)
+  return { dim: k, name: '11/' + d }
+})
 const datas2 = []
+const sd = s.split(/\n/)
 const len = axis2.length
 for (let k = 0; k < 1; k++) {
   const d = []
   for (let i = 0; i < len; i++) {
-    i !== len - 1 && d.push(~~(Math.random() * 460 + 40))
-    i === len - 1 && d.push('item' + k)
+    i !== len - 1 && d.push(sd[i] ? Number(sd[i]) : 0)
+    i === len - 1 && d.push(0)
   }
   datas2[k] = { value: d, lineStyle: { color: color[k] } }
 }
-
+console.log(datas2)
 const option = {
   parallelAxis: axis,
   parallel: {
@@ -92,8 +124,8 @@ const option2 = {
   parallel: {
     top: 20 * $height,
     left: 20 * $width,
-    right: 0 * $width,
-    bottom: 40 * $height,
+    right: 20 * $width,
+    bottom: 50 * $height,
     axisExpandable: true,
     axisExpandCenter: 2,
     axisExpandCount: 4,
@@ -106,11 +138,11 @@ const option2 = {
       // nameRotate: 45,
       // nameLocation: 'end',
       nameTextStyle: {
-        fontSize: 12 * $font
+        fontSize: 13 * $font
       },
       nameGap: 20,
       splitNumber: 3,
-      max: 550,
+      max: 60,
       //   tooltip: {
       //     show: true
       //   },

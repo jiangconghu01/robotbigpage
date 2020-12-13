@@ -256,7 +256,7 @@ export default {
         width: 80%;
         height: 30%;
         line-height: 20 * $font;
-        font-size: 14 * $font;
+        font-size: 16 * $font;
 
         position: absolute;
         transform: unset;

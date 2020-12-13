@@ -9,7 +9,7 @@
       <!-- <div class="shadow"></div> -->
     </div>
     <div class="real-num">
-      {{ max }}
+      {{ datanum }}
     </div>
   </div>
 </template>

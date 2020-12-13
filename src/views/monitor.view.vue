@@ -10,17 +10,17 @@
       </div>
       <div class="left-chart1 bg_temp_1">
         <div class="liq">
-          <liquidfill :color="'rgba(0, 210, 255, 1)'" :percent="0.531">
+          <liquidfill :color="'rgba(0, 210, 255, 1)'" :percent="0.0102">
             机器人作业率
           </liquidfill>
         </div>
         <div class="liq">
-          <liquidfill :color="'rgba(244, 166, 40, 1)'" :percent="0.469">
+          <liquidfill :color="'rgba(244, 166, 40, 1)'" :percent="0.9898">
             机器人闲置率
           </liquidfill>
         </div>
         <div class="liq">
-          <liquidfill :color="'rgba(231, 67, 54,1)'" :percent="0.123">
+          <liquidfill :color="'rgba(231, 67, 54,1)'" :percent="0.2636">
             机器人异常率
           </liquidfill>
         </div>
@@ -50,7 +50,7 @@
       </div>
       <div class="left-chart4 bg_temp_1">
         <div class="title">
-          <chartTitle>资源占用情况(近90天)</chartTitle>
+          <chartTitle>资源占用情况(当月)</chartTitle>
           <div class="title_part_line"></div>
           <div class="unit">合计占用:小时</div>
         </div>
@@ -116,12 +116,9 @@ import scrollBox from '@/components/scrollBox'
 import centerMap from '@/components/centerMap'
 import { monitorRunTerData } from './mockdata'
 export default {
+  name: 'Monitor',
   data() {
     return {
-      unitTimernalSourceList: [
-        { name: '某某某某单位', accumulateTime: 2992, curMonthTime: 222, relativeRatio: '55%' },
-        { name: '某某某某单位2', accumulateTime: 155, curMonthTime: 22, relativeRatio: '55%' }
-      ],
       //执行，排队，异常
       timernalRunStatus: monitorRunTerData
     }
@@ -233,7 +230,7 @@ export default {
         }
       }
       .charts-box {
-        margin-top: 15 * $height;
+        // margin-top: 15 * $height;
         height: 175 * $height;
         padding: 0 * $height 10 * $width;
         // height: 110 * $height;
@@ -289,7 +286,7 @@ export default {
         width: 100%;
         top: 0;
         left: 0;
-        animation: monitor-right-chart3 87s linear infinite forwards;
+        animation: monitor-right-chart3 160s linear infinite forwards;
         li {
           //   height: 50 * $height;
           //   line-height: 50 * $height;
@@ -340,12 +337,12 @@ export default {
     top: 0 * $height;
     opacity: 1;
   }
-  97% {
-    top: -3190 * $height;
+  98% {
+    top: -6240 * $height;
     opacity: 1;
   }
   100% {
-    top: -3195 * $height;
+    top: -6245 * $height;
     opacity: 0;
   }
 }

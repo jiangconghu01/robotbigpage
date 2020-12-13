@@ -1,7 +1,7 @@
 <template>
   <div class="center-map-box">
     <div class="top-map">
-      <div id="china-map" class="map-container"></div>
+      <div id="china-map2" class="map-container"></div>
       <div class="map-scale-title">{{ label }}</div>
       <div class="imgicon" v-for="item in imgcions" :key="item.position[0]" :style="{ left: item.position[0] - 5 + 'px', top: item.position[1] - 20 + 'px', animationDelay: item.delay + 's' }">
         <img src="../assets/images/white_robot_icon@2.png" alt="" />
@@ -26,7 +26,7 @@
         <div class="company-list" id="company-list-work-num">
           <ul>
             <li v-for="item in arrlist" :key="item.name + (Math.random() * 100).toFixed(1)" :style="{ backgroundColor: item.color }">
-              <el-tooltip class="item" effect="dark" :content="item.label + (item.value ? item.value : 0) + item.unit" placement="top-start" popper-class="atooltip">
+              <el-tooltip class="item" effect="dark" :content="item.label + (item.value ? item.value : 0) + item.unit" placement="top-start">
                 <div class="tool-tip-box">
                   <span class="company">{{ item.name }}</span>
                   <!-- <span v-if="routeName === 'Businessval'" class="value">作业总量：{{ item.value }}笔</span> -->
@@ -98,7 +98,7 @@ export default {
   },
   methods: {
     inintMap() {
-      const map_box = this.$echarts.init(document.getElementById('china-map'))
+      const map_box = this.$echarts.init(document.getElementById('china-map2'))
       this.$echarts.registerMap('china', chinajson)
       const mapconfig = JSON.parse(JSON.stringify(map))
       //模拟数据代码
@@ -472,47 +472,6 @@ export default {
   100% {
     transform: translateY(0);
     animation-timing-function: ease-out;
-  }
-}
-</style>
-<style lang="scss">
-// 修改tooltips样式
-.company-list .el-tooltip__popper.is-dark {
-  background-color: #409eff;
-}
-.el-tooltip__popper.is-dark[x-placement^='bottom'] .popper__arrow {
-  border-bottom-color: #409eff;
-}
-.el-tooltip__popper.is-dark[x-placement^='bottom'] .popper__arrow::after {
-  border-bottom-color: #409eff;
-}
-.el-tooltip__popper.is-dark[x-placement^='left'] .popper__arrow {
-  border-left-color: #409eff;
-}
-.el-tooltip__popper.is-dark[x-placement^='left'] .popper__arrow::after {
-  border-left-color: #409eff;
-}
-.el-tooltip__popper.is-dark[x-placement^='top'] .popper__arrow {
-  border-top-color: #409eff;
-}
-.el-tooltip__popper.is-dark[x-placement^='top'] .popper__arrow::after {
-  border-top-color: #409eff;
-}
-.el-tooltip__popper {
-  border-radius: 0px;
-  padding: 20px 15px;
-}
-.el-button + .el-button {
-  margin-left: 0px;
-}
-@keyframes aniTwo {
-  0% {
-    transform: scale(0.1);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 0.1;
   }
 }
 </style>

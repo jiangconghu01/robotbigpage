@@ -252,6 +252,7 @@ const map = {
         { name: '广东', value: 62 },
         { name: '西藏', value: 60 },
         { name: '吉林', value: 60 }
+        //["海南", "重庆", "安徽", "贵州", "西藏", "河南", "江苏", "广东", "陕西"]
       ],
       //   data: mapseriseData,
       itemStyle: {

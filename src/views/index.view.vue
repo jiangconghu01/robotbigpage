@@ -79,9 +79,11 @@ import carouselLeft from '@/components/carouIndex/carousel.item.left.vue'
 import carouselRight from '@/components/carouIndex/carousel.item.right.vue'
 import arrowMove from '@/components/index/arrowMove.vue'
 export default {
+  name: 'Index',
   data() {
     return {
       carousels: ['left', 'center', 'right'],
+      //   carousels: ['left', 'right', 'center'], //这个是嵌入页面显示的
       //   carousels: ['right', 'center', 'left'],
       //   carousels: ['center', 'left', 'right'],
       importPageOpac: 0,
@@ -114,7 +116,7 @@ export default {
       }
       setTimeout(() => {
         this.carouselsPage()
-      }, 5000)
+      }, 8000)
     }
   },
   mounted() {
@@ -252,7 +254,6 @@ export default {
       left: 410 * $width;
       background: url('../assets/images/ca_center@1.png') no-repeat;
       background-size: contain;
-      //   display: none;
       animation: carousel-scroll-center 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1 forwards;
     }
     .left,

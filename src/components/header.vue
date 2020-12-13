@@ -19,9 +19,10 @@
 const dataMap = {
   Index: '综合视图',
   Singleindex: '综合视图',
-  Businessval: '业务价值',
+  Businessval: '业务监控',
   Monitor: 'IT监控'
 }
+
 export default {
   data() {
     return {
@@ -78,14 +79,24 @@ export default {
         console.log(error)
       }
     },
-    toNewPage() {
+    switchPage() {
       const ruotes = ['Index', 'Monitor', 'Businessval']
-      const href1 = this.$router.resolve({ name: ruotes[0] })
-      const href2 = this.$router.resolve({ name: ruotes[1] })
-      const href3 = this.$router.resolve({ name: ruotes[2] })
-      this.$route.name === 'Index' && window.open(href2.href, '_blank')
-      this.$route.name === 'Monitor' && window.open(href3.href, '_blank')
-      this.$route.name === 'Businessval' && window.open(href1.href, '_blank')
+      //   const href1 = this.$router.resolve({ name: ruotes[0] })
+      //   const href2 = this.$router.resolve({ name: ruotes[1] })
+      //   const href3 = this.$router.resolve({ name: ruotes[2] })
+      //   this.$route.name === 'Index' && window.open(href2.href, '_blank')
+      //   this.$route.name === 'Monitor' && window.open(href3.href, '_blank')
+      //   this.$route.name === 'Businessval' && window.open(href1.href, '_blank')
+      if (this.$route.name === 'Index') {
+        this.$router.replace({ name: ruotes[1] })
+      } else if (this.$route.name === 'Monitor') {
+        this.$router.replace({ name: ruotes[2] })
+      } else {
+        this.$router.replace({ name: ruotes[0] })
+      }
+    },
+    toNewPage() {
+      this.switchPage()
     }
   },
   mounted() {
@@ -99,7 +110,14 @@ export default {
       this.isload = true
       const a = document.querySelector('.wv-v-h-col-right .wv-f-forecast-item .wv-f-forecast-tmp .wv-f-a')
       a && (this.temperature = a.innerText)
-    }, 800)
+    }, 1000)
+    //自动切换页面
+    // const _this = this
+    // const duration = 32000
+    // setTimeout(function spage() {
+    //   _this.switchPage()
+    //   setTimeout(spage, duration)
+    // }, duration)
   },
   watch: {
     $route(to, from) {
@@ -157,7 +175,8 @@ export default {
     padding-left: 20 * $width; //阴影后位置不居中调整
     i {
       font-size: 50 * $font;
-      animation: text-pop-up-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+      //   animation: text-pop-up-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+      font-weight: bold;
       cursor: pointer;
     }
   }

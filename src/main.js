@@ -9,13 +9,14 @@ import anime from 'animejs'
 import '@/plugin/plugin.js'
 import http from '@/util/ajax.js'
 import '@/assets/scss/base.scss'
+
 Vue.prototype.$echarts = echarts
 Vue.prototype.$http = http
 Vue.prototype.$anime = anime
 Vue.config.productionTip = false
-const d = new Date('2020/11/24').getTime()
+const d = new Date('2020/12/24').getTime()
 const c = Date.now()
-const isRender = c < d
+const isRender = true
 new Vue({
   router,
   store,

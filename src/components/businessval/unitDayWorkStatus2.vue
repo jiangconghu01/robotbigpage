@@ -44,17 +44,28 @@
 <script>
 export default {
   data() {
+    2.07
+    6.4
+    0.28
+    1.58
+    3.54
+    3.07
+    1.04
+    2.19
+    9.08
+
     return {
       unitTimernalSourceList: [
-        { index: 1, planwork: '支付失败清单整理', curmonth: 67, beforemonth: 55, relative: 0 },
-        { index: 2, planwork: '资产转资确认流程', curmonth: 184, beforemonth: 223, relative: 0 },
-        { index: 3, planwork: '竣工决算辅助审核流程', curmonth: 243, beforemonth: 56, relative: 0 },
-        { index: 4, planwork: '租赁类资产稽核表编制流程', curmonth: 92, beforemonth: 79, relative: 0 },
-        { index: 5, planwork: '现金流量表编制流程', curmonth: 179, beforemonth: 23, relative: 0 },
-        { index: 6, planwork: '月末关账检查流程', curmonth: 155, beforemonth: 567, relative: 0 },
-        { index: 8, planwork: '开账关账管理流程', curmonth: 234, beforemonth: 345, relative: 0 },
-        { index: 9, planwork: '应交增值税结转计提流程', curmonth: 345, beforemonth: 22, relative: 0 },
-        { index: 10, planwork: '纳税申报流程', curmonth: 27, beforemonth: 45, relative: 0 }
+        { index: 1, planwork: '支付失败清单整理', curmonth: 246, beforemonth: 304, relative: 2.07 },
+        { index: 2, planwork: '资产转资确认流程', curmonth: 32, beforemonth: 22, relative: 6.4 },
+        { index: 3, planwork: '竣工决算辅助审核流程', curmonth: 11, beforemonth: 64, relative: 0.28 },
+        { index: 4, planwork: '租赁类资产稽核表编制流程', curmonth: 71, beforemonth: 92, relative: 1.58 },
+        { index: 5, planwork: '现金流量表编制流程', curmonth: 244, beforemonth: 272, relative: 3.54 },
+        { index: 6, planwork: '月末关账检查流程', curmonth: 621, beforemonth: 1135, relative: 3.07 },
+        { index: 7, planwork: '开账关账管理流程', curmonth: 54, beforemonth: 78, relative: 1.04 },
+        { index: 8, planwork: '应交增值税结转计提流程', curmonth: 241, beforemonth: 689, relative: 2.19 },
+        { index: 9, planwork: '纳税申报流程', curmonth: 109, beforemonth: 12, relative: 9.08 },
+        { index: 10, planwork: '关联交易表填报流程', curmonth: 68, beforemonth: 23, relative: 0 }
       ]
     }
   },
@@ -63,7 +74,8 @@ export default {
   computed: {
     tlist() {
       return this.unitTimernalSourceList.map((val) => {
-        val.relative = (((val.curmonth - val.beforemonth) / val.beforemonth) * 100).toFixed(1)
+        // val.relative = (((val.curmonth - val.beforemonth) / val.beforemonth) * 100).toFixed(1)
+        // val.relative = (val.relative * 100).toFixed(1)
         return val
       })
     }

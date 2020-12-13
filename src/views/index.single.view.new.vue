@@ -79,7 +79,7 @@
       <div class="text-layer">
         <div class="auto-export-1 normal">自动输出操作结果</div>
         <!-- <div class="auto-export-2 normal">自动输出异常报告</div> -->
-        <div class="manual-exe normal">正常运行33小时</div>
+        <div class="manual-exe normal">正常运行845小时</div>
         <div class="exc-status normal">运行时</div>
         <div class="flage-box">
           <svg class="svg" viewBox="0 0 96 128">
@@ -97,31 +97,31 @@
         </div>
         <div class="all-users">
           <h3>用户已突破</h3>
-          <p><i class="num">666</i><i>人</i></p>
+          <p><i class="num">2661</i><i>人</i></p>
         </div>
         <div class="acc-bills acc">
           <h3>累计成功作业</h3>
-          <p><i class="num">448</i><i>笔</i></p>
+          <p><i class="num">639</i><i>笔</i></p>
         </div>
         <div class="acc-exc acc">
           <h3>累计节约时长</h3>
-          <p><i class="num">66</i><i>小时</i></p>
+          <p><i class="num">201</i><i>小时</i></p>
         </div>
         <div class="normal-status normal">作业</div>
         <div class="right">
           <h3>10个流程</h3>
           <div class="flow-list-box">
             <ul class="flow-list-inner">
-              <li class="text">租赁类稽核资产表编制流程</li>
-              <li class="text">支付失败清单整理流程</li>
+              <li class="text">支付失败清单整理</li>
               <li class="text">资产转资确认流程</li>
-              <li class="text">资产转资确认流程</li>
-              <li class="text">支付失败清单整理流程</li>
-              <li class="text">资产转资确认流程</li>
-              <li class="text">支付失败清单整理流程</li>
-              <li class="text">资产转资确认流程</li>
-              <li class="text">支付失败清单整理流程</li>
-              <li class="text">资产转资确认流程</li>
+              <li class="text">竣工决算辅助审核流程</li>
+              <li class="text">租赁类资产稽核表编制流程</li>
+              <li class="text">现金流量表编制流程</li>
+              <li class="text">月末关账检查流程</li>
+              <li class="text">开账关账管理流程</li>
+              <li class="text">应交增值税结转计提流程</li>
+              <li class="text">纳税申报流程</li>
+              <li class="text">关联交易表填报流程</li>
             </ul>
           </div>
         </div>
@@ -295,14 +295,14 @@ export default {
       bottom: 0;
       .normal {
         text-align: center;
-        font-size: 20 * $font;
+        font-size: 24 * $font;
         font-weight: bold;
         position: absolute;
       }
       .auto-export-1 {
         transform: rotateZ(-30deg) rotateY(30deg) rotateX(35deg);
-        left: 570 * $width;
-        top: 185 * $height;
+        left: 560 * $width;
+        top: 189 * $height;
       }
       .auto-export-2 {
         transform: rotateZ(-30deg) rotateY(30deg) rotateX(35deg);
@@ -311,8 +311,8 @@ export default {
       }
       .manual-exe {
         transform: rotateZ(-30deg) rotateY(30deg) rotateX(35deg);
-        left: 630 * $width;
-        top: 460 * $height;
+        left: 620 * $width;
+        top: 465 * $height;
       }
       .exc-status {
         transform: rotateZ(-30deg) rotateY(30deg) rotateX(35deg);
@@ -381,7 +381,7 @@ export default {
         top: 90 * $height;
         position: absolute;
         h3 {
-          font-size: 22 * $font;
+          font-size: 28 * $font;
           font-weight: bold;
           height: 50 * $height;
           line-height: 50 * $height;
@@ -404,7 +404,7 @@ export default {
         transform: rotateZ(33deg) rotateY(30deg) rotateX(-35deg);
         position: absolute;
         h3 {
-          font-size: 20 * $font;
+          font-size: 28 * $font;
           font-weight: bold;
           height: 50 * $height;
           line-height: 50 * $height;
@@ -415,20 +415,20 @@ export default {
           align-items: center;
           i {
             font-weight: bold;
-            font-size: 16 * $font;
+            font-size: 22 * $font;
           }
           .num {
             font-weight: bold;
-            font-size: 38 * $font;
+            font-size: 42 * $font;
           }
         }
       }
       .acc-bills {
         left: 390 * $width;
-        top: 190 * $height;
+        top: 200 * $height;
       }
       .normal-status {
-        left: 780 * $width;
+        left: 790 * $width;
         top: 240 * $height;
         transform: rotateZ(33deg) rotateY(30deg) rotateX(-35deg);
       }
@@ -454,7 +454,7 @@ export default {
           width: 100%;
           margin-top: 28 * $height;
           height: 150 * $height;
-          font-size: 22 * $font;
+          font-size: 24 * $font;
           overflow: hidden;
           position: relative;
           .flow-list-inner {
@@ -467,7 +467,7 @@ export default {
               line-height: 50 * $height;
               position: relative;
               padding-left: 20 * $width;
-              font-weight: bold;
+              //   font-weight: bold;
               &::before {
                 display: inline-block;
                 content: '';

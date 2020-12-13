@@ -97,7 +97,8 @@ const option = {
         show: true,
         position: 'top',
         textStyle: {
-          color: '#048FD5'
+          color: '#048FD5',
+          fontSize: 8
         }
       },
       areaStyle: {
