@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       a: { height: '30px' },
-      cashViews: ['Index', 'Monitor', 'Businessval']
+      cashViews: ['Index', 'Businessval', 'Monitor']
     }
   },
   components: {

@@ -64,12 +64,17 @@
       <div class="right-arrow arrow">
         <arrowMove></arrowMove>
       </div>
-      <!-- 这里的左右和left,right是反的，代码写乱了不知道为啥讲究用 -->
-      <div class="carousel-item" @mouseover="ishover('right')" @mouseleave="out" :class="carousels[0]"><carouselLeft></carouselLeft></div>
+      <!-- 这里的左右和left,right是反的，代码写乱了不知道为啥,将就用就行 -->
+      <!-- <div class="carousel-item" @mouseover="ishover('right')" @mouseleave="out" :class="carousels[0]"><carouselLeft></carouselLeft></div>
       <div class="carousel-item import-page-box" :class="carousels[1]">
         <div class="import-page" @mouseover="ishover('center')" @mouseleave="out" :style="{ opacity: importPageOpac }"><singlePage></singlePage></div>
       </div>
-      <div class="carousel-item" @mouseover="ishover('left')" @mouseleave="out" :class="carousels[2]"><carouselRight></carouselRight></div>
+      <div class="carousel-item" @mouseover="ishover('left')" @mouseleave="out" :class="carousels[2]"><carouselRight></carouselRight></div> -->
+      <div class="carousel-item" @click="handleClick(carousels[0])" :class="carousels[0]"><carouselLeft></carouselLeft></div>
+      <div class="carousel-item import-page-box" @click="handleClick(carousels[1])" :class="carousels[1]">
+        <div class="import-page" :style="{ opacity: importPageOpac }"><singlePage></singlePage></div>
+      </div>
+      <div class="carousel-item" @click="handleClick(carousels[2])" :class="carousels[2]"><carouselRight></carouselRight></div>
     </div>
   </div>
 </template>
@@ -82,8 +87,8 @@ export default {
   name: 'Index',
   data() {
     return {
-      carousels: ['left', 'center', 'right'],
-      //   carousels: ['left', 'right', 'center'], //这个是嵌入页面显示的
+      //   carousels: ['left', 'center', 'right'],
+      carousels: ['left', 'right', 'center'], //这个是嵌入页面显示的
       //   carousels: ['right', 'center', 'left'],
       //   carousels: ['center', 'left', 'right'],
       importPageOpac: 0,
@@ -99,12 +104,23 @@ export default {
   },
   computed: {},
   methods: {
+    handleClick(p) {
+      console.log(p)
+      if (p === 'right') {
+        return
+      }
+      const copy = this.carousels.slice(0)
+      copy.unshift(copy[copy.length - 1])
+
+      copy.length = copy.length - 1
+      this.carousels = copy
+    },
     out() {
       this.ishoverCenterItem = false
     },
     ishover(p) {
       console.log(this.carousels[0], p)
-      this.ishoverCenterItem = this.carousels[0] === p
+      //   this.ishoverCenterItem = this.carousels[0] === p
     },
     carouselsPage() {
       const copy = this.carousels.slice(0)
@@ -120,7 +136,7 @@ export default {
     }
   },
   mounted() {
-    this.carouselsPage()
+    // this.carouselsPage()
     setTimeout(() => {
       this.importPageOpac = 1
     }, 500)

@@ -80,7 +80,7 @@ export default {
       }
     },
     switchPage() {
-      const ruotes = ['Index', 'Monitor', 'Businessval']
+      const ruotes = ['Index', 'Businessval', 'Monitor']
       //   const href1 = this.$router.resolve({ name: ruotes[0] })
       //   const href2 = this.$router.resolve({ name: ruotes[1] })
       //   const href3 = this.$router.resolve({ name: ruotes[2] })
@@ -89,7 +89,7 @@ export default {
       //   this.$route.name === 'Businessval' && window.open(href1.href, '_blank')
       if (this.$route.name === 'Index') {
         this.$router.replace({ name: ruotes[1] })
-      } else if (this.$route.name === 'Monitor') {
+      } else if (this.$route.name === 'Businessval') {
         this.$router.replace({ name: ruotes[2] })
       } else {
         this.$router.replace({ name: ruotes[0] })

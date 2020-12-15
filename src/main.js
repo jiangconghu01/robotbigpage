@@ -1,3 +1,4 @@
+import 'babel-polyfill'
 import Vue from 'vue'
 import App from './App.vue'
 import Appout from './Appouttime.vue'
@@ -20,5 +21,6 @@ const isRender = true
 new Vue({
   router,
   store,
-  render: (h) => h(isRender ? App : Appout)
+  //   render: (h) => h(isRender ? App : Appout)
+  render: (h) => h(App)
 }).$mount('#app')
