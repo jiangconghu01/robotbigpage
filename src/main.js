@@ -21,6 +21,5 @@ const isRender = true
 new Vue({
   router,
   store,
-  //   render: (h) => h(isRender ? App : Appout)
-  render: (h) => h(App)
+  render: (h) => h(isRender ? App : Appout)
 }).$mount('#app')

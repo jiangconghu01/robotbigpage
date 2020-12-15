@@ -15,6 +15,7 @@ module.exports = {
     // vue默认@指向src目录
     config.resolve.alias.set('@', path.resolve('src'))
   },
+  transpileDependencies: ['@jiaminghi/data-view'],
   devServer: {
     compress: true,
     hot: true,
