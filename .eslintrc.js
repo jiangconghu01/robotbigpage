@@ -38,7 +38,7 @@ module.exports = {
     'vue/v-bind-style': ['error', 'shorthand'], // 必须使用:来绑定
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'warn', // 只允许在开发环境中使用debugger
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'warn',
-    'no-unused-vars': 0, // 禁止出现未使用过的变量
+    'no-unused-vars': 1, // 禁止出现未使用过的变量
     'spaced-comment': 0, // 强制在注释中 // 或 /* 使用一致的空格
     'newline-per-chained-call':0,
     'vue/no-unused-components':1

@@ -1,11 +1,16 @@
 <template>
   <div class="scroll-item-box">
     <div class="num">{{ index }}</div>
-    <div class="text">
+    <div class="text" v-if="!name">
       <slot></slot>
     </div>
+    <div class="text" v-else>
+      <div>{{ name && name.slice(0, 5) }}</div>
+      <div>{{ name && name.slice(5, 10) }}</div>
+      <div>{{ name && name.slice(10) }}</div>
+    </div>
     <div class="chart">
-      <el-progress :stroke-width="18" :percentage="per" :text-inside="true"></el-progress>
+      <el-progress :stroke-width="18" :percentage="precent" :text-inside="true"></el-progress>
       <!-- <div class="shadow"></div> -->
     </div>
     <div class="real-num">
@@ -27,6 +32,14 @@ export default {
     max: {
       type: Number,
       default: 0
+    },
+    precent: {
+      type: Number,
+      default: 0
+    },
+    name: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -34,11 +47,7 @@ export default {
   },
   created() {},
   components: {},
-  computed: {
-    per() {
-      return Number(((this.datanum / this.max) * 100).toFixed(1))
-    }
-  },
+  computed: {},
   methods: {},
   mounted() {}
 }

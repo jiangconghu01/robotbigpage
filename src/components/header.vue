@@ -176,8 +176,11 @@ export default {
     i {
       font-size: 50 * $font;
       //   animation: text-pop-up-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+      text-shadow: 3px 5px 8px rgba(0, 0, 0, 0.25), 4px 6px 8px rgba(0, 0, 0, 0.405);
       font-weight: bold;
       cursor: pointer;
+      display: inline-block;
+      transform: scale(0.8, 1);
     }
   }
   .sub-title {

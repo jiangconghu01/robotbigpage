@@ -259,7 +259,7 @@ export default {
         font-size: 16 * $font;
 
         position: absolute;
-        transform: unset;
+        transform: translateY(0) translateX(0);
         top: 20%;
         left: 10%;
         p {

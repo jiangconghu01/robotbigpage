@@ -1,7 +1,8 @@
 const path = require('path')
 const resolve = (dir) => path.join(__dirname, dir)
 // console.log(process.env.NODE_ENV)
-const proxyUrl = 'http://192.168.0.101:8080/'
+const proxyUrl = 'http://192.168.1.21:9900/'
+// const proxyUrl = 'http://192.168.0.101:8080/'
 module.exports = {
   //   publicPath: process.env.NODE_ENV === 'production' ? '/robot/dist/' : '',
   publicPath: process.env.NODE_ENV === 'production' ? './' : '',

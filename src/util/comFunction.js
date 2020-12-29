@@ -25,6 +25,20 @@ const timer = new Timer()
 // timer.repeat(a, 1000)
 // timer.repeat(b, 1000) // 不会定时执行 b
 
+function getCurrentDate(split = '') {
+  const date = new Date()
+  const year = date.getFullYear()
+  const month = date.getMonth()
+  const day = date.getDate()
+  const d = new Date(year, month + 1, 0)
+  const dayNum = d.getDate()
+  const year_month = year + split + (month > 8 ? month + 1 : '0' + (month + 1))
+  return {
+    first: year_month + split + '01',
+    current: year_month + split + (day > 9 ? day : '0' + day),
+    last: year_month + split + dayNum
+  }
+}
 /**
  *
  * @param {*} date
@@ -56,7 +70,12 @@ function getMonthsAgoDay(date, monthNum) {
   let t2 = year2 + '-' + month2 + '-' + day2
   return t2
 }
+
 //获取当前n天所有日期
+/**
+ *
+ * @param {*} num
+ */
 function getDaysArr(num = 60) {
   const dateArr = []
   let time = new Date().getTime()
@@ -114,5 +133,45 @@ function getColorArr(numarr) {
     return colorArr[~~(((val - min) / d) * 99)]
   })
 }
-
-export { timer, getMonthsAgoDay, getDaysArr, getColorArr }
+//动态创建keyframs，只需要遍历第一个
+function getKeyframes(name, n = 1) {
+  var animation = {}
+  var styleSheets = document.styleSheets
+  for (var i = 0; i < styleSheets.length; i++) {
+    var item = styleSheets[i]
+    var falg = !item.href || item.href.startsWith(window.location.origin)
+    var isEnd = false
+    for (let j = 0; j < n; j++) {
+      if (falg && item.cssRules[j] && item.cssRules[j].name && item.cssRules[j].name === name) {
+        animation.cssRule = item.cssRules[j]
+        animation.styleSheet = item
+        animation.index = j
+        isEnd = true
+        break
+      }
+    }
+    if (isEnd) {
+      break
+    }
+  }
+  return animation
+}
+//遍历所有的keyframs，查找对应的keyframs
+function findKeyframesRule(rule) {
+  //此处过滤非同源的styleSheet，因为非同源的无法访问cssRules，会报错
+  var ss = Array.from(document.styleSheets).filter((styleSheet) => !styleSheet.href || styleSheet.href.startsWith(window.location.origin))
+  for (var i = 0; i < ss.length; ++i) {
+    for (var j = 0; j < ss[i].cssRules.length; ++j) {
+      if (ss[i].cssRules[j].type === window.CSSRule.KEYFRAMES_RULE && ss[i].cssRules[j].name === rule) {
+        return ss[i].cssRules[j]
+      }
+    }
+  }
+  return null
+}
+function round(number, precision) {
+  return Math.round(+number + 'e' + precision) / Math.pow(10, precision)
+  //same as:
+  //return Number(Math.round(+number + 'e' + precision) + 'e-' + precision);
+}
+export { timer, getMonthsAgoDay, getDaysArr, getColorArr, getKeyframes, getCurrentDate, round }

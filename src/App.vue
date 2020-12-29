@@ -17,6 +17,7 @@
 <script>
 import pageContainerBox from '@/components/pageContainerBox.vue'
 import commonHeader from '@/components/header.vue'
+import { dynamickeyframes } from './views/page.static'
 export default {
   data() {
     return {
@@ -28,10 +29,20 @@ export default {
     pageContainerBox,
     commonHeader
   },
+  methods: {
+    initDynamicKeyframes() {
+      // 创建style标签
+      const style = document.createElement('style')
+      // 设置style属性
+      style.type = 'text/css'
+      // 将 keyframes样式写入style内
+      style.innerHTML = dynamickeyframes
+      // 将style样式存放到head标签
+      document.getElementsByTagName('head')[0].appendChild(style)
+    }
+  },
   mounted() {
-    // this.$http.post('/eas-robot/targetData/getTargetData').then((res) => {
-    //   console.log(res)
-    // })
+    this.initDynamicKeyframes()
   }
 }
 </script>

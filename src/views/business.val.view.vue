@@ -12,7 +12,7 @@
         <chartTitle>累计作业执行量（笔）</chartTitle>
         <div class="title_part_line"></div>
         <ul class="drowp-list accumulate-work">
-          <li v-for="(item, index) in accumulateWorkNum" :key="index" :class="typeof item === 'number' ? 'num' : 'text'">
+          <li v-for="(item, index) in workNumArr" :key="index" :class="typeof item === 'number' ? 'num' : 'text'">
             <i>{{ item }}</i>
           </li>
         </ul>
@@ -21,7 +21,7 @@
         <chartTitle>节省人时（小时）</chartTitle>
         <div class="title_part_line"></div>
         <ul class="drowp-list accumulate-work">
-          <li v-for="(item, index) in cutDownNum" :key="index" :class="typeof item === 'number' ? 'num' : 'text'">
+          <li v-for="(item, index) in cutDownTimeArr" :key="index" :class="typeof item === 'number' ? 'num' : 'text'">
             <i>{{ item }}</i>
           </li>
         </ul>
@@ -32,7 +32,7 @@
           <div class="title_part_line"></div>
         </div>
         <div class="bar-list-layout">
-          <unitDayWorkStatus></unitDayWorkStatus>
+          <unitDayWorkStatus :list="leftBottomList"></unitDayWorkStatus>
         </div>
       </div>
     </div>
@@ -48,7 +48,7 @@
         </layoutTitle>
       </div>
       <div class="right-chart1 bg_temp_1">
-        <workRightTop></workRightTop>
+        <workRightTop :data="rightTopData"></workRightTop>
       </div>
 
       <div class="right-chart2 bg_temp_1">
@@ -58,11 +58,8 @@
         </div>
         <div class="bar-list-layout">
           <div class="bar-list-box">
-            <barScrollItem class="bar-list" :index="1" :datanum="9" :max="62">
-              <div>支付失败清单</div>
-              <div>整理</div>
-            </barScrollItem>
-            <barScrollItem class="bar-list" :index="2" :datanum="0" :max="62">
+            <barScrollItem class="bar-list" :index="index + 1" :datanum="Number(item.value)" v-for="(item, index) in rightCenterArr" :key="item.flowName" :name="item.flowName"> </barScrollItem>
+            <!-- <barScrollItem class="bar-list" :index="2" :datanum="0" :max="62">
               <div>资产转资确认</div>
               <div>流程</div>
             </barScrollItem>
@@ -97,7 +94,7 @@
             <barScrollItem class="bar-list" :index="10" :datanum="1" :max="62">
               <div>关联交易表填</div>
               <div>报流程</div>
-            </barScrollItem>
+            </barScrollItem> -->
           </div>
         </div>
       </div>
@@ -112,17 +109,28 @@
             <li class="status">状态</li>
           </ul>
           <div class="table-body">
-            <ul class="table-body-scroll">
-              <li v-for="(item, index) in unitWorkingStatus" :key="index">
-                <span class="index">{{ item.index }}</span>
-                <span class="unitname">{{ item.unitname }}</span>
-                <span class="workflow">{{ item.workflow }}</span>
+            <ul class="table-body-scroll" id="business-right-charts3-box">
+              <li v-for="(item, index) in rightBottomList" :key="index">
+                <span class="index">{{ index + 1 }}</span>
+                <span class="unitname">{{ item.companyName }}</span>
+                <span class="workflow">{{ item.flowName }}</span>
 
-                <span class="status" v-if="item.status == 'finish'"> <i class="finish button">完成</i></span>
-                <span class="status" v-else-if="item.status == 'exe'"><i class="exe button">执行</i></span>
-                <span class="status" v-else-if="item.status == 'beforhandle'"><i class="beforhandle button">预占</i></span>
-                <span class="status" v-else-if="item.status == 'lineup'"><i class="lineup button">排队</i></span>
-                <span class="status" v-else><i class="exc button">异常</i></span>
+                <span class="status" v-if="item.robotClient == '完成'">
+                  <i class="finish button">{{ item.robotClient }}</i></span
+                >
+                <span class="status" v-else-if="item.robotClient == '执行'"
+                  ><i class="exe button">{{ item.robotClient }}</i></span
+                >
+                <span class="status" v-else-if="item.robotClient == '预占'"
+                  ><i class="beforhandle button">{{ item.robotClient }}</i></span
+                >
+                <span class="status" v-else-if="item.robotClient == '排队'"
+                  ><i class="lineup button">{{ item.robotClient }}</i></span
+                >
+                <span class="status" v-else-if="item.robotClient == '异常'"
+                  ><i class="exc button">{{ item.robotClient }}</i></span
+                >
+                <span class="status" v-else></span>
               </li>
             </ul>
           </div>
@@ -132,36 +140,229 @@
   </div>
 </template>
 <script>
-import { option as parallel } from '@/chartconfig/parallel.js'
 import layoutTitle from '@/components/layoutTitle'
 import chartTitle from '@/components/chartTitle'
 import workRightTop from '@/components/businessval/workRightTop.vue'
-// import unitDayWorkStatus from '@/components/businessval/unitDayWorkStatus.vue'
 import unitDayWorkStatus from '@/components/businessval/unitDayWorkStatus2.vue'
-import robot from '@/components/businessval/robot.vue'
-import monthOrderMonitorResult from '@/components/businessval/monthOrderMonitorResult.vue'
 import barScrollItem from '@/components/chartScrollItem.vue'
-import centerMap from '@/components/centerMap2' //路由缓存后不会刷新，静态页面演示时候用
+import centerMap from '@/components/centerMap' //路由缓存后不会刷新，静态页面演示时候用
 import { busLastList } from './mockdata'
+import { getKeyframes, getCurrentDate, round } from '@/util/comFunction'
 export default {
   name: 'Businessval',
   data() {
     return {
+      leftTopData: {
+        work_num: 0,
+        cutdown_time: 0
+      },
+      leftBottomList: [],
+      rightTopData: {
+        current: 0,
+        finish: 0,
+        exc: 0
+      },
+      rightCenterList: [],
+      rightBottomList: [],
       //执行 ，排队，异常
       unitWorkingStatus: busLastList,
       unitTimernalSourceList: [
         { name: '某某某某单位', accumulateTime: 2992, curMonthTime: 222, relativeRatio: '55%' },
         { name: '某某某某单位2', accumulateTime: 155, curMonthTime: 22, relativeRatio: '55%' }
-      ],
-      accumulateWorkNum: [0, 0, 0, 0, '亿', 0, 0, 0, 0, '万', 0, 6, 3, 9],
-      cutDownNum: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 1, 'h']
+      ]
     }
   },
   created() {},
-  components: { layoutTitle, chartTitle, workRightTop, unitDayWorkStatus, barScrollItem, robot, monthOrderMonitorResult, centerMap },
-  computed: {},
-  methods: {},
-  mounted() {}
+  components: { layoutTitle, chartTitle, workRightTop, unitDayWorkStatus, barScrollItem, centerMap },
+  computed: {
+    workNumArr() {
+      const list = (this.leftTopData.work_num + '').split('')
+      //   const temp = [0, 0, 0, 0, '亿', 0, 0, 0, 0, '万', 0, 0, 0, 0]
+      const temp = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      const len = temp.length
+      let list_start = 0
+      for (let index = len - 1; index >= 0; index--) {
+        if (list[list_start] !== undefined) {
+          temp[index] = Number(list[list_start])
+          list_start++
+        } else {
+          break
+        }
+      }
+      return [...temp.slice(0, 4), '亿', ...temp.slice(4, 8), '万', ...temp.slice(-4)]
+    },
+    cutDownTimeArr() {
+      const list = (this.leftTopData.cutdown_time + '').split('')
+      const temp = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      const len = temp.length
+      let list_start = 0
+      for (let index = len - 1; index >= 0; index--) {
+        if (list[list_start] !== undefined) {
+          temp[index] = Number(list[list_start])
+          list_start++
+        } else {
+          break
+        }
+      }
+      return [...temp, 'h']
+    },
+    rightCenterArr() {
+      const sum = this.rightCenterList.reduce((pre, curr) => {
+        return (pre += Number(curr.value))
+      }, 0)
+      return this.rightCenterList.map((val) => {
+        if (sum === 0 || !sum) {
+          val.percent = 0
+        } else {
+          val.percent = val.value / sum
+        }
+        return val
+      })
+    }
+  },
+  methods: {
+    initPage() {
+      this.leftTop()
+      this.leftBottom()
+      //   this.centerMap()
+      //   this.centerBottom()
+      this.rightTop()
+      this.rightCenter()
+      this.rightBottom()
+    },
+    setAnimationList(listLength) {
+      const h = listLength * 50 - 255
+      if (h < 50) {
+        return
+      }
+      const s = (h / 1000) * 40
+      const kf = getKeyframes('business-right-charts3', 2)
+      kf.styleSheet.deleteRule(kf.index)
+      kf.styleSheet.insertRule(`@keyframes business-right-charts3 {
+            0% {
+                top: 0px;
+                opacity: 1;
+            }
+            95% {
+                top: -${h}px;
+                opacity: 1;
+            }
+            100% {
+                top: -${h + 5}px;
+                opacity: 0;
+            }
+        }`)
+      const ball = document.getElementById('business-right-charts3-box')
+      ball.setAttribute('style', 'animation:business-right-charts3 ' + s + 's linear infinite forwards;')
+    },
+    leftTop() {
+      const date = getCurrentDate()
+      const param1 = {
+        targetCode: 'YW_000001',
+        startDate: date.current,
+        startTime: '',
+        endDate: date.current,
+        endTime: '',
+        orgCode: '',
+        flowCode: '',
+        targetFlag: '',
+        grade: ''
+      }
+      this.$http.post('/eas-robot/targetData/getTargetData', param1).then((res) => {
+        const res_data = res.data.data
+        this.leftTopData.work_num = res_data[0] ? round(res_data[0].value, 0) : 0
+      })
+      this.$http.post('/eas-robot/targetData/getTargetData', Object.assign(param1, { targetCode: 'YW_000002' })).then((res) => {
+        const res_data = res.data.data
+        this.leftTopData.cutdown_time = res_data[0] ? round(res_data[0].value, 0) : 0
+      })
+    },
+
+    leftBottom() {
+      const date = getCurrentDate()
+      const param1 = {
+        targetCode: 'YW_000003',
+        startDate: date.current,
+        startTime: '',
+        endDate: date.current,
+        endTime: '',
+        orgCode: '',
+        flowCode: '',
+        targetFlag: '4',
+        grade: ''
+      }
+      const req_current_month = this.$http.post('/eas-robot/targetData/getTargetData', param1)
+      const req_before_month = this.$http.post('/eas-robot/targetData/getTargetData', Object.assign(param1, { targetCode: 'YW_000004' }))
+      const req_relative_month = this.$http.post('/eas-robot/targetData/getTargetData', Object.assign(param1, { targetCode: 'YW_000005' }))
+      Promise.all([req_current_month, req_before_month, req_relative_month]).then(([res1, res2, res3]) => {
+        this.leftBottomList = [res1.data.data, res2.data.data, res3.data.data]
+      })
+    },
+    rightTop() {
+      const date = getCurrentDate()
+      const param1 = {
+        targetCode: 'YW_000007',
+        startDate: date.current,
+        startTime: '',
+        endDate: date.current,
+        endTime: '',
+        orgCode: '',
+        flowCode: '',
+        targetFlag: '4',
+        grade: ''
+      }
+      const req_current_month = this.$http.post('/eas-robot/targetData/getTargetData', param1)
+      const req_before_month = this.$http.post('/eas-robot/targetData/getTargetData', Object.assign(param1, { targetCode: 'YW_000008' }))
+      const req_relative_month = this.$http.post('/eas-robot/targetData/getTargetData', Object.assign(param1, { targetCode: 'YW_000009' }))
+      Promise.all([req_current_month, req_before_month, req_relative_month]).then(([res1, res2, res3]) => {
+        this.rightTopData = {
+          current: res1.data.data[0].value,
+          finish: res2.data.data[0].value,
+          exc: res3.data.data[0].value
+        }
+      })
+    },
+    rightCenter() {
+      const date = getCurrentDate()
+      const param1 = {
+        targetCode: 'YW_000010',
+        startDate: date.current,
+        startTime: '',
+        endDate: date.current,
+        endTime: '',
+        orgCode: '',
+        flowCode: '',
+        targetFlag: '4',
+        grade: ''
+      }
+      this.$http.post('/eas-robot/targetData/getTargetData', param1).then((res) => {
+        const res_data = res.data.data
+        this.rightCenterList = res_data
+      })
+    },
+    rightBottom() {
+      const date = getCurrentDate()
+      const param1 = {
+        targetCode: 'YW_000011',
+        startDate: date.current,
+        startTime: '',
+        endDate: date.current,
+        endTime: '',
+        orgCode: '',
+        flowCode: '',
+        targetFlag: '4',
+        grade: ''
+      }
+      this.$http.post('/eas-robot/targetData/getTargetData', param1).then((res) => {
+        const res_data = res.data.data
+        this.rightBottomList = res_data
+        this.setAnimationList(res_data.length)
+      })
+    }
+  },
+  mounted() {
+    this.initPage()
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -475,7 +676,7 @@ export default {
         width: 100%;
         left: 0;
         top: 0;
-        animation: business-right-charts3 15s linear infinite forwards;
+        // animation: business-right-charts3 15s linear infinite forwards;
       }
     }
   }
@@ -486,34 +687,7 @@ export default {
     animation: over-turn 5s linear infinite forwards 3s;
   }
 }
-@keyframes business-right-charts3 {
-  0% {
-    top: 0 * $height;
-    opacity: 1;
-  }
-  90% {
-    top: -195 * $height;
-    opacity: 1;
-  }
-  100% {
-    top: -200 * $height;
-    opacity: 0;
-  }
-}
-@keyframes business-left-chart2 {
-  0% {
-    top: 0 * $height;
-    opacity: 1;
-  }
-  90% {
-    top: -390 * $height;
-    opacity: 1;
-  }
-  100% {
-    top: -395 * $height;
-    opacity: 0;
-  }
-}
+
 @keyframes business-right-chart2 {
   0% {
     top: 0 * $height;

@@ -53,15 +53,24 @@ export default {
       return t
     }
   },
-  methods: {},
+  watch: {
+    percent(nv) {
+      this.initLiq(nv)
+    }
+  },
+  methods: {
+    initLiq(percent) {
+      const box = this.$echarts.init(this.$refs['liq'])
+      const liq_c = JSON.parse(JSON.stringify(liq))
+      liq_c.series[0].data = [percent, percent, percent]
+      liq_c.series[1].data[0].itemStyle.normal.borderColor = this.color
+      liq_c.series[0].itemStyle.color.colorStops = this.colors
+      liq_c.series[0].label.normal.formatter = (percent * 100).toFixed(2) + '%'
+      box.setOption(liq_c)
+    }
+  },
   mounted() {
-    const box = this.$echarts.init(this.$refs['liq'])
-    const liq_c = JSON.parse(JSON.stringify(liq))
-    liq_c.series[0].data = [this.percent, this.percent, this.percent]
-    liq_c.series[1].data[0].itemStyle.normal.borderColor = this.color
-    liq_c.series[0].itemStyle.color.colorStops = this.colors
-    liq_c.series[0].label.normal.formatter = (this.percent * 100).toFixed(2) + '%'
-    box.setOption(liq_c)
+    this.initLiq(this.percent)
   }
 }
 </script>

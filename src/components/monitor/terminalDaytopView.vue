@@ -4,11 +4,11 @@
       <ul>
         <li class="runing-num">
           <span class="label">运行终端</span>
-          <span class="num">9 <i>个</i> </span>
+          <span class="num">{{ labeldata.run_terminal }}<i>个</i> </span>
         </li>
         <li class="runing-rate">
           <span class="label">占比</span>
-          <span class="num num-rote">6.0%</span>
+          <span class="num num-rote">{{ labeldata.run_perent }}%</span>
         </li>
       </ul>
     </div>
@@ -16,11 +16,11 @@
       <ul>
         <li class="free-num">
           <span class="label">空闲终端</span>
-          <span class="num num-free">135 <i>个</i></span>
+          <span class="num num-free">{{ labeldata.free_terminal }} <i>个</i></span>
         </li>
         <li class="exception-num">
           <span class="label">异常终端</span>
-          <span class="num num-ex">4 <i>个</i></span>
+          <span class="num num-ex">{{ labeldata.exc_terminal }} <i>个</i></span>
         </li>
       </ul>
     </div>
@@ -28,13 +28,16 @@
 </template>
 <script>
 export default {
+  props: {
+    labeldata: {
+      type: Object,
+      required: false
+    }
+  },
   data() {
     return {}
   },
   created() {},
-  components: {},
-  computed: {},
-  methods: {},
   mounted() {}
 }
 </script>

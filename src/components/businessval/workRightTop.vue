@@ -2,20 +2,34 @@
   <div class="work-day-top-view-box">
     <div class="termi-runing">
       <div class="text">当前执行作业</div>
-      <div class="number"><i class="num">5</i><i class="unit">个</i></div>
+      <div class="number">
+        <i class="num">{{ data.current }}</i
+        ><i class="unit">个</i>
+      </div>
     </div>
     <div class="work-finish">
       <div class="text">已完成作业</div>
-      <div class="number"><i class="num">11</i><i class="unit">个</i></div>
+      <div class="number">
+        <i class="num">{{ data.finish }}</i
+        ><i class="unit">个</i>
+      </div>
     </div>
     <div class="work-manual">
       <div class="text">异常作业</div>
-      <div class="number"><i class="num">9</i><i class="unit">个</i></div>
+      <div class="number">
+        <i class="num">{{ data.exc }}</i
+        ><i class="unit">个</i>
+      </div>
     </div>
   </div>
 </template>
 <script>
 export default {
+  props: {
+    data: {
+      type: Object
+    }
+  },
   data() {
     return {}
   },

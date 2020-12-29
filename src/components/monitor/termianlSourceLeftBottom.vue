@@ -7,20 +7,48 @@
   </div>
 </template>
 <script>
-import { option2 as parallel } from '@/chartconfig/parallel.js'
-import pie from '@/chartconfig/pie.js'
+import parallel from '@/chartconfig/parallel.js'
+// import pie from '@/chartconfig/pie.js'
 
 export default {
+  props: {
+    list: {
+      type: Object,
+      defult: {}
+    }
+  },
   data() {
     return {}
+  },
+  watch: {
+    list(nv) {
+      console.log(nv)
+      this.setParallelSource(nv)
+    }
   },
   created() {},
   components: {},
   computed: {},
   methods: {
-    setParallelSource() {
+    setParallelSource(source) {
+      if (!source.arr) {
+        return
+      }
       const box = this.$echarts.init(document.getElementById('monitor-left-bottom-line'))
       const para_config = JSON.parse(JSON.stringify(parallel))
+      const end = Number(source.end.slice(-2))
+      const month = source.end.slice(4, 6)
+      const year_month = source.end.slice(0, 6)
+      const axis = Array.from({ length: end }, (v, k) => {
+        const d = k + 1 > 9 ? k + 1 : '0' + (k + 1)
+        return { dim: k, name: month + '/' + d, date: year_month + d }
+      })
+      const list = axis.map((val) => {
+        const item = source.arr.find((ele) => ele.startDate === val.date)
+        return item ? item.value : 0
+      })
+      para_config.parallelAxis = axis
+      para_config.series.data = [{ value: list, lineStyle: { color: '#669AFF' } }]
       box.setOption(para_config)
       const countLength = para_config.parallelAxis.length
       let center = 0
@@ -40,7 +68,7 @@ export default {
     }
   },
   mounted() {
-    this.setParallelSource()
+    // this.setParallelSource()
   }
 }
 </script>

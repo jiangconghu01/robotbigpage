@@ -1,12 +1,12 @@
 <template>
   <div class="center-map-box">
     <div class="top-map">
-      <div id="china-map" class="map-container"></div>
+      <div id="china-map" class="map-container" ref="china-map"></div>
       <div class="map-scale-title">{{ label }}</div>
       <div class="imgicon" v-for="item in imgcions" :key="item.position[0]" :style="{ left: item.position[0] - 5 + 'px', top: item.position[1] - 20 + 'px', animationDelay: item.delay + 's' }">
         <img src="../assets/images/white_robot_icon@2.png" alt="" />
       </div>
-      <div class="map-tooltip-label bg_temp_1">
+      <div class="map-tooltip-label bg_temp_1" v-show="mapEffectData.length > 0">
         <div class="province">{{ currentmapdata['name'] }}</div>
         <div class="runtime" v-if="routeName === 'Businessval'">机器人总作业:{{ currentmapdata['value'] }}笔</div>
         <div class="runtime" v-else>机器人总运行时长:{{ currentmapdata['value'] }}小时</div>
@@ -25,10 +25,16 @@
       <dv-border-box-8 :reverse="true">
         <div class="company-list" id="company-list-work-num">
           <ul>
-            <li v-for="item in arrlist" :key="item.name + (Math.random() * 100).toFixed(1)" :style="{ backgroundColor: item.color }">
-              <el-tooltip class="item" effect="dark" :content="item.label + (item.value ? item.value : 0) + item.unit" placement="top-start" popper-class="atooltip">
+            <li v-for="item in companyList" :key="item.companyName + (Math.random() * 1000).toFixed(1)" :style="{ backgroundColor: item.color }">
+              <el-tooltip
+                class="item"
+                effect="dark"
+                :content="pageUnitMap[item.targetCode].label + (item.value ? item.value : 0) + pageUnitMap[item.targetCode].unit"
+                placement="top-start"
+                popper-class="atooltip"
+              >
                 <div class="tool-tip-box">
-                  <span class="company">{{ item.name }}</span>
+                  <span class="company">{{ item.companyName ? item.companyName : item.orgCode }}</span>
                   <!-- <span v-if="routeName === 'Businessval'" class="value">作业总量：{{ item.value }}笔</span> -->
                   <!-- <span v-else class="value">运行时长：{{ item.value }}小时</span> -->
                   <!-- <img v-if="item.isrun" :style="{ animationDelay: item.delay + 's' }" src="../assets/images/white_robot_icon@2.png" alt="" /> -->
@@ -49,9 +55,10 @@
   </div>
 </template>
 <script>
-import { map, geoCoordMap, xpMapGeo } from '@/chartconfig/map.js'
+import { map, geoCoordMap, xpMapGeo, provinceNameList, orgCodeMap } from '@/chartconfig/map.js'
 import chinajson from '@/assets/json/china.json'
-import { companyList, companyListBus } from '@/views/mockdata'
+// import { companyList, companyListBus } from '@/views/mockdata'
+import { getCurrentDate, getColorArr } from '@/util/comFunction'
 let timer = null
 export default {
   data() {
@@ -59,17 +66,26 @@ export default {
       label: '运行时长热力级别',
       labelArr: ['忙', '闲'],
       routeName: this.$route.name,
+      companyList: [],
       imgcions: [],
+      mapEffectData: [],
       currentmapdata: {},
-      labelposition: [380, 103]
+      labelposition: [380, 103],
+      pageUnitMap: {
+        IT_000006: {
+          label: '终端运行时长:',
+          unit: '小时'
+        },
+        YW_000006: {
+          label: '作业总量:',
+          unit: '笔'
+        }
+      }
     }
   },
   created() {},
   components: {},
   computed: {
-    arrlist() {
-      return this.routeName === 'Businessval' ? companyListBus : companyList
-    },
     currentPoint() {
       return xpMapGeo[this.currentmapdata['name']]
     },
@@ -80,7 +96,6 @@ export default {
       if (!currentPoint) {
         return
       }
-
       const x = currentPoint[0] - fixPoint[0]
       const y = currentPoint[1] - fixPoint[1]
       let line1_targetpoint = Math.abs(x) > 60 ? [currentPoint[0] - 30, currentPoint[1]] : currentPoint
@@ -97,168 +112,161 @@ export default {
     }
   },
   methods: {
-    inintMap() {
-      const map_box = this.$echarts.init(document.getElementById('china-map'))
+    getMapData() {
+      const targetCode = this.routeName === 'Businessval' ? 'YW_000006' : 'IT_000006'
+      const date = getCurrentDate()
+      const param1 = {
+        targetCode: targetCode,
+        startDate: date.current,
+        startTime: '',
+        endDate: date.current,
+        endTime: '',
+        orgCode: '',
+        flowCode: '',
+        targetFlag: '3',
+        grade: '0'
+      }
+      this.$http.post('/eas-robot/targetData/getTargetData', param1).then((res) => {
+        const res_data = res.data.data
+        this.setMapData(res_data)
+      })
+      this.$http.post('/eas-robot/targetData/getTargetData', Object.assign(param1, { grade: '1' })).then((res) => {
+        const res_data = res.data.data
+        this.setCompanyList(res_data, targetCode)
+      })
+    },
+    setCompanyList(list, targetCode) {
+      //设置热力颜色
+      const companys_data_v = list.map((val) => Number(val.value))
+      const color_gradient = getColorArr(companys_data_v)
+      this.companyList = list.map((val, index) => {
+        val.targetCode = targetCode
+        val.color = Number(val.value) ? color_gradient[index] : ''
+        return val
+      })
+    },
+    setMapData(list) {
+      const map_data = list.map((val) => {
+        val.name = orgCodeMap[val.orgCode]
+        return val
+      })
+      //   const companys_data = []
+      //   list.forEach((element) => {
+      //     let name = ''
+      //     if (element.companyName) {
+      //       name = element.companyName.replace('公司', '')
+      //     }
+
+      //     if (name && provinceNameList.indexOf(name) > -1) {
+      //       element.name = name
+      //       map_data.push(element)
+      //     } else {
+      //       companys_data.push(element)
+      //     }
+      //   })
+      //设置热力颜色
+      //   const companys_data_v = companys_data.map((val) => Number(val.value))
+      //   const color_gradient = getColorArr(companys_data_v)
+      //   this.companyList = companys_data.map((val, index) => {
+      //     val.color = Number(val.value) ? color_gradient[index] : ''
+      //     return val
+      //   })
+
+      //设置地图数据
+      const map_box = this.$echarts.init(this.$refs['china-map'])
       this.$echarts.registerMap('china', chinajson)
       const mapconfig = JSON.parse(JSON.stringify(map))
-      //模拟数据代码
-      const list2 = ['海南', '重庆', '安徽', '贵州', '西藏', '河南', '江苏', '广东', '陕西']
-      const list = [
-        '广东',
-        '浙江',
-        '四川',
-        '北京市',
-        '上海',
-        '河南',
-        '江苏',
-        '天津',
-        '河北',
-        '山西',
-        '内蒙古',
-        '辽宁',
-        '吉林',
-        '黑龙江',
-        '安徽',
-        '福建',
-        '江西',
-        '山东',
-        '湖北',
-        '湖南',
-        '广西',
-        '海南',
-        '重庆',
-        '贵州',
-        '云南',
-        '西藏',
-        '甘肃',
-        '青海',
-        '宁夏',
-        '新疆',
-        '陕西'
-      ]
-      const it = [
-        '52.35 ',
-        '24.45 ',
-        '91.65 ',
-        '17.70 ',
-        '33.12 ',
-        '62.57 ',
-        '59.80 ',
-        '4.00 ',
-        '10.45 ',
-        '5.40 ',
-        '14.60 ',
-        '28.75 ',
-        '13.80 ',
-        '5.60 ',
-        '17.30 ',
-        '94.75 ',
-        '7.05 ',
-        '4.60 ',
-        '10.80 ',
-        '22.60 ',
-        '5.45 ',
-        '6.55 ',
-        '18.89 ',
-        '8.95 ',
-        '25.00 ',
-        '11.95 ',
-        '26.20 ',
-        '3.25 ',
-        '9.95 ',
-        '5.95 ',
-        '81.80'
-      ].map((val, index) => {
-        return {
-          name: list[index],
-          value: val
-        }
-      })
-      const yw = [
-        '103',
-        '85',
-        '253',
-        '52',
-        '136',
-        '177',
-        '156',
-        '18',
-        '18',
-        '36',
-        '10',
-        '13',
-        '8',
-        '16',
-        '39',
-        '97',
-        '117',
-        '21',
-        '60',
-        '38',
-        '35',
-        '24',
-        '58',
-        '42',
-        '28',
-        '23',
-        '43',
-        '43',
-        '42',
-        '99',
-        '142'
-      ].map((val, index) => {
-        return {
-          name: list[index],
-          value: val
-        }
-      })
-      //----------------
       if (this.routeName === 'Businessval') {
         mapconfig.title.text = '各单位作业总量（截至目前）'
         this.label = '作业总量热力分布'
         this.labelArr = ['高', '低']
-        mapconfig.series[0].data = yw
-        mapconfig.visualMap.max = 177
-      } else {
-        mapconfig.series[0].data = it
-        mapconfig.visualMap.max = 82
       }
-      const mapdatas = mapconfig.series[0].data
-
-      const t_mapdatas = list2.map((val) => {
-        const a = mapdatas.find((el) => el.name === val)
-        return a
-      })
-      this.currentmapdata = mapdatas[0]
-      const dataName = mapdatas.map((val) => val.name)
-      const effectScatterData = list2.map((val) => geoCoordMap[val])
-      const imgPositons = list2.map((val) => {
+      const map_data_max = map_data.reduce((max, item) => {
+        const v = Number(item.value) ? Number(item.value) : 0
+        return max > v ? max : v
+      }, 0)
+      //地图数据和最大值获取
+      mapconfig.series[0].data = map_data
+      map_data_max > 0 && (mapconfig.visualMap.max = map_data_max)
+      //获取当前有活跃机器人的
+      const effect_map_data = map_data.slice(0, 10)
+      const effectScatterData = effect_map_data.map((v) => geoCoordMap[v.name])
+      this.mapEffectData = effectScatterData
+      mapconfig.series[1].data = effectScatterData
+      const imgPositons = effect_map_data.map((val) => {
         return {
-          name: val,
-          position: xpMapGeo[val],
+          name: val.name,
+          position: xpMapGeo[val.name],
           delay: Math.random() * 1.2
         }
       })
       this.imgcions = imgPositons
+      map_box.setOption(mapconfig)
+      //轮询展示 10个下标最大9，下标-1 = 8
+      let cu = 0
+      timer = setInterval(() => {
+        if (cu > effect_map_data.length - 1 - 1) {
+          cu = 0
+        } else {
+          cu = cu + 1
+        }
+        if (cu < 0) {
+          return
+        }
+        this.currentmapdata = effect_map_data[cu]
+      }, 3000)
+    },
+    inintMap() {
+      this.getMapData()
+
+      //模拟数据代码
+      //----------------
+      //   if (this.routeName === 'Businessval') {
+      //     mapconfig.title.text = '各单位作业总量（截至目前）'
+      //     this.label = '作业总量热力分布'
+      //     this.labelArr = ['高', '低']
+      //     mapconfig.series[0].data = yw
+      //     c
+      //   } else {
+      //     mapconfig.series[0].data = it
+      //     mapconfig.visualMap.max = 82
+      //   }
+      //   const mapdatas = mapconfig.series[0].data
+
+      //   const t_mapdatas = list2.map((val) => {
+      //     const a = mapdatas.find((el) => el.name === val)
+      //     return a
+      //   })
+      //   this.currentmapdata = mapdatas[0]
+      //   const dataName = mapdatas.map((val) => val.name)
+      //   const effectScatterData = list2.map((val) => geoCoordMap[val])
+      //   const imgPositons = list2.map((val) => {
+      //     return {
+      //       name: val,
+      //       position: xpMapGeo[val],
+      //       delay: Math.random() * 1.2
+      //     }
+      //   })
+      //   this.imgcions = imgPositons
       //   const l = list2.map((val) => {
       //     const a = imgPositons.find((el) => el.name === val)
       //     return a
       //   })
       //   this.imgcions = l
-      mapconfig.series[1].data = effectScatterData
-      map_box.setOption(mapconfig)
+      //   mapconfig.series[1].data = effectScatterData
+      //   map_box.setOption(mapconfig)
       //   Object.keys(geoCoordMap).forEach((val) => {
       //     t[val] = map_box.convertToPixel('geo', geoCoordMap[val])
       //   })
-      let cu = 0
-      timer = setInterval(() => {
-        if (cu > 8) {
-          cu = 0
-        } else {
-          cu = cu + 1
-        }
-        this.currentmapdata = t_mapdatas[cu]
-      }, 3000)
+      //   let cu = 0
+      //   timer = setInterval(() => {
+      //     if (cu > 8) {
+      //       cu = 0
+      //     } else {
+      //       cu = cu + 1
+      //     }
+      //     this.currentmapdata = t_mapdatas[cu]
+      //   }, 3000)
     }
   },
   mounted() {
@@ -479,6 +487,9 @@ export default {
 // 修改tooltips样式
 .company-list .el-tooltip__popper.is-dark {
   background-color: #409eff;
+}
+.el-tooltip__popper.is-dark {
+  background-color: #409eff !important;
 }
 .el-tooltip__popper.is-dark[x-placement^='bottom'] .popper__arrow {
   border-bottom-color: #409eff;

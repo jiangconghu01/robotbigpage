@@ -29,6 +29,7 @@ const option = {
       axisLabel: {
         formatter: '{value}',
         fontSize: 10 * $font,
+        // interval: 0, //强制显示文字
         // color: hexToRgba('#FFFFFF', 0.7)
         color: '#048FD5'
       },

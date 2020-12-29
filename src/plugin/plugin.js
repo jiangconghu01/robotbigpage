@@ -4,6 +4,7 @@ Vue.use(borderBox8)
 Vue.use(decoration3)
 
 import 'element-ui/lib/theme-chalk/index.css'
-import { Progress, Tooltip } from 'element-ui'
+import { Progress, Tooltip, Loading } from 'element-ui'
+Vue.prototype.$loading = Loading.service
 Vue.use(Progress)
 Vue.use(Tooltip)
